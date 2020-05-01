@@ -1,0 +1,59 @@
+{
+  "name": "wechaty-plugin-contrib",
+  "version": "0.0.1",
+  "description": "Wechaty Plugin Ecosystem Contrib Package",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@chatie/eslint-config": "^0.8.1",
+    "@chatie/git-scripts": "^0.6.1",
+    "@chatie/semver": "^0.4.7",
+    "@chatie/tsconfig": "^0.10.1",
+    "pkg-jq": "^0.2.4",
+    "tstest": "^0.4.10",
+    "wechaty": "^0.39.21",
+    "wechaty-puppet-mock": "^0.20.4"
+  },
+  "peerDependencies": {
+    "wechaty": "^0.39.21"
+  },
+  "scripts": {
+    "clean": "shx rm -fr dist/*",
+    "dist": "npm run clean && tsc",
+    "pack": "npm pack",
+    "lint": "npm run lint:es && npm run lint:ts && npm run lint:md",
+    "lint:md": "markdownlint README.md",
+    "lint:ts": "tsc --noEmit",
+    "start": "ts-node examples/ding-dong-bot.ts",
+    "test": "npm run lint && npm run test:unit",
+    "test:pack": "bash -x scripts/npm-pack-testing.sh",
+    "test:unit": "blue-tape -r ts-node/register \"src/**/*.spec.ts\" \"src/*.spec.ts\" \"tests/*.spec.ts\" \"tests/**/*.spec.ts\"",
+    "lint:es": "eslint --ignore-pattern tests/fixtures/ '{bin,examples,scripts,src,tests}/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wechaty/wechaty-plugin-contrib.git"
+  },
+  "keywords": [
+    "wechaty",
+    "plugin",
+    "contrib"
+  ],
+  "author": "Huan LI <zixia@zixia.net> (李卓桓)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/wechaty/wechaty-plugin-contrib/issues"
+  },
+  "homepage": "https://github.com/wechaty/wechaty-plugin-contrib#readme",
+  "git": {
+    "scripts": {
+      "pre-push": "npx git-scripts-pre-push"
+    }
+  },
+  "publishConfig": {
+    "tag": "next"
+  }
+}
