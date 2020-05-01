@@ -1,8 +1,9 @@
 {
   "name": "wechaty-plugin-contrib",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Wechaty Plugin Ecosystem Contrib Package",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
   "directories": {
     "test": "tests"
   },
@@ -13,6 +14,7 @@
     "@chatie/semver": "^0.4.7",
     "@chatie/tsconfig": "^0.10.1",
     "pkg-jq": "^0.2.4",
+    "shx": "^0.3.2",
     "tstest": "^0.4.10",
     "wechaty": "^0.39.21",
     "wechaty-puppet-mock": "^0.20.4"
