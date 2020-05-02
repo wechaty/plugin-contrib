@@ -90,7 +90,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ## Maintainers
 
-- @gcaufy - [Cheng GONG](https://github.com/Gcaufy) (龚澄), Creator of [WePY](https://github.com/tencent/wepy)
+- @gcaufy - [Gcuafy](https://github.com/Gcaufy), Creator of [WePY](https://github.com/tencent/wepy)
 - @huan - [Huan LI](https://github.com/huan) ([李卓桓](http://linkedin.com/in/zixia)), Tencent TVP of Chatbot
 
 ## Copyright & License
