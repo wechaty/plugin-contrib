@@ -1,4 +1,4 @@
-# wechaty-plugin-contrib
+# wechaty-plugin-contrib ![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Contrib-brightgreen.svg)
 
  [![NPM Version](https://img.shields.io/npm/v/wechaty-plugin-contrib?color=brightgreen)](https://www.npmjs.com/package/wechaty-plugin-contrib) [![NPM](https://github.com/wechaty/wechaty-plugin-contrib/workflows/NPM/badge.svg)](https://github.com/wechaty/wechaty-plugin-contrib/actions?query=workflow%3ANPM)
 
@@ -6,8 +6,9 @@ Wechaty Plugin Contrib Package for the Community
 
 ![Wechaty Plugin](docs/images/plugin.png)
 
-> Image: [What is Plugin](https://www.computerhope.com/jargon/p/plugin.htm)
+> Image Credit: [What is Plugin](https://www.computerhope.com/jargon/p/plugin.htm)
 
+[![Powered by Wechaty](https://img.shields.io/badge/Powered%20By-Wechaty-brightgreen.svg)](https://github.com/Wechaty/wechaty)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](https://www.typescriptlang.org/)
 
 ## Introduction
@@ -22,13 +23,15 @@ This package is for publishing the Wechaty Plugins that are very common used by 
 
 1. Wechaty 0.39.21 or above versions
 
-## Plugins
+## Plugins Contrib
 
 You are welcome to send your plugin to our contrib by creating a Pull Request!
 
-1. DingDong - Reply `dong` if bot receives a `ding` message.
-1. EventLogger - Log Wechaty Events for "dong" | "message" ... etc.
-1. QRCodeTerminal - Show QR Code for Scan in Terminal
+| Plugin | Author | Feature |
+| :--- | :--- | :--- |
+| DingDong | @huan | Reply `dong` if bot receives a `ding` message. |
+| EventLogger | @huan | Log Wechaty Events for `"scan" | "login" | "message"` ... etc. |
+| QRCodeTerminal | @huan | Show QR Code for Scan in Terminal |
 
 ### DingDong
 
@@ -69,6 +72,21 @@ const options = {
 }
 wechaty.use(QRCodeTerminal(options))
 ```
+
+## Wechaty Plugin Directory
+
+![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)
+
+The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
+
+There are many great Wechaty Plugins can not be included in the contrib because they are too powerful. They will be published as a NPM by itself.
+
+We are listing those powerful Wechaty Plugins outside the contrib as in the following list, and you are welcome to add your plugin below if you have published any!
+
+1. [Wechaty Voteout Plugin](https://github.com/Gcaufy/wechaty-voteout) can help you to have a vote and kickout feature for you room.
+    - Author: @gcaufy
+1. [Wechaty Schedule](https://github.com/Gcaufy/wechaty-schedule) allow you to easily schedule jobs for your Wechaty bots.
+    - Author: @gcaufy
 
 ## Maintainers
 
