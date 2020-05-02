@@ -42,7 +42,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 import { DingDong } from 'wechaty-plugin-contrib'
 
 const options = {
-  at   : false,   // default: true - Response to Mention Self (@/at) Message in Room
+  at   : true,    // default: true - Response to Mention Self (@/at) Message in Room
   dm   : true,    // default: true - Response to Direct Message
   room : true,    // default: true - Response to Rooms Message
 }
