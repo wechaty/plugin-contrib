@@ -1,3 +1,7 @@
+/**
+ * Author: Huan LI https://github.com/huan
+ * Date: Apr 2020
+ */
 import {
   Wechaty,
   WechatyPlugin,

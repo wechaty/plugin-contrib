@@ -1,4 +1,4 @@
-# wechaty-plugin-contrib ![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Contrib-brightgreen.svg)
+# wechaty-plugin-contrib [![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Contrib-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib)
 
  [![NPM Version](https://img.shields.io/npm/v/wechaty-plugin-contrib?color=brightgreen)](https://www.npmjs.com/package/wechaty-plugin-contrib) [![NPM](https://github.com/wechaty/wechaty-plugin-contrib/workflows/NPM/badge.svg)](https://github.com/wechaty/wechaty-plugin-contrib/actions?query=workflow%3ANPM)
 
@@ -13,7 +13,7 @@ Wechaty Plugin Contrib Package for the Community
 
 ## Introduction
 
-Wechaty has a great support for using Plugins by calling `Wechaty.use(plugin)`. A Wechaty Plugin is a JavaScript function that returns a function that accept a Wechaty instance.
+Wechaty has a great support for using Plugins by calling `Wechaty.use(WechatyPlugin())`. A Wechaty Plugin is a JavaScript function that returns a function which accepts a Wechaty instance.
 
 The first Wechaty Plugin system was design by our core team developer [@gcaufy](https://github.com/gcaufy) from issue [#1939](https://github.com/wechaty/wechaty/issues/1939)(Wechaty Plugin Support with Kickout Example) to PR [#1946](https://github.com/wechaty/wechaty/pull/1946)(feat: added wechaty plugin).
 
@@ -21,7 +21,7 @@ This package is for publishing the Wechaty Plugins that are very common used by 
 
 ## Requirements
 
-1. Wechaty 0.39.21 or above versions
+1. Wechaty v0.39.21 or above versions
 
 ## Plugins Contrib
 
@@ -36,15 +36,15 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 ### DingDong
 
 - Description: Reply `dong` if bot receives a `ding` message.
-- Author: @huan - Huan LI (李卓桓)
+- Author: @huan
 
 ```ts
 import { DingDong } from 'wechaty-plugin-contrib'
 
 const options = {
-  at   : false,   // default: false - Only react message that mentioned self (@) in Room
-  dm   : true,    // default: true - React to Direct Message
-  room : true,    // default: true - React in Rooms
+  at   : false,   // default: true - Response to Mention Self (@/at) Message in Room
+  dm   : true,    // default: true - Response to Direct Message
+  room : true,    // default: true - Response to Rooms Message
 }
 
 wechaty.use(DingDong(options))
@@ -52,8 +52,8 @@ wechaty.use(DingDong(options))
 
 ### EventLogger
 
-- Description: Log Wechaty Events: "dong" | "message" | "error" | "friendship" | "heartbeat" | "login" | "logout" | "ready" | "reset" | "room-invite" | "room-join" | "room-leave" | "room-topic" | "scan"
-- Author: @huan - Huan LI (李卓桓)
+- Description: Log Wechaty Events: `"dong" | "message" | "error" | "friendship" | "heartbeat" | "login" | "logout" | "ready" | "reset" | "room-invite" | "room-join" | "room-leave" | "room-topic" | "scan"`
+- Author: @huan
 
 ```ts
 import { EventLogger } from 'wechaty-plugin-contrib'
@@ -63,7 +63,7 @@ wechaty.use(EventLogger(['login', 'logout', 'message']))
 ### QR Code Terminal
 
 - Description: Show QR Code for Scan in Terminal
-- Author: @huan - Huan LI (李卓桓)
+- Author: @huan
 
 ```ts
 import { QRCodeTerminal } from 'wechaty-plugin-contrib'
@@ -75,7 +75,7 @@ wechaty.use(QRCodeTerminal(options))
 
 ## Wechaty Plugin Directory
 
-![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)
+[![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib#wechaty-plugin-directory)
 
 The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
 
