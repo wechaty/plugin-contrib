@@ -22,6 +22,14 @@ import { sayEmoji }       from './say-emoji'
 function heartbeatManager () {
   let timer: undefined | NodeJS.Timer
 
+  const cleanTimer = () => {
+    if (timer) {
+      log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager() cleanTimer() cleaning previous timer')
+      clearInterval(timer)
+      timer = undefined
+    }
+  }
+
   return (
     talkerList : Sayable[],
     options    : HeartbeatOptions,
@@ -32,20 +40,18 @@ function heartbeatManager () {
 
     if (!emojiHeartbeatOption) {
       log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager no emoji heartbeat option')
-      return
+      return cleanTimer
     }
 
-    if (timer) {
-      log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager cleaning previous timer')
-      clearInterval(timer)
-      timer = undefined
-    }
+    cleanTimer()
 
     timer = setInterval(
       sayEmoji('heartbeat', talkerList, emojiHeartbeatOption),
       options.intervalSeconds * 1000,
     )
     log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager new timer set')
+
+    return cleanTimer
   }
 
 }
@@ -73,7 +79,8 @@ export function Heartbeat (
       ]
       log.verbose('WechatyPluginContrib', 'Heartbeat talkerList numbers: %s', talkerList.length)
 
-      setupHeartbeat(talkerList, normalizedOptions)
+      const cleanTimer = setupHeartbeat(talkerList, normalizedOptions)
+      wechaty.once('logout', cleanTimer)
 
       /**
        * Login Heartbeat
