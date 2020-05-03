@@ -58,12 +58,12 @@ export function Heartbeat (
     },
   }
 
-  return async (wechaty: Wechaty) => {
+  return async (wechaty: Wechaty): Promise<void> => {
     log.verbose('WechatyPluginContrib', 'Heartbeat installing on %s ...', wechaty)
 
     const talkerList = [
-      ...await getTalkerList(wechaty, normalizedOptions.contact),
-      ...await getTalkerList(wechaty, normalizedOptions.room),
+      ...await getTalkerList(wechaty, options?.contact),
+      ...await getTalkerList(wechaty, options?.room),
     ]
 
     if (normalizedOptions.emoji.heartbeat) {
@@ -155,7 +155,7 @@ async function getTalkerList (
   wechaty  : Wechaty,
   options? : SayableOption,
 ): Promise<Sayable[]> {
-  log.verbose('WechatyPluginContrib', 'Heartbeat getTalkerList()')
+  log.verbose('WechatyPluginContrib', 'Heartbeat getTalkerList(%s, %s)', wechaty, JSON.stringify(options))
 
   if (!options) {
     return []
@@ -168,16 +168,35 @@ async function getTalkerList (
       await options(wechaty)
     )
   } else if (typeof options === 'string') {
-    talkerList = talkerList.concat(
-      wechaty.Contact.load(options)
-    )
+    talkerList.push(idToSayable(wechaty, options))
   } else if (Array.isArray(options)) {
     talkerList = talkerList.concat(
-      options.map(id => wechaty.Contact.load(id))
+      idToSayable(wechaty, options)
     )
   } else {
     throw new Error('unknown options type: ' + typeof options)
   }
 
   return talkerList
+}
+
+function idToSayable (wechaty: Wechaty, id: string): Sayable
+function idToSayable (wechaty: Wechaty, idList: string[]): Sayable[]
+
+function idToSayable (
+  wechaty: Wechaty,
+  id: string | string[],
+): Sayable | Sayable[] {
+  if (Array.isArray(id)) {
+    return id.map(id => idToSayable(wechaty, id))
+  }
+
+  /**
+   * Huan(202005) FIXME: how to differenciate room & contact id here?
+   */
+  if (/@/.test(id)) {
+    return wechaty.Room.load(id)
+  } else {
+    return wechaty.Contact.load(id)
+  }
 }
