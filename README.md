@@ -32,6 +32,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | DingDong | @huan | Reply `dong` if bot receives a `ding` message. |
 | EventLogger | @huan | Log Wechaty Events for `"scan" | "login" | "message"` ... etc. |
 | QRCodeTerminal | @huan | Show QR Code for Scan in Terminal |
+| Heartbeat | @huan | Send emoji periodically |
 
 ### 1 DingDong
 
