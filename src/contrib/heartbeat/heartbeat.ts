@@ -5,20 +5,19 @@
 import {
   Wechaty,
   WechatyPlugin,
+  Sayable,
 }                   from 'wechaty'
 
 import {
   log,
 }                 from '../../config'
 
-import { getTalkerList } from './get-talker-list'
-
+import { getTalkerList }  from './get-talker-list'
 import {
   HeartbeatOptions,
   buildOptions,
-}                     from './options'
-import { Sayable } from 'wechaty/dist/src/types'
-import { sayEmoji } from './say-emoji'
+}                        from './options'
+import { sayEmoji }       from './say-emoji'
 
 function heartbeatManager () {
   let timer: undefined | NodeJS.Timer

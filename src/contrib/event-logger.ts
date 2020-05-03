@@ -26,7 +26,7 @@ export function EventLogger (
 
     for (const key of Object.keys(PUPPET_EVENT_DICT)) {
       const eventName = key as EventType
-      if (!options.includes(eventName)) {
+      if (options.length > 0 && !options.includes(eventName)) {
         continue
       }
 

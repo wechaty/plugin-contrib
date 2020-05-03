@@ -31,12 +31,7 @@ const bot = new Wechaty({
 bot.use(
   QRCodeTerminal(),
   DingDong(),
-  EventLogger([
-    'error',
-    'login',
-    'logout',
-    'message',
-  ]),
+  EventLogger(),
 )
 
 bot.start()
