@@ -18,6 +18,8 @@ import {
   HeartbeatOptions,
   buildOptions,
 }                     from './options'
+import { Sayable } from 'wechaty/dist/src/types'
+import { sayEmoji } from './say-emoji'
 
 export function Heartbeat (
   options?: Partial<HeartbeatOptions>,
@@ -29,10 +31,13 @@ export function Heartbeat (
   return async (wechaty: Wechaty): Promise<void> => {
     log.verbose('WechatyPluginContrib', 'Heartbeat installing on %s ...', wechaty)
 
-    const talkerList = [
-      ...await getTalkerList(wechaty, normalizedOptions.contact),
-      ...await getTalkerList(wechaty, normalizedOptions.room),
-    ]
+    let talkerList: Sayable[] = []
+    wechaty.once('login', async () => {
+      talkerList = [
+        ...await getTalkerList(wechaty, normalizedOptions.contact),
+        ...await getTalkerList(wechaty, normalizedOptions.room),
+      ]
+    })
 
     if (normalizedOptions.emoji.heartbeat) {
       setInterval(
@@ -40,7 +45,11 @@ export function Heartbeat (
           const emojiHeartbeat = await getEmoji(wechaty, normalizedOptions.emoji.heartbeat)
           if (emojiHeartbeat) {
             await Promise.all(
-              talkerList.map(talker => talker.say(emojiHeartbeat)),
+              talkerList.map(async talker => {
+                if (talker.wechaty.logonoff()) {
+                  await talker.say(emojiHeartbeat)
+                }
+              }),
             )
           }
         },
@@ -49,49 +58,25 @@ export function Heartbeat (
     }
 
     if (normalizedOptions.emoji.login) {
-      wechaty.on('login', async () => {
-        const emojiLogin = await getEmoji(wechaty, normalizedOptions.emoji.login)
-        if (emojiLogin) {
-          await Promise.all(
-            talkerList.map(talker => talker.say(emojiLogin)),
-          )
-        }
-      })
-
+      const emojiOption = normalizedOptions.emoji.login
+      wechaty.on('login', sayEmoji(talkerList, emojiOption))
     }
 
     if (normalizedOptions.emoji.ready) {
-      wechaty.on('ready', async () => {
-        const emojiReady = await getEmoji(wechaty, normalizedOptions.emoji.ready)
-        if (emojiReady) {
-          await Promise.all(
-            talkerList.map(talker => talker.say(emojiReady)),
-          )
-        }
-      })
+      const emojiOption = normalizedOptions.emoji.ready
+      wechaty.on('ready', sayEmoji(talkerList, emojiOption))
     }
 
     if (normalizedOptions.emoji.logout) {
-      wechaty.on('logout', async () => {
-        /**
-         * Fail gracefully
-         *  the `logout` event might received after the bot logout,
-         *  for example, the bot was kicked offline by the user.
-         *
-         * So it might not be able to `say` anymore.
-         */
-        const emojiLogout = await getEmoji(wechaty, normalizedOptions.emoji.logout)
-        if (emojiLogout) {
-          try {
-            await Promise.all(
-              talkerList.map(talker => talker.say(emojiLogout)),
-            )
-          } catch (e) {
-            log.error('WechatyPluginContrib', 'Heartbeat logout event rejection: %s', e)
-            console.error(e)
-          }
-        }
-      })
+      /**
+       * Fail gracefully
+       *  the `logout` event might received after the bot logout,
+       *  for example, the bot was kicked offline by the user.
+       *
+       * So it might not be able to `say` anymore.
+       */
+      const emojiOption = normalizedOptions.emoji.logout
+      wechaty.on('logout', sayEmoji(talkerList, emojiOption))
     }
 
   }

@@ -21,7 +21,7 @@ This package is for publishing the Wechaty Plugins that are very common used by 
 
 ## Requirements
 
-1. Wechaty v0.39.21 or above versions
+1. Wechaty v0.39.25 or above versions
 
 ## Plugins Contrib
 
