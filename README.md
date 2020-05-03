@@ -50,6 +50,12 @@ const options = {
 wechaty.use(DingDong(options))
 ```
 
+#### `options` as a Function
+
+`options` can also be a function which receives a `message: Message` and returns a `boolean` result to decide whether response a `ding` message.
+
+`optoins: (message: Message) => boolean | Promise<boolean>`
+
 ### EventLogger
 
 - Description: Log Wechaty Events: `"dong" | "message" | "error" | "friendship" | "heartbeat" | "login" | "logout" | "ready" | "reset" | "room-invite" | "room-join" | "room-leave" | "room-topic" | "scan"`

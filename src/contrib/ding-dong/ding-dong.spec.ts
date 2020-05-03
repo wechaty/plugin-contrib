@@ -134,32 +134,46 @@ test('isMatchOptions {room: false}', async (t) => {
 test('isMatchOptions {dm: true}', async (t) => {
   for await (const {
     message,
+    room,
   } of wechatyFixtures()) {
     const OPTIONS = {
-      dm: true,
+      dm   : true,
+      room : false,
     } as DingDongOptionsObject
     const isMatch = isMatchOptions(OPTIONS)
 
     const sandbox = sinon.createSandbox()
-    sandbox.stub(message, 'room').returns(null)
+    const messageRoom = sandbox.stub(message, 'room').returns(null)
+
     let result: boolean = await isMatch(message)
     t.equal(result, true, 'should match for direct message')
+
+    sandbox.stub(message, 'mentionSelf').returns(Promise.resolve(true))
+    messageRoom.returns(room)
+    result = await isMatch(message)
+    t.equal(result, true, 'should not match for room message')
   }
 })
 
 test('isMatchOptions {dm: false}', async (t) => {
   for await (const {
     message,
+    room,
   } of wechatyFixtures()) {
     const OPTIONS = {
-      dm: false,
+      dm   : false,
+      room : true,
     } as DingDongOptionsObject
     const isMatch = isMatchOptions(OPTIONS)
 
     const sandbox = sinon.createSandbox()
 
-    sandbox.stub(message, 'room').returns(null)
+    const messageRoom = sandbox.stub(message, 'room').returns(null)
     let result: boolean = await isMatch(message)
-    t.equal(result, false, 'should not match for room message')
+    t.equal(result, false, 'should not match for direct message')
+
+    messageRoom.returns(room)
+    result = await isMatch(message)
+    t.equal(result, true, 'should match for room message')
   }
 })
