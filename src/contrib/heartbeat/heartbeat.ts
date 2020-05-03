@@ -27,14 +27,17 @@ function heartbeatManager () {
     talkerList : Sayable[],
     options    : HeartbeatOptions,
   ) => {
+    log.verbose('WechatyPluginContrib', 'Heartbeat heartbeatManager...')
 
     const emojiHeartbeatOption = options.emoji?.heartbeat
 
     if (!emojiHeartbeatOption) {
+      log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager no emoji heartbeat option')
       return
     }
 
     if (timer) {
+      log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager cleaning previous timer')
       clearInterval(timer)
       timer = undefined
     }
@@ -43,6 +46,7 @@ function heartbeatManager () {
       sayEmoji('heartbeat', talkerList, emojiHeartbeatOption),
       options.intervalSeconds * 1000,
     )
+    log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager new timer set')
   }
 
 }
@@ -62,10 +66,13 @@ export function Heartbeat (
     let talkerList: Sayable[] = []
 
     wechaty.on('login', async () => {
+      log.verbose('WechatyPluginContrib', 'Heartbeat wechaty.on(login)')
+
       talkerList = [
         ...await getTalkerList(wechaty, normalizedOptions.contact),
         ...await getTalkerList(wechaty, normalizedOptions.room),
       ]
+      log.verbose('WechatyPluginContrib', 'Heartbeat talkerList numbers: %s', talkerList.length)
 
       setupHeartbeat(talkerList, normalizedOptions)
 
@@ -79,11 +86,14 @@ export function Heartbeat (
     })
 
     if (normalizedOptions.emoji.ready) {
+      log.verbose('WechatyPluginContrib', 'Heartbeat setting `ready` event')
+
       const emojiOption = normalizedOptions.emoji.ready
       wechaty.on('ready', sayEmoji('ready', talkerList, emojiOption))
     }
 
     if (normalizedOptions.emoji.logout) {
+      log.verbose('WechatyPluginContrib', 'Heartbeat setting `logout` event')
       /**
        * Fail gracefully
        *  the `logout` event might received after the bot logout,
