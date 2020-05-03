@@ -9,6 +9,8 @@ import {
   log,
 }                   from 'wechaty'
 
+type DingDongOptionsFunction = (message: Message) => boolean | Promise<boolean>
+
 export interface DingDongOptionsObject {
   /**
    * Whether response the Room Message with mention self.
@@ -27,7 +29,6 @@ export interface DingDongOptionsObject {
   room: boolean,
 }
 
-type DingDongOptionsFunction = (message: Message) => boolean | Promise<boolean>
 type DingDongOptions = Partial<DingDongOptionsObject> | DingDongOptionsFunction
 
 const DEFAULT_OPTIONS: DingDongOptionsObject = {
