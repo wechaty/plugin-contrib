@@ -44,9 +44,9 @@ const DEFAULT_HEARTBEAT_OPTIONS: HeartbeatOptions = {
   intervalSeconds : DEFAULT_INTERVAL_SECONDS,
 }
 
-export async function Heartbeat (
+export function Heartbeat (
   options?: Partial<HeartbeatOptions>,
-): Promise<WechatyPlugin> {
+): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'Heartbeat("%s")', JSON.stringify(options))
 
   const normalizedOptions: HeartbeatOptions = {
