@@ -33,7 +33,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | EventLogger | @huan | Log Wechaty Events for `"scan" | "login" | "message"` ... etc. |
 | QRCodeTerminal | @huan | Show QR Code for Scan in Terminal |
 
-### DingDong
+### 1 DingDong
 
 - Description: Reply `dong` if bot receives a `ding` message.
 - Author: @huan
@@ -56,7 +56,7 @@ wechaty.use(DingDong(options))
 
 `optoins: (message: Message) => boolean | Promise<boolean>`
 
-### EventLogger
+### 2 EventLogger
 
 - Description: Log Wechaty Events: `"dong" | "message" | "error" | "friendship" | "heartbeat" | "login" | "logout" | "ready" | "reset" | "room-invite" | "room-join" | "room-leave" | "room-topic" | "scan"`
 - Author: @huan
@@ -66,7 +66,7 @@ import { EventLogger } from 'wechaty-plugin-contrib'
 wechaty.use(EventLogger(['login', 'logout', 'message']))
 ```
 
-### QR Code Terminal
+### 3 QR Code Terminal
 
 - Description: Show QR Code for Scan in Terminal
 - Author: @huan
@@ -77,6 +77,23 @@ const options = {
   small: false,   // default: false - the size of the printed QR Code in terminal
 }
 wechaty.use(QRCodeTerminal(options))
+```
+
+### 4 Heartbeat
+
+- Description: Send emoji periodically
+- Author: @huan
+
+```ts
+import { Heartbeat } from 'wechaty-plugin-contrib'
+const options = {
+  contact: 'filehelper',    // default: filehelper - Contact id who will receive the emoji
+  emoji: {
+    heartbeat: '[爱心]',    // default: [爱心] - Heartbeat emoji
+  },
+  intervalSeconds: 60 * 60, // Default: 1 hour - Send emoji for every 1 hour
+}
+wechaty.use(Heartbeat(options))
 ```
 
 ## Wechaty Plugin Directory
@@ -93,6 +110,23 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
     - Author: @gcaufy
 1. [Wechaty Schedule](https://github.com/Gcaufy/wechaty-schedule) allow you to easily schedule jobs for your Wechaty bots.
     - Author: @gcaufy
+
+## History
+
+### master
+
+### v0.2 (Fri 2020)
+
+Added the following Wechaty Plugins:
+
+1. DingDong
+1. EventLogger
+1. QRCodeTerminal
+1. Heartbeat
+
+### v0.0.1 (Apr 2020)
+
+Kicked off by issue [#1939](https://github.com/wechaty/wechaty/issues/1939)(Wechaty Plugin Support with Kickout Example) and PR [#1946](https://github.com/wechaty/wechaty/pull/1946)(feat: added wechaty plugin).
 
 ## Maintainers
 
