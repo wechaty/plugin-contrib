@@ -35,8 +35,4 @@ bot.use(
 )
 
 bot.start()
-  .catch(async e => {
-    console.error('Bot start() fail:', e)
-    await bot.stop()
-    process.exit(-1)
-  })
+  .catch(console.error)
