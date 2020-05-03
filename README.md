@@ -64,8 +64,9 @@ wechaty.use(DingDong(options))
 
 ```ts
 import { EventLogger } from 'wechaty-plugin-contrib'
-wechaty.use(EventLogger(['login', 'ready', 'message']))
-// Do not specify the event name list will log all the events.
+const options = ['login', 'ready', 'message']
+// Do not provide an options will log all events.
+wechaty.use(EventLogger(optoins))
 ```
 
 ### 3 QR Code Terminal
