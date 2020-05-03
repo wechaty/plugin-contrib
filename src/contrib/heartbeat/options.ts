@@ -31,7 +31,6 @@ const DEFAULT_CONTACT_ID       = 'filehelper'
 const DEFAULT_INTERVAL_SECONDS = 60 * 60       // 1 Hour
 
 const DEFAULT_HEARTBEAT_OPTIONS: HeartbeatOptions = {
-  contact: DEFAULT_CONTACT_ID,
   emoji: {
     heartbeat: '[爱心]',
   },
@@ -49,6 +48,12 @@ export function buildOptions (options?: Partial<HeartbeatOptions>) {
     },
   }
 
+  /**
+   * Set contact to DEFAULT_CONTACT_ID if there's nothing set
+   */
+  if (!normalizedOptions.room && !normalizedOptions.contact) {
+    normalizedOptions.contact = DEFAULT_CONTACT_ID
+  }
   return normalizedOptions
 
 }

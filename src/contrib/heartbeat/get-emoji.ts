@@ -11,10 +11,11 @@ import {
 }               from './options'
 
 export async function getEmoji (
+  event   : string,
   wechaty : Wechaty,
   emoji?  : EmojiOption,
 ): Promise<void | string> {
-  log.verbose('WechatyPluginContrib', 'Heartbeat getEmoji()')
+  log.verbose('WechatyPluginContrib', 'Heartbeat getEmoji(%s)', event)
 
   if (!emoji) {
     return
