@@ -1,1 +1,2 @@
-export { Heartbeat } from './heartbeat'
+export { Heartbeat }        from './heartbeat'
+export { HeartbeatOptions } from './options'

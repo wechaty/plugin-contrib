@@ -29,7 +29,7 @@ export interface DingDongOptionsObject {
   room: boolean,
 }
 
-type DingDongOptions = Partial<DingDongOptionsObject> | DingDongOptionsFunction
+export type DingDongOptions = Partial<DingDongOptionsObject> | DingDongOptionsFunction
 
 const DEFAULT_OPTIONS: DingDongOptionsObject = {
   at   : true,

@@ -1,1 +1,4 @@
-export { DingDong } from './ding-dong'
+export {
+  DingDong,
+  DingDongOptions,
+}                     from './ding-dong'

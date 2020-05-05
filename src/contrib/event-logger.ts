@@ -14,7 +14,7 @@ import {
 
 type EventType = keyof typeof PUPPET_EVENT_DICT
 
-type EventLoggerOptions = EventType[]
+export type EventLoggerOptions = EventType[]
 
 export function EventLogger (
   options: EventLoggerOptions = [],

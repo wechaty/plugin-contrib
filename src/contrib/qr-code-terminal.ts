@@ -11,7 +11,7 @@ import {
 
 import { generate } from 'qrcode-terminal'
 
-interface QRCodeTerminalOptions {
+export interface QRCodeTerminalOptions {
   small?: boolean,
 }
 
