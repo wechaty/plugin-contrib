@@ -73,10 +73,10 @@ export const isMatchOptions = (options?: Partial<DingDongOptionsObject>) => asyn
 }
 
 export function DingDong (options?: DingDongOptions): WechatyPlugin {
-  log.verbose('WechatyPluginContrib', 'DingDong("%s")',
-    typeof options === 'function'
-      ? 'function'
-      : JSON.stringify(options),
+  log.verbose('WechatyPluginContrib', 'DingDong(%s)',
+    typeof options === 'undefined' ? ''
+      : typeof options === 'function' ? 'function'
+        : JSON.stringify(options)
   )
 
   let isMatch: (message: Message) => Promise<boolean>
@@ -87,7 +87,7 @@ export function DingDong (options?: DingDongOptions): WechatyPlugin {
     isMatch = isMatchOptions(options)
   }
 
-  return (wechaty: Wechaty) => {
+  return function DingDongPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'DingDong installing on %s ...', wechaty)
 
     wechaty.on('message', async message => {

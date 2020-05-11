@@ -4,9 +4,8 @@ import {
   test,
 }             from 'tstest'
 
-import {
-  DingDong,
-}                               from '../src/'
+import * as plugins             from '../src/'
+
 import {
   Wechaty,
 }                               from 'wechaty'
@@ -18,6 +17,16 @@ import {
 test('integration testing', async (t) => {
   const bot = Wechaty.instance({
     puppet: new PuppetMock(),
-  }).use(DingDong())
+  }).use(plugins.DingDong())
   t.ok(bot, 'should get a bot')
+})
+
+test('plugin name', async t => {
+  for (const plugin of Object.values(plugins)) {
+    if (typeof plugin !== 'function') {
+      continue
+    }
+    const name = plugin().name
+    t.ok(name, 'should be set: ' + plugin.name + ' -> ' + name)
+  }
 })

@@ -21,7 +21,7 @@ export function EventLogger (
 ): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'EventLogger("%s")', JSON.stringify(options))
 
-  return (wechaty: Wechaty) => {
+  return function EventLoggerPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'EventLogger installing on %s ...', wechaty)
 
     for (const key of Object.keys(PUPPET_EVENT_DICT)) {

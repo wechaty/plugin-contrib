@@ -22,7 +22,7 @@ export function QRCodeTerminal (
 ): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'QRCodeTerminal("%s")', JSON.stringify(options))
 
-  return (wechaty: Wechaty) => {
+  return function QRCodeTerminalPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'QRCodeTerminal installing on %s ...', wechaty)
 
     wechaty.on('scan', function onScan (qrcode: string, status: ScanStatus) {
