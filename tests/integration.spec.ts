@@ -28,5 +28,6 @@ test('plugin name', async t => {
     }
     const name = plugin().name
     t.ok(name, 'should be set: ' + plugin.name + ' -> ' + name)
+    t.equal(plugin.name + 'Plugin', name, 'should follow the naming style: Name -> NamePlugin')
   }
 })
