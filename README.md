@@ -29,13 +29,13 @@ This package is for publishing the Wechaty Plugins that are very common used by 
 
 You are welcome to send your plugin to our contrib by creating a Pull Request!
 
-| Plugin | Author | Feature |
-| :--- | :--- | :--- |
-| DingDong | @huan | Reply `dong` if bot receives a `ding` message. |
-| EventLogger | @huan | Log Wechaty Events for `"scan" | "login" | "message"` ... etc. |
-| QRCodeTerminal | @huan | Show QR Code for Scan in Terminal |
-| Heartbeat | @huan | Send emoji periodically |
-| ChatOps | @ huan | Forward DM & Mention messages to a room |
+| # | Plugin | Author | Feature |
+| :--- | :--- | :--- | :--- |
+| 1 | DingDong | @huan | Reply `dong` if bot receives a `ding` message. |
+| 2 | EventLogger | @huan | Log Wechaty Events for `"scan" | "login" | "message"` ... etc. |
+| 3 | QRCodeTerminal | @huan | Show QR Code for Scan in Terminal |
+| 4 | Heartbeat | @huan | Send emoji periodically |
+| 5 | ChatOps | @ huan | Forward DM & Mention messages to a room |
 
 ### 1 DingDong
 
