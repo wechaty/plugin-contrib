@@ -101,6 +101,23 @@ const options = {
 wechaty.use(Heartbeat(options))
 ```
 
+### 5 ChatOps
+
+- Description: Forward DM & Mention messages to a ChatOps room for logging.
+- Author: @huan
+
+```ts
+import { ChatOps } from 'wechaty-plugin-contrib'
+
+const options = {
+  at   : true,            // default: true - Response to Mention Self (@/at) Message in Room
+  dm   : true,            // default: true - Response to Direct Message
+  room : 'xxx@chatroom',  // required: room id for ChatOps
+}
+
+wechaty.use(ChatOps(options))
+```
+
 ## Wechaty Plugin Directory
 
 [![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib#wechaty-plugin-directory)
@@ -144,6 +161,6 @@ Kicked off by issue [#1939](https://github.com/wechaty/wechaty/issues/1939)(Wech
 
 ## Copyright & License
 
-- Code & Docs © 2020-now Wechaty
+- Code & Docs © 2020 Wechaty (https://github.com/wechaty)
 - Code released under the Apache-2.0 License
 - Docs released under Creative Commons
