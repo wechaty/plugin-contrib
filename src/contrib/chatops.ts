@@ -7,6 +7,7 @@ import {
   WechatyPlugin,
   Message,
   log,
+  Room,
 }                   from 'wechaty'
 
 export interface ChatOpsOptions {
@@ -76,16 +77,27 @@ export function ChatOps (options: ChatOpsOptions): WechatyPlugin {
   return function ChatOpsPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'ChatOps installing on %s ...', wechaty)
 
-    const chatopsRoom = wechaty.Room.load(options.room)
+    let chatopsRoom: undefined | Room
 
     wechaty.on('message', async message => {
-      try {
-        if (await isMatch(message)) {
-          await message.forward(chatopsRoom)
+
+      if (!chatopsRoom) {
+        chatopsRoom = wechaty.Room.load(options.room)
+        try {
+          await chatopsRoom.ready()
+        } catch (e) {
+          log.error('WechatyPluginContrib', 'ChatOps() ChatOpsPlugin(%s) chatopsRoom.ready() rejection: %s', wechaty, e)
         }
-      } catch (e) {
-        log.error('WechatyPluginContrib', 'ChatOps() ChatOpsPlugin(%s) rejection: %s', wechaty, e)
       }
+
+      if (await isMatch(message)) {
+        try {
+          await message.forward(chatopsRoom)
+        } catch (e) {
+          log.error('WechatyPluginContrib', 'ChatOps() ChatOpsPlugin(%s) rejection: %s', wechaty, e)
+        }
+      }
+
     })
   }
 
