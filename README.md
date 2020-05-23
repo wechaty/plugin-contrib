@@ -35,6 +35,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | EventLogger | @huan | Log Wechaty Events for `"scan" | "login" | "message"` ... etc. |
 | QRCodeTerminal | @huan | Show QR Code for Scan in Terminal |
 | Heartbeat | @huan | Send emoji periodically |
+| ChatOps | @ huan | Forward DM & Mention messages to a room |
 
 ### 1 DingDong
 
