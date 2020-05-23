@@ -9,7 +9,7 @@ import {
   log,
 }                   from 'wechaty'
 
-export interface ChatopsOptions {
+export interface ChatOpsOptions {
   /**
    * Chatops Room Id(s)
    */
@@ -26,12 +26,12 @@ export interface ChatopsOptions {
   dm?: boolean,
 }
 
-const DEFAULT_OPTIONS: Partial<ChatopsOptions> = {
+const DEFAULT_OPTIONS: Partial<ChatOpsOptions> = {
   at : true,
   dm : true,
 }
 
-export const isMatchOptions = (options: ChatopsOptions) => {
+export const isMatchOptions = (options: ChatOpsOptions) => {
   log.verbose('WechatyPluginContrib', 'ChatOps isMatchOptions(%s)',
     JSON.stringify(options),
   )
@@ -39,7 +39,7 @@ export const isMatchOptions = (options: ChatopsOptions) => {
   const normalizedOptions = {
     ...DEFAULT_OPTIONS,
     ...options,
-  } as Required<ChatopsOptions>
+  } as Required<ChatOpsOptions>
 
   return async function isMatch (message: Message) {
     log.verbose('WechatyPluginContrib', 'ChatOps isMatchOptions(%s) isMatch(%s)',
@@ -64,7 +64,7 @@ export const isMatchOptions = (options: ChatopsOptions) => {
   }
 }
 
-export function Chatops (options: ChatopsOptions): WechatyPlugin {
+export function ChatOps (options: ChatOpsOptions): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'ChatOps(%s)',
     typeof options === 'undefined' ? ''
       : typeof options === 'function' ? 'function'

@@ -17,6 +17,6 @@ export {
   EventLoggerOptions,
 }                         from './contrib/event-logger'
 export {
-  Chatops,
-  ChatopsOptions,
+  ChatOps,
+  ChatOpsOptions,
 }                         from './contrib/chatops'
