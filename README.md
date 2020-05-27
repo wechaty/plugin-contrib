@@ -140,7 +140,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### v0.4 (May 2020)
 
-1. New plugin `Chatops`: forward all DM & Mention messages to a Room for logging.
+1. New plugin `ChatOps`: forward all DM & Mention messages to a Room for logging.
 
 ### v0.2 (May 2020)
 
