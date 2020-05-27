@@ -118,6 +118,7 @@ const options = {
 
 wechaty.use(ChatOps(options))
 ```
+
 ### 6 GotKicked
 
 - Description: This is a wechaty plugin to monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
@@ -128,13 +129,16 @@ wechaty.use(ChatOps(options))
 ```bash
 yarn add "wechaty-got-kicked-out"
 ```
+
 or
+
 ```bash
 npm install "wechaty-got-kicked-out" --save
 ```
+
 #### Usage
 
-```javascript
+```ts
 import {Wechaty} from "wechaty"
 
 import {GotKicked} from "wechaty-got-kicked-out"
@@ -156,6 +160,7 @@ bot.use(GotKicked({
 bot.start()
    .catch(console.error)
 ```
+
 ```ts
 import { ChatOps } from 'wechaty-plugin-contrib'
 
@@ -167,6 +172,7 @@ const options = {
 
 wechaty.use(ChatOps(options))
 ```
+
 ## Wechaty Plugin Directory
 
 [![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib#wechaty-plugin-directory)
