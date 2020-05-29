@@ -161,6 +161,6 @@ Kicked off by issue [#1939](https://github.com/wechaty/wechaty/issues/1939)(Wech
 
 ## Copyright & License
 
-- Code & Docs © 2020 Wechaty (<https://github.com/wechaty>)
+- Code & Docs © 2020 Wechaty Contributors <https://github.com/wechaty>
 - Code released under the Apache-2.0 License
 - Docs released under Creative Commons
