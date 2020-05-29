@@ -143,45 +143,9 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### 3 GotKicked
 
+- Link: [GotKicked](https://github.com/wechaty/wechaty-got-kicked-out)
 - Description: This is a wechaty plugin to monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
 - Author: [@LegendaryJesse](https://github.com/JesseWeb)
-
-#### Installation
-
-```bash
-yarn add "wechaty-got-kicked-out"
-```
-
-or
-
-```bash
-npm install "wechaty-got-kicked-out" --save
-```
-
-#### Usage
-
-```ts
-import {Wechaty} from "wechaty"
-
-import {GotKicked} from "wechaty-got-kicked-out"
-
-const bot = new Wechaty({
-   name:"wechaty-got-kicked-out"
-})
-
-bot.use(GotKicked({
-   onKick(room, remover, date){
-      console.log(`
-          bot just got kick out of ${await room.topic()}[${room.id}]
-          by ${remover ? remove.name(): 'it self'}
-          --date：${date}
-      `)
-    },
-}))
-
-bot.start()
-   .catch(console.error)
-```
 
 ## History
 
