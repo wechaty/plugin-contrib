@@ -129,23 +129,9 @@ There are many great Wechaty Plugins can not be included in the contrib because 
 
 We are listing those powerful Wechaty Plugins outside the contrib as in the following list, and you are welcome to add your plugin below if you have published any!
 
-### 1 Voteout
-
-- Link: [Wechaty Voteout Plugin](https://github.com/Gcaufy/wechaty-voteout)
-- Description: help you to have a vote and kickout feature for you room.
-- Author: @gcaufy
-
-### 2 Wechaty Schedule
-
-- Link: [Wechaty Schedule](https://github.com/Gcaufy/wechaty-schedule)
-- Description: easily schedule jobs for your Wechaty bots.
-- Author: @gcaufy
-
-### 3 GotKicked
-
-- Link: [GotKicked](https://github.com/wechaty/wechaty-got-kicked-out)
-- Description: This is a wechaty plugin to monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
-- Author: [@LegendaryJesse](https://github.com/JesseWeb)
+1. [Wechaty Voteout Plugin](https://github.com/Gcaufy/wechaty-voteout) by [@gcaufy](https://github.com/gcaufy) - help you to have a vote and kickout feature for you room.
+1. [Wechaty Schedule](https://github.com/Gcaufy/wechaty-schedule) by [@gcaufy](https://github.com/gcaufy) - easily schedule jobs for your Wechaty bots.
+1. [GotKicked](https://github.com/wechaty/wechaty-got-kicked-out) by [@JesseWeb](https://github.com/JesseWeb) - monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
 
 ## History
 
