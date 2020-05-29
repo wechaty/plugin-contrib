@@ -119,7 +119,29 @@ const options = {
 wechaty.use(ChatOps(options))
 ```
 
-### 6 GotKicked
+## Wechaty Plugin Directory
+
+[![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib#wechaty-plugin-directory)
+
+The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
+
+There are many great Wechaty Plugins can not be included in the contrib because they are too powerful. They will be published as a NPM by itself.
+
+We are listing those powerful Wechaty Plugins outside the contrib as in the following list, and you are welcome to add your plugin below if you have published any!
+
+### 1 Voteout
+
+- Link: [Wechaty Voteout Plugin](https://github.com/Gcaufy/wechaty-voteout)
+- Description: help you to have a vote and kickout feature for you room.
+- Author: @gcaufy
+
+### 2 Wechaty Schedule
+
+- Link: [Wechaty Schedule](https://github.com/Gcaufy/wechaty-schedule)
+- Description: easily schedule jobs for your Wechaty bots.
+- Author: @gcaufy
+
+### 3 GotKicked
 
 - Description: This is a wechaty plugin to monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
 - Author: [@LegendaryJesse](https://github.com/JesseWeb)
@@ -160,33 +182,6 @@ bot.use(GotKicked({
 bot.start()
    .catch(console.error)
 ```
-
-```ts
-import { ChatOps } from 'wechaty-plugin-contrib'
-
-const options = {
-  at   : true,            // default: true - Response to Mention Self (@/at) Message in Room
-  dm   : true,            // default: true - Response to Direct Message
-  room : 'xxx@chatroom',  // required: room id for ChatOps
-}
-
-wechaty.use(ChatOps(options))
-```
-
-## Wechaty Plugin Directory
-
-[![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib#wechaty-plugin-directory)
-
-The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
-
-There are many great Wechaty Plugins can not be included in the contrib because they are too powerful. They will be published as a NPM by itself.
-
-We are listing those powerful Wechaty Plugins outside the contrib as in the following list, and you are welcome to add your plugin below if you have published any!
-
-1. [Wechaty Voteout Plugin](https://github.com/Gcaufy/wechaty-voteout) can help you to have a vote and kickout feature for you room.
-    - Author: @gcaufy
-1. [Wechaty Schedule](https://github.com/Gcaufy/wechaty-schedule) allow you to easily schedule jobs for your Wechaty bots.
-    - Author: @gcaufy
 
 ## History
 
