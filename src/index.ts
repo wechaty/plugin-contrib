@@ -1,6 +1,10 @@
 export { VERSION } from './config'
 
 export {
+  validatePlugin,
+}                         from './validate-plugin'
+
+export {
   DingDong,
   DingDongOptions,
 }                         from './contrib/ding-dong/'

@@ -26,8 +26,11 @@ test('plugin name', async t => {
     if (typeof plugin !== 'function') {
       continue
     }
-    const name = plugin({} as any).name
-    t.ok(name, 'should be set: ' + plugin.name + ' -> ' + name)
-    t.equal(plugin.name + 'Plugin', name, 'should follow the naming style: Name -> NamePlugin')
+
+    if (plugin.name === 'validatePlugin') {
+      continue  // our helper functions
+    }
+
+    t.doesNotThrow(() => plugins.validatePlugin(plugin), 'plugin ' + plugin.name + ' should be valid')
   }
 })
