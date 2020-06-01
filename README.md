@@ -121,18 +121,17 @@ wechaty.use(ChatOps(options))
 
 ## Wechaty Plugin Directory
 
-[![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib#wechaty-plugin-directory)
-
 The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
 
 There are many great Wechaty Plugins can not be included in the contrib because they are too powerful. They will be published as a NPM by itself.
 
 We are listing those powerful Wechaty Plugins outside the contrib as in the following list, and you are welcome to add your plugin below if you have published any!
 
-1. [Wechaty Voteout Plugin](https://github.com/Gcaufy/wechaty-voteout) can help you to have a vote and kickout feature for you room.
-    - Author: @gcaufy
-1. [Wechaty Schedule](https://github.com/Gcaufy/wechaty-schedule) allow you to easily schedule jobs for your Wechaty bots.
-    - Author: @gcaufy
+[![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib#wechaty-plugin-directory)
+
+1. [Voteout Plugin](https://github.com/Gcaufy/wechaty-voteout) by [@gcaufy](https://github.com/gcaufy) - help you to have a vote and kickout feature for you room.
+1. [Schedule](https://github.com/Gcaufy/wechaty-schedule) by [@gcaufy](https://github.com/gcaufy) - easily schedule jobs for your Wechaty bots.
+1. [GotKicked](https://github.com/wechaty/wechaty-got-kicked-out) by [@JesseWeb](https://github.com/JesseWeb) - monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
 
 ## History
 
@@ -140,7 +139,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### v0.4 (May 2020)
 
-1. New plugin `Chatops`: forward all DM & Mention messages to a Room for logging.
+1. New plugin `ChatOps`: forward all DM & Mention messages to a Room for logging.
 
 ### v0.2 (May 2020)
 
@@ -162,6 +161,6 @@ Kicked off by issue [#1939](https://github.com/wechaty/wechaty/issues/1939)(Wech
 
 ## Copyright & License
 
-- Code & Docs © 2020 Wechaty (<https://github.com/wechaty>)
+- Code & Docs © 2020 Wechaty Contributors <https://github.com/wechaty>
 - Code released under the Apache-2.0 License
 - Docs released under Creative Commons

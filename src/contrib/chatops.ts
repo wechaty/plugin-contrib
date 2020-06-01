@@ -92,7 +92,7 @@ export function ChatOps (options: ChatOpsOptions): WechatyPlugin {
 
       if (await isMatch(message)) {
         try {
-          await message.forward(chatopsRoom)
+          await chatopsRoom.say(message.toString())
         } catch (e) {
           log.error('WechatyPluginContrib', 'ChatOps() ChatOpsPlugin(%s) rejection: %s', wechaty, e)
         }
