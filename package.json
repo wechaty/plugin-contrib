@@ -18,11 +18,11 @@
     "pkg-jq": "^0.2.4",
     "shx": "^0.3.2",
     "tstest": "^0.4.10",
-    "wechaty": "^0.39.25",
+    "wechaty": "^0.40.1",
     "wechaty-puppet-mock": "^0.21.10"
   },
   "peerDependencies": {
-    "wechaty": "^0.39.25"
+    "wechaty": "^0.40.1"
   },
   "scripts": {
     "clean": "shx rm -fr dist/*",
