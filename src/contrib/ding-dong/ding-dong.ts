@@ -39,7 +39,7 @@ const DEFAULT_OPTIONS: DingDongOptionsObject = {
   at   : true,
   dm   : true,
   room : true,
-  self : false,
+  self : true,
 }
 
 export const isMatchOptions = (options?: Partial<DingDongOptionsObject>) => async (message: Message) => {
