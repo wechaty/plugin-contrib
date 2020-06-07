@@ -49,6 +49,7 @@ const options = {
   at   : true,    // default: true - Response to Mention Self (@/at) Message in Room
   dm   : true,    // default: true - Response to Direct Message
   room : true,    // default: true - Response to Rooms Message
+  self : false,   // default: false - Response to Message that send from the bot itself
 }
 
 wechaty.use(DingDong(options))

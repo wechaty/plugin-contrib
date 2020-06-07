@@ -24,10 +24,13 @@ async function * wechatyFixtures () {
   const room = wechaty.Room.load('mock_room_id')
 
   sandbox.stub(message, 'toString').returns('MockMessage')
+  const messageSelfStub = sandbox.stub(message, 'self').returns(false)
 
   yield {
     message,
+    messageSelfStub,
     room,
+    sandbox,
     wechaty,
   }
 
@@ -35,18 +38,17 @@ async function * wechatyFixtures () {
   await wechaty.stop()
 }
 
-test('isMatchOptions {at: true}', async (t) => {
+test('isMatchOptions {at: true}', async t => {
   for await (const {
     message,
     room,
+    sandbox,
   } of wechatyFixtures()) {
     const OPTIONS = {
       at   : true,
       room : false,
     } as DingDongOptionsObject
     const isMatch = isMatchOptions(OPTIONS)
-
-    const sandbox = sinon.createSandbox()
 
     sandbox.stub(message, 'room').returns(room)
     const messageMentionSelf = sandbox.stub(message, 'mentionSelf').returns(Promise.resolve(true))
@@ -60,7 +62,7 @@ test('isMatchOptions {at: true}', async (t) => {
   }
 })
 
-test('isMatchOptions {at: false}', async (t) => {
+test('isMatchOptions {at: false}', async t => {
   for await (const {
     message,
     room,
@@ -85,7 +87,7 @@ test('isMatchOptions {at: false}', async (t) => {
   }
 })
 
-test('isMatchOptions {room: true}', async (t) => {
+test('isMatchOptions {room: true}', async t => {
   for await (const {
     message,
     room,
@@ -108,7 +110,7 @@ test('isMatchOptions {room: true}', async (t) => {
   }
 })
 
-test('isMatchOptions {room: false}', async (t) => {
+test('isMatchOptions {room: false}', async t => {
   for await (const {
     message,
     room,
@@ -131,7 +133,7 @@ test('isMatchOptions {room: false}', async (t) => {
   }
 })
 
-test('isMatchOptions {dm: true}', async (t) => {
+test('isMatchOptions {dm: true}', async t => {
   for await (const {
     message,
     room,
@@ -155,7 +157,7 @@ test('isMatchOptions {dm: true}', async (t) => {
   }
 })
 
-test('isMatchOptions {dm: false}', async (t) => {
+test('isMatchOptions {dm: false}', async t => {
   for await (const {
     message,
     room,
@@ -175,5 +177,69 @@ test('isMatchOptions {dm: false}', async (t) => {
     messageRoom.returns(room)
     result = await isMatch(message)
     t.equal(result, true, 'should match for room message')
+  }
+})
+
+test('isMatchOptions {self: false}', async t => {
+  for await (const {
+    message,
+    messageSelfStub,
+    room,
+    sandbox,
+  } of wechatyFixtures()) {
+    const OPTIONS = {
+      self : false,
+    } as DingDongOptionsObject
+    const isMatch = isMatchOptions(OPTIONS)
+
+    /**
+     * Direct Message
+     */
+    const messageRoom = sandbox.stub(message, 'room').returns(null)
+
+    messageSelfStub.returns(true)
+    let result: boolean = await isMatch(message)
+    t.equal(result, false, 'should not match for self direct message with self:false')
+
+    messageSelfStub.returns(false)
+    result = await isMatch(message)
+    t.equal(result, true, 'should not match for non-self direct message with self:false')
+
+    /**
+     * Room Message
+     */
+    messageRoom.returns(room)
+
+    messageSelfStub.returns(true)
+    result = await isMatch(message)
+    t.equal(result, false, 'should not match for self room message with self:false')
+
+    messageSelfStub.returns(false)
+    result = await isMatch(message)
+    t.equal(result, true, 'should not match for non-self room message with self:false')
+  }
+})
+
+test('isMatchOptions {self: true}', async t => {
+  for await (const {
+    message,
+    messageSelfStub,
+    room,
+    sandbox,
+  } of wechatyFixtures()) {
+    const OPTIONS = {
+      self : true,
+    } as DingDongOptionsObject
+    const isMatch = isMatchOptions(OPTIONS)
+
+    messageSelfStub.returns(true)
+
+    const messageRoom = sandbox.stub(message, 'room').returns(null)
+    let result: boolean = await isMatch(message)
+    t.equal(result, true, 'should not match for self direct message with self:false')
+
+    messageRoom.returns(room)
+    result = await isMatch(message)
+    t.equal(result, true, 'should not match for self room message with self:false')
   }
 })
