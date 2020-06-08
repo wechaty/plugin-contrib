@@ -2,16 +2,21 @@ export { VERSION } from './config'
 
 export {
   validatePlugin,
-}                         from './validate-plugin'
+}                   from './validate-plugin'
 
 export {
   DingDong,
   DingDongOptions,
-}                         from './contrib/ding-dong/'
+}                                     from './contrib/ding-dong/'
 export {
   Heartbeat,
   HeartbeatOptions,
-}                         from './contrib/heartbeat/'
+}                                     from './contrib/heartbeat/'
+export {
+  OneToManyRoomConnector,
+  OneToManyRoomConnectorOptions,
+}                                     from './contrib/room-connector/'
+
 export {
   QRCodeTerminal,
   QRCodeTerminalOptions,

@@ -10,22 +10,10 @@ import {
   Room,
 }                   from 'wechaty'
 
-type ChatOpsFilterFunction = (msg: Message) => Promise<boolean>
-type ChatOpsFilter = (string | ChatOpsFilterFunction)[]
-
-async function matchFilter (
-  filterList: ChatOpsFilter,
-  message: Message,
-): Promise<boolean> {
-  for (const filter of filterList) {
-    if (typeof filter === 'string') {
-      if (message.text() === filter) { return true }
-    } else if (typeof filter === 'function') {
-      if (await filter(message)) { return true }
-    }
-  }
-  return false
-}
+import {
+  MessageMatcherList,
+  messageMatcher,
+}                   from './utils/matcher'
 
 export interface ChatOpsOptions {
   /**
@@ -45,8 +33,8 @@ export interface ChatOpsOptions {
   /**
    * Blacklist & Whitelist
    */
-  blacklist?: ChatOpsFilter
-  whitelist?: ChatOpsFilter
+  blacklist?: MessageMatcherList,
+  whitelist?: MessageMatcherList,
 }
 
 const DEFAULT_OPTIONS: Partial<ChatOpsOptions> = {
@@ -71,7 +59,7 @@ export const isMatchOptions = (options: ChatOpsOptions) => {
     )
 
     if (normalizedOptions.whitelist) {
-      if (await matchFilter(
+      if (await messageMatcher(
         normalizedOptions.whitelist,
         message,
       )) {
@@ -80,7 +68,7 @@ export const isMatchOptions = (options: ChatOpsOptions) => {
     }
 
     if (normalizedOptions.blacklist) {
-      if (await matchFilter(
+      if (await messageMatcher(
         normalizedOptions.blacklist,
         message,
       )) {
