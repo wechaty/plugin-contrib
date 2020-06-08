@@ -15,9 +15,9 @@ import {
   messageMatcher,
 }                   from '../utils/matcher'
 
-import {
-  loadRoom,
-}             from '../utils'
+// import {
+//   loadRoom,
+// }             from '../utils'
 
 export interface ManyToOneRoomConnectorOptions {
   /**
@@ -112,7 +112,7 @@ export function ManyToOneRoomConnector (
       log.verbose('WechatyPluginContrib', 'ManyToOneRoomConnectorPlugin(%s) once(message) installing ...', wechaty)
 
       if (!oneRoom) {
-        oneRoom = await loadRoom(wechaty, options.one)
+        oneRoom = wechaty.Room.load(options.one)  // await loadRoom(wechaty, options.one)
       }
 
       matchAndForward(onceMsg, oneRoom)

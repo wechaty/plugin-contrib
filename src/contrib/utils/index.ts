@@ -1,4 +1,4 @@
-export { loadRoom }       from './load-room'
+// export { loadRoom }       from './load-room'
 
 export {
   MessageMatcherList,
