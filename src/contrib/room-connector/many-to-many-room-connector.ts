@@ -42,6 +42,9 @@ export const isMatchOptions = (options: ManyToManyRoomConnectorOptions) => {
       message.toString(),
     )
 
+    if (message.self()) {
+      return
+    }
     const room = message.room()
     if (!room || !options.many.includes(room.id)) {
       return
