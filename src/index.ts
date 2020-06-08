@@ -13,10 +13,15 @@ export {
   HeartbeatOptions,
 }                                     from './contrib/heartbeat/'
 export {
+}                                     from './contrib/room-connector/'
+export {
   OneToManyRoomConnector,
   OneToManyRoomConnectorOptions,
+  ManyToOneRoomConnector,
+  ManyToOneRoomConnectorOptions,
+  ManyToManyRoomConnector,
+  ManyToManyRoomConnectorOptions,
 }                                     from './contrib/room-connector/'
-
 export {
   QRCodeTerminal,
   QRCodeTerminalOptions,

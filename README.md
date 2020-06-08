@@ -122,6 +122,62 @@ const options = {
 wechaty.use(ChatOps(options))
 ```
 
+### 6 `RoomConnector`(s)
+
+Connect rooms together, it supports three modes:
+
+1. `1:N` - `OneToManyRoomConnector` can broadcast the messages in one room to others.
+1. `M:1` - `ManyToOneRoomConnector` can summary messages from rooms into one room.
+1. `M:N` - `ManyToManyRoomConnector` will broadcast every message in any room to all other rooms.
+
+#### 6.1 `OneToManyRoomConnector()`
+
+```ts
+wechaty.use(
+  OneToManyRoomConnector({
+    blacklist: [ async () => true ],
+    many: [
+      '20049383519@chatroom',     // 小句子测试
+      '5611663299@chatroom',      // 'ChatOps - Mike BO'
+    ],
+    map: async message => message.from()?.name() + '(one to many): ' + message.text(),
+    one: '17237607145@chatroom',  // PreAngel 动态
+    whitelist: [ async message => message.type() === Message.Type.Text ],
+  }),
+)
+```
+
+#### 6.2 `ManyToOneRoomConnector()`
+
+```ts
+wechaty.use(
+  ManyToOneRoomConnector({
+    blacklist: [ async () => true ],
+    many: [
+      '20049383519@chatroom',     // 小句子测试
+      '5611663299@chatroom',      // 'ChatOps - Mike BO'
+    ],
+    map: async message => message.from()?.name() + '(many to one): ' + message.text(),
+    one: '17237607145@chatroom',  // PreAngel 动态
+    whitelist: [ async message => message.type() === Message.Type.Text ],
+  }),
+```
+
+#### 6.3 `ManyToManyRoomConnector()`
+
+```ts
+wechaty.use(
+  ManyToManyRoomConnector({
+    blacklist: [ async () => true ],
+    many: [
+      '20049383519@chatroom',     // 小句子测试
+      '5611663299@chatroom',      // 'ChatOps - Mike BO'
+    ],
+    map: async message => message.from()?.name() + '(many to many): ' + message.text(),
+    whitelist: [ async message => message.type() === Message.Type.Text ],
+  })
+```
+
 ## Wechaty Plugin Directory
 
 The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
@@ -141,9 +197,13 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### master
 
+### v0.6 (Jun 9, 2020)
+
+1. New plugins: `OneToManyRoomConnector`, `ManyToOneRoomConnector`, and `ManyToManyRoomConnector`.
+
 ### v0.4 (May 2020)
 
-1. New plugin `ChatOps`: forward all DM & Mention messages to a Room for logging.
+1. New plugin: `ChatOps`: forward all DM & Mention messages to a Room for logging.
 
 ### v0.2 (May 2020)
 
