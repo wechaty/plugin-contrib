@@ -112,9 +112,11 @@ wechaty.use(Heartbeat(options))
 import { ChatOps } from 'wechaty-plugin-contrib'
 
 const options = {
-  at   : true,            // default: true - Response to Mention Self (@/at) Message in Room
-  dm   : true,            // default: true - Response to Direct Message
-  room : 'xxx@chatroom',  // required: room id for ChatOps
+  room : 'xxx@chatroom',      // required: room id for ChatOps
+  at?  : true,                // default: true - Response to Mention Self (@/at) Message in Room
+  dm?  : true,                // default: true - Response to Direct Message
+  whitelist?: ChatOpsFilter,  // whitelist for messates that allow to send to ChatOps Room
+  blacklist?: ChatOpsFilter,  // blacklist for messates that forbidden to send to ChatOps Room
 }
 
 wechaty.use(ChatOps(options))
