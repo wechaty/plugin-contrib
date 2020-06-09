@@ -41,8 +41,7 @@ export const isMatchConfig = (config: ManyToOneRoomConnectorConfig) => {
   )
 
   return async function isMatch (message: Message) {
-    log.verbose('WechatyPluginContrib', 'ManyToOneRoomConnector() isMatchConfig(%s) isMatch(%s)',
-      JSON.stringify(config),
+    log.verbose('WechatyPluginContrib', 'ManyToOneRoomConnector() isMatchConfig() isMatch(%s)',
       message.toString(),
     )
 
