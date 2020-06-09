@@ -33,10 +33,13 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | # | Plugin | Author | Feature |
 | :--- | :--- | :--- | :--- |
 | 1 | DingDong | @huan | Reply `dong` if bot receives a `ding` message. |
-| 2 | EventLogger | @huan | Log Wechaty Events for `"scan" | "login" | "message"` ... etc. |
+| 2 | EventLogger | @huan | Log Wechaty Events for `'scan' \| 'login' \| 'message'` ... etc. |
 | 3 | QRCodeTerminal | @huan | Show QR Code for Scan in Terminal |
 | 4 | Heartbeat | @huan | Send emoji periodically |
-| 5 | ChatOps | @ huan | Forward DM & Mention messages to a room |
+| 5 | ChatOps | @huan | Forward DM & Mention messages to a room |
+| 6 | RoomConnector | @huan | Connect rooms together with `1:N`, `M:1`, and `M:N` modes |
+| 7 | FriendshipAccepter | @huan | Accept friendship automatically, and say/do something for greeting. |
+| 8 | RoomInviter | @huan | Invite user to rooms by keyword |
 
 ### 1 DingDong
 
