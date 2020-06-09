@@ -65,7 +65,7 @@ export function Heartbeat (
 
   const setupHeartbeat = heartbeatManager()
 
-  return async function HeartbeatPlugin (wechaty: Wechaty): Promise<void> {
+  return function HeartbeatPlugin (wechaty: Wechaty): void {
     log.verbose('WechatyPluginContrib', 'Heartbeat installing on %s ...', wechaty)
 
     let talkerList: Sayable[] = []
