@@ -9,9 +9,9 @@ import {
   log,
 }                   from 'wechaty'
 
-type DingDongOptionsFunction = (message: Message) => boolean | Promise<boolean>
+type DingDongConfigFunction = (message: Message) => boolean | Promise<boolean>
 
-export interface DingDongOptionsObject {
+export interface DingDongConfigObject {
   /**
    * Whether response to the self message
    */
@@ -33,49 +33,49 @@ export interface DingDongOptionsObject {
   room: boolean,
 }
 
-export type DingDongOptions = Partial<DingDongOptionsObject> | DingDongOptionsFunction
+export type DingDongConfig = Partial<DingDongConfigObject> | DingDongConfigFunction
 
-const DEFAULT_OPTIONS: DingDongOptionsObject = {
+const DEFAULT_CONFIG: DingDongConfigObject = {
   at   : true,
   dm   : true,
   room : true,
   self : true,
 }
 
-export const isMatchOptions = (options?: Partial<DingDongOptionsObject>) => async (message: Message) => {
-  log.verbose('WechatyPluginContrib', 'DingDong isMatchOptions(%s)(%s)',
-    JSON.stringify(options),
+export const isMatchConfig = (config?: Partial<DingDongConfigObject>) => async (message: Message) => {
+  log.verbose('WechatyPluginContrib', 'DingDong isMatchConfig(%s)(%s)',
+    JSON.stringify(config),
     message.toString(),
   )
 
-  const normalizedOptions: DingDongOptionsObject = {
-    ...DEFAULT_OPTIONS,
-    ...options,
+  const normalizedConfig: DingDongConfigObject = {
+    ...DEFAULT_CONFIG,
+    ...config,
   }
 
-  if (!normalizedOptions.self) {
+  if (!normalizedConfig.self) {
     if (message.self()) {
       return false
     }
   }
 
-  if (normalizedOptions.room) {
+  if (normalizedConfig.room) {
     if (message.room()) {
-      log.silly('WechatyPluginContrib', 'DingDong isMatchOptions: match [room]')
+      log.silly('WechatyPluginContrib', 'DingDong isMatchConfig: match [room]')
       return true
     }
   }
 
-  if (normalizedOptions.dm) {
+  if (normalizedConfig.dm) {
     if (!message.room()) {
-      log.silly('WechatyPluginContrib', 'DingDong isMatchOptions: match [dm]')
+      log.silly('WechatyPluginContrib', 'DingDong isMatchConfig: match [dm]')
       return true
     }
   }
 
-  if (normalizedOptions.at) {
+  if (normalizedConfig.at) {
     if (message.room() && await message.mentionSelf()) {
-      log.silly('WechatyPluginContrib', 'DingDong isMatchOptions: match [at]')
+      log.silly('WechatyPluginContrib', 'DingDong isMatchConfig: match [at]')
       return true
     }
   }
@@ -83,19 +83,19 @@ export const isMatchOptions = (options?: Partial<DingDongOptionsObject>) => asyn
   return false
 }
 
-export function DingDong (options?: DingDongOptions): WechatyPlugin {
+export function DingDong (config?: DingDongConfig): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'DingDong(%s)',
-    typeof options === 'undefined' ? ''
-      : typeof options === 'function' ? 'function'
-        : JSON.stringify(options)
+    typeof config === 'undefined' ? ''
+      : typeof config === 'function' ? 'function'
+        : JSON.stringify(config)
   )
 
   let isMatch: (message: Message) => Promise<boolean>
 
-  if (typeof options === 'function') {
-    isMatch = (message: Message) => Promise.resolve(options(message))
+  if (typeof config === 'function') {
+    isMatch = (message: Message) => Promise.resolve(config(message))
   } else {
-    isMatch = isMatchOptions(options)
+    isMatch = isMatchConfig(config)
   }
 
   return function DingDongPlugin (wechaty: Wechaty) {

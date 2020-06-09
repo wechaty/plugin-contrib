@@ -45,21 +45,21 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 ```ts
 import { DingDong } from 'wechaty-plugin-contrib'
 
-const options = {
+const config = {
   at   : true,    // default: true - Response to Mention Self (@/at) Message in Room
   dm   : true,    // default: true - Response to Direct Message
   room : true,    // default: true - Response to Rooms Message
   self : true,    // default: true - Response to Message that send from the bot itself
 }
 
-wechaty.use(DingDong(options))
+wechaty.use(DingDong(config))
 ```
 
-#### `options` as a Function
+#### `config` as a Function
 
-`options` can also be a function which receives a `message: Message` and returns a `boolean` result to decide whether response a `ding` message.
+`config` can also be a function which receives a `message: Message` and returns a `boolean` result to decide whether response a `ding` message.
 
-`optoins: (message: Message) => boolean | Promise<boolean>`
+`Config: (message: Message) => boolean | Promise<boolean>`
 
 ### 2 EventLogger
 
@@ -68,9 +68,9 @@ wechaty.use(DingDong(options))
 
 ```ts
 import { EventLogger } from 'wechaty-plugin-contrib'
-const options = ['login', 'ready', 'message']
-// Do not provide an options will log all events.
-wechaty.use(EventLogger(options))
+const config = ['login', 'ready', 'message']
+// Do not provide an config will log all events.
+wechaty.use(EventLogger(config))
 ```
 
 ### 3 QR Code Terminal
@@ -80,10 +80,10 @@ wechaty.use(EventLogger(options))
 
 ```ts
 import { QRCodeTerminal } from 'wechaty-plugin-contrib'
-const options = {
+const config = {
   small: false,   // default: false - the size of the printed QR Code in terminal
 }
-wechaty.use(QRCodeTerminal(options))
+wechaty.use(QRCodeTerminal(config))
 ```
 
 ### 4 Heartbeat
@@ -93,14 +93,14 @@ wechaty.use(QRCodeTerminal(options))
 
 ```ts
 import { Heartbeat } from 'wechaty-plugin-contrib'
-const options = {
+const config = {
   contact: 'filehelper',    // default: filehelper - Contact id who will receive the emoji
   emoji: {
     heartbeat: '[爱心]',    // default: [爱心] - Heartbeat emoji
   },
   intervalSeconds: 60 * 60, // Default: 1 hour - Send emoji for every 1 hour
 }
-wechaty.use(Heartbeat(options))
+wechaty.use(Heartbeat(config))
 ```
 
 ### 5 ChatOps
@@ -111,7 +111,7 @@ wechaty.use(Heartbeat(options))
 ```ts
 import { ChatOps } from 'wechaty-plugin-contrib'
 
-const options = {
+const config = {
   room : 'xxx@chatroom',      // required: room id for ChatOps
   at?  : true,                // default: true - Response to Mention Self (@/at) Message in Room
   dm?  : true,                // default: true - Response to Direct Message
@@ -119,7 +119,7 @@ const options = {
   blacklist?: ChatOpsFilter,  // blacklist for messates that forbidden to send to ChatOps Room
 }
 
-wechaty.use(ChatOps(options))
+wechaty.use(ChatOps(config))
 ```
 
 ### 6 `RoomConnector`(s)

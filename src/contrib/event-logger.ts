@@ -14,19 +14,19 @@ import {
 
 type EventType = keyof typeof PUPPET_EVENT_DICT
 
-export type EventLoggerOptions = EventType[]
+export type EventLoggerConfig = EventType[]
 
 export function EventLogger (
-  options: EventLoggerOptions = [],
+  config: EventLoggerConfig = [],
 ): WechatyPlugin {
-  log.verbose('WechatyPluginContrib', 'EventLogger("%s")', JSON.stringify(options))
+  log.verbose('WechatyPluginContrib', 'EventLogger("%s")', JSON.stringify(config))
 
   return function EventLoggerPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'EventLogger installing on %s ...', wechaty)
 
     for (const key of Object.keys(PUPPET_EVENT_DICT)) {
       const eventName = key as EventType
-      if (options.length > 0 && !options.includes(eventName)) {
+      if (config.length > 0 && !config.includes(eventName)) {
         continue
       }
 

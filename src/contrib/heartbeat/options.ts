@@ -20,7 +20,7 @@ interface EmojiSetting {
   heartbeat : EmojiOption,
 }
 
-export interface HeartbeatOptions {
+export interface HeartbeatConfig {
   contact?        : SayableOption,
   room?           : SayableOption,
   emoji           : Partial<EmojiSetting>,
@@ -30,30 +30,30 @@ export interface HeartbeatOptions {
 const DEFAULT_CONTACT_ID       = 'filehelper'
 const DEFAULT_INTERVAL_SECONDS = 60 * 60       // 1 Hour
 
-const DEFAULT_HEARTBEAT_OPTIONS: HeartbeatOptions = {
+const DEFAULT_HEARTBEAT_CONFIG: HeartbeatConfig = {
   emoji: {
     heartbeat: '[爱心]',
   },
   intervalSeconds : DEFAULT_INTERVAL_SECONDS,
 }
 
-export function buildOptions (options?: Partial<HeartbeatOptions>) {
+export function buildConfig (config?: Partial<HeartbeatConfig>) {
 
-  const normalizedOptions: HeartbeatOptions = {
-    ...DEFAULT_HEARTBEAT_OPTIONS,
-    ...options,
+  const normalizedConfig: HeartbeatConfig = {
+    ...DEFAULT_HEARTBEAT_CONFIG,
+    ...config,
     emoji: {
-      ...DEFAULT_HEARTBEAT_OPTIONS.emoji,
-      ...options?.emoji,
+      ...DEFAULT_HEARTBEAT_CONFIG.emoji,
+      ...config?.emoji,
     },
   }
 
   /**
    * Set contact to DEFAULT_CONTACT_ID if there's nothing set
    */
-  if (!normalizedOptions.room && !normalizedOptions.contact) {
-    normalizedOptions.contact = DEFAULT_CONTACT_ID
+  if (!normalizedConfig.room && !normalizedConfig.contact) {
+    normalizedConfig.contact = DEFAULT_CONTACT_ID
   }
-  return normalizedOptions
+  return normalizedConfig
 
 }

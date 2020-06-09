@@ -19,7 +19,7 @@ import {
 //   loadRoom,
 // }             from '../utils'
 
-export interface OneToManyRoomConnectorOptions {
+export interface OneToManyRoomConnectorConfig {
   /**
    * From Room ID
    */
@@ -35,14 +35,14 @@ export interface OneToManyRoomConnectorOptions {
   map?: (message: Message) => any,
 }
 
-export const isMatchOptions = (options: OneToManyRoomConnectorOptions) => {
-  log.verbose('WechatyPluginContrib', 'OneToManyRoomConnector() isMatchOptions(%s)',
-    JSON.stringify(options),
+export const isMatchConfig = (config: OneToManyRoomConnectorConfig) => {
+  log.verbose('WechatyPluginContrib', 'OneToManyRoomConnector() isMatchConfig(%s)',
+    JSON.stringify(config),
   )
 
   return async function isMatch (message: Message) {
-    log.verbose('WechatyPluginContrib', 'OneToManyRoomConnector() isMatchOptions(%s) isMatch(%s)',
-      JSON.stringify(options),
+    log.verbose('WechatyPluginContrib', 'OneToManyRoomConnector() isMatchConfig(%s) isMatch(%s)',
+      JSON.stringify(config),
       message.toString(),
     )
 
@@ -50,22 +50,22 @@ export const isMatchOptions = (options: OneToManyRoomConnectorOptions) => {
       return
     }
     const room = message.room()
-    if (!room || room.id !== options.one) {
+    if (!room || room.id !== config.one) {
       return
     }
 
-    if (options.whitelist) {
+    if (config.whitelist) {
       if (await messageMatcher(
-        options.whitelist,
+        config.whitelist,
         message,
       )) {
         return true
       }
     }
 
-    if (options.blacklist) {
+    if (config.blacklist) {
       if (await messageMatcher(
-        options.blacklist,
+        config.blacklist,
         message,
       )) {
         return false
@@ -77,21 +77,21 @@ export const isMatchOptions = (options: OneToManyRoomConnectorOptions) => {
 }
 
 export function OneToManyRoomConnector (
-  options: OneToManyRoomConnectorOptions
+  config: OneToManyRoomConnectorConfig
 ): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'OneToManyRoomConnector(%s)',
-    JSON.stringify(options),
+    JSON.stringify(config),
   )
 
-  const isMatch = isMatchOptions(options)
+  const isMatch = isMatchConfig(config)
 
   const matchAndForward = (message: Message, roomList: Room[]) => {
     isMatch(message).then(async match => {
       let ret
       if (match) {
         let newMsg: any = message
-        if (options.map) {
-          newMsg = await options.map(message)
+        if (config.map) {
+          newMsg = await config.map(message)
         }
         ret = Promise.all(roomList.map(room => room.say(newMsg)))
       }
@@ -112,7 +112,7 @@ export function OneToManyRoomConnector (
       log.verbose('WechatyPluginContrib', 'OneToManyRoomConnectorPlugin(%s) once(message) installing ...', wechaty)
 
       if (!manyRoomList) {
-        manyRoomList = options.many.map(id => wechaty.Room.load(id))  // await loadRoom(wechaty, options.many)
+        manyRoomList = config.many.map(id => wechaty.Room.load(id))  // await loadRoom(wechaty, config.many)
       }
 
       matchAndForward(onceMsg, manyRoomList)

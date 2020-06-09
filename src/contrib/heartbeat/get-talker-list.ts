@@ -14,28 +14,28 @@ import {
 
 export async function getTalkerList (
   wechaty  : Wechaty,
-  options? : SayableOption,
+  config? : SayableOption,
 ): Promise<Sayable[]> {
-  log.verbose('WechatyPluginContrib', 'Heartbeat getTalkerList(%s, %s)', wechaty, JSON.stringify(options))
+  log.verbose('WechatyPluginContrib', 'Heartbeat getTalkerList(%s, %s)', wechaty, JSON.stringify(config))
 
-  if (!options) {
+  if (!config) {
     return []
   }
 
   let talkerList: Sayable[] = []
 
-  if (typeof options === 'function') {
+  if (typeof config === 'function') {
     talkerList = talkerList.concat(
-      await options(wechaty)
+      await config(wechaty)
     )
-  } else if (typeof options === 'string') {
-    talkerList.push(idToSayable(wechaty, options))
-  } else if (Array.isArray(options)) {
+  } else if (typeof config === 'string') {
+    talkerList.push(idToSayable(wechaty, config))
+  } else if (Array.isArray(config)) {
     talkerList = talkerList.concat(
-      idToSayable(wechaty, options)
+      idToSayable(wechaty, config)
     )
   } else {
-    throw new Error('unknown options type: ' + typeof options)
+    throw new Error('unknown config type: ' + typeof config)
   }
 
   return talkerList

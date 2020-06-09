@@ -11,16 +11,16 @@ import {
 
 import { generate } from 'qrcode-terminal'
 
-export interface QRCodeTerminalOptions {
+export interface QRCodeTerminalConfig {
   small?: boolean,
 }
 
 export function QRCodeTerminal (
-  options: QRCodeTerminalOptions = {
+  config: QRCodeTerminalConfig = {
     small: false,
   },
 ): WechatyPlugin {
-  log.verbose('WechatyPluginContrib', 'QRCodeTerminal("%s")', JSON.stringify(options))
+  log.verbose('WechatyPluginContrib', 'QRCodeTerminal("%s")', JSON.stringify(config))
 
   return function QRCodeTerminalPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'QRCodeTerminal installing on %s ...', wechaty)
@@ -28,7 +28,7 @@ export function QRCodeTerminal (
     wechaty.on('scan', function onScan (qrcode: string, status: ScanStatus) {
       if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
         generate(qrcode, {
-          small: options.small,
+          small: config.small,
         })
 
         /**

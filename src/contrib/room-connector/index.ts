@@ -1,12 +1,12 @@
 export {
   OneToManyRoomConnector,
-  OneToManyRoomConnectorOptions,
+  OneToManyRoomConnectorConfig,
 }                                   from './one-to-many-room-connector'
 export {
   ManyToOneRoomConnector,
-  ManyToOneRoomConnectorOptions,
+  ManyToOneRoomConnectorConfig,
 }                                   from './many-to-one-room-connector'
 export {
   ManyToManyRoomConnector,
-  ManyToManyRoomConnectorOptions,
+  ManyToManyRoomConnectorConfig,
 }                                   from './many-to-many-room-connector'

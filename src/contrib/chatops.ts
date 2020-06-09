@@ -15,7 +15,7 @@ import {
   messageMatcher,
 }                   from './utils/matcher'
 
-export interface ChatOpsOptions {
+export interface ChatOpsConfig {
   /**
    * Chatops Room Id(s)
    */
@@ -37,54 +37,54 @@ export interface ChatOpsOptions {
   whitelist?: MessageMatcherList,
 }
 
-const DEFAULT_OPTIONS: Partial<ChatOpsOptions> = {
+const DEFAULT_CONFIG: Partial<ChatOpsConfig> = {
   at : true,
   dm : true,
 }
 
-export const isMatchOptions = (options: ChatOpsOptions) => {
-  log.verbose('WechatyPluginContrib', 'ChatOps isMatchOptions(%s)',
-    JSON.stringify(options),
+export const isMatchConfig = (config: ChatOpsConfig) => {
+  log.verbose('WechatyPluginContrib', 'ChatOps isMatchConfig(%s)',
+    JSON.stringify(config),
   )
 
-  const normalizedOptions = {
-    ...DEFAULT_OPTIONS,
-    ...options,
-  } as Required<ChatOpsOptions>
+  const normalizedConfig = {
+    ...DEFAULT_CONFIG,
+    ...config,
+  } as Required<ChatOpsConfig>
 
   return async function isMatch (message: Message) {
-    log.verbose('WechatyPluginContrib', 'ChatOps isMatchOptions(%s) isMatch(%s)',
-      JSON.stringify(options),
+    log.verbose('WechatyPluginContrib', 'ChatOps isMatchConfig(%s) isMatch(%s)',
+      JSON.stringify(config),
       message.toString(),
     )
 
-    if (normalizedOptions.whitelist) {
+    if (normalizedConfig.whitelist) {
       if (await messageMatcher(
-        normalizedOptions.whitelist,
+        normalizedConfig.whitelist,
         message,
       )) {
         return true
       }
     }
 
-    if (normalizedOptions.blacklist) {
+    if (normalizedConfig.blacklist) {
       if (await messageMatcher(
-        normalizedOptions.blacklist,
+        normalizedConfig.blacklist,
         message,
       )) {
         return false
       }
     }
 
-    if (normalizedOptions.dm) {
+    if (normalizedConfig.dm) {
       if (!message.room()) {
-        log.silly('WechatyPluginContrib', 'ChatOps isMatchOptions: match [dm]')
+        log.silly('WechatyPluginContrib', 'ChatOps isMatchConfig: match [dm]')
         return true
       }
     }
-    if (normalizedOptions.at) {
+    if (normalizedConfig.at) {
       if (message.room() && await message.mentionSelf()) {
-        log.silly('WechatyPluginContrib', 'ChatOps isMatchOptions: match [at]')
+        log.silly('WechatyPluginContrib', 'ChatOps isMatchConfig: match [at]')
         return true
       }
     }
@@ -93,14 +93,14 @@ export const isMatchOptions = (options: ChatOpsOptions) => {
   }
 }
 
-export function ChatOps (options: ChatOpsOptions): WechatyPlugin {
+export function ChatOps (config: ChatOpsConfig): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'ChatOps(%s)',
-    typeof options === 'undefined' ? ''
-      : typeof options === 'function' ? 'function'
-        : JSON.stringify(options)
+    typeof config === 'undefined' ? ''
+      : typeof config === 'function' ? 'function'
+        : JSON.stringify(config)
   )
 
-  const isMatch: (message: Message) => Promise<boolean> = isMatchOptions(options)
+  const isMatch: (message: Message) => Promise<boolean> = isMatchConfig(config)
 
   return function ChatOpsPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'ChatOps installing on %s ...', wechaty)
@@ -110,7 +110,7 @@ export function ChatOps (options: ChatOpsOptions): WechatyPlugin {
     wechaty.on('message', async message => {
 
       if (!chatopsRoom) {
-        chatopsRoom = wechaty.Room.load(options.room)
+        chatopsRoom = wechaty.Room.load(config.room)
         try {
           await chatopsRoom.ready()
         } catch (e) {

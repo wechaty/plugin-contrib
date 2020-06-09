@@ -1,4 +1,4 @@
 export {
   DingDong,
-  DingDongOptions,
+  DingDongConfig,
 }                     from './ding-dong'

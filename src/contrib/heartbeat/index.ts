@@ -1,2 +1,2 @@
 export { Heartbeat }        from './heartbeat'
-export { HeartbeatOptions } from './options'
+export { HeartbeatConfig } from './options'

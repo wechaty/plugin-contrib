@@ -3,12 +3,12 @@
 import test  from 'tstest'
 
 import {
-  buildOptions,
-  // HeartbeatOptions,
+  buildConfig,
+  // HeartbeatConfig,
 }                             from './options'
 
-test('buildOptions()', async (t) => {
-  const EXPECTED_OPTIONS =  {
+test('buildConfig()', async (t) => {
+  const EXPECTED_CONFIG =  {
     contact: 'filehelper',
     emoji: {
       heartbeat: '[爱心]',
@@ -16,12 +16,12 @@ test('buildOptions()', async (t) => {
     intervalSeconds: 3600,
   }
 
-  const result = buildOptions()
-  t.deepEqual(result, EXPECTED_OPTIONS, 'should get default options')
+  const result = buildConfig()
+  t.deepEqual(result, EXPECTED_CONFIG, 'should get default config')
 })
 
-test('buildOptions(options)', async (t) => {
-  const OPTIONS = {
+test('buildConfig(config)', async (t) => {
+  const CONFIG = {
     emoji: {
       heartbeat : '[爱心]',
       login     : '[太阳]',
@@ -32,7 +32,7 @@ test('buildOptions(options)', async (t) => {
     room: 'test@chatroom',
   }
 
-  const EXPECTED_OPTIONS =  {
+  const EXPECTED_CONFIG =  {
     emoji: {
       heartbeat : '[爱心]',
       login     : '[太阳]',
@@ -43,18 +43,18 @@ test('buildOptions(options)', async (t) => {
     room: 'test@chatroom',
   }
 
-  const result = buildOptions(OPTIONS)
-  t.deepEqual(result, EXPECTED_OPTIONS, 'should get merged options')
+  const result = buildConfig(CONFIG)
+  t.deepEqual(result, EXPECTED_CONFIG, 'should get merged config')
 })
 
-test('buildOptions({ room: "id" })', async (t) => {
+test('buildConfig({ room: "id" })', async (t) => {
   const ROOM_ID = '43214123@chatroom'
 
-  const OPTIONS =  {
+  const CONFIG =  {
     room: ROOM_ID,
   }
 
-  const result = buildOptions(OPTIONS)
-  t.equal(result.room, ROOM_ID, 'should set room id for options right')
+  const result = buildConfig(CONFIG)
+  t.equal(result.room, ROOM_ID, 'should set room id for config right')
   t.isNot(result.contact, 'should not have any contact data')
 })

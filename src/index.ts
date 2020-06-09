@@ -6,31 +6,31 @@ export {
 
 export {
   DingDong,
-  DingDongOptions,
+  DingDongConfig,
 }                                     from './contrib/ding-dong/'
 export {
   Heartbeat,
-  HeartbeatOptions,
+  HeartbeatConfig,
 }                                     from './contrib/heartbeat/'
 export {
 }                                     from './contrib/room-connector/'
 export {
   OneToManyRoomConnector,
-  OneToManyRoomConnectorOptions,
+  OneToManyRoomConnectorConfig,
   ManyToOneRoomConnector,
-  ManyToOneRoomConnectorOptions,
+  ManyToOneRoomConnectorConfig,
   ManyToManyRoomConnector,
-  ManyToManyRoomConnectorOptions,
+  ManyToManyRoomConnectorConfig,
 }                                     from './contrib/room-connector/'
 export {
   QRCodeTerminal,
-  QRCodeTerminalOptions,
+  QRCodeTerminalConfig,
 }                         from './contrib/qr-code-terminal'
 export {
   EventLogger,
-  EventLoggerOptions,
+  EventLoggerConfig,
 }                         from './contrib/event-logger'
 export {
   ChatOps,
-  ChatOpsOptions,
+  ChatOpsConfig,
 }                         from './contrib/chatops'

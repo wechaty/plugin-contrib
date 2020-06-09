@@ -11,8 +11,8 @@ import {
 }             from 'wechaty-puppet-mock'
 
 import {
-  isMatchOptions,
-  DingDongOptionsObject,
+  isMatchConfig,
+  DingDongConfigObject,
 }                             from './ding-dong'
 
 async function * wechatyFixtures () {
@@ -38,17 +38,17 @@ async function * wechatyFixtures () {
   await wechaty.stop()
 }
 
-test('isMatchOptions {at: true}', async t => {
+test('isMatchConfig {at: true}', async t => {
   for await (const {
     message,
     room,
     sandbox,
   } of wechatyFixtures()) {
-    const OPTIONS = {
+    const CONFIG = {
       at   : true,
       room : false,
-    } as DingDongOptionsObject
-    const isMatch = isMatchOptions(OPTIONS)
+    } as DingDongConfigObject
+    const isMatch = isMatchConfig(CONFIG)
 
     sandbox.stub(message, 'room').returns(room)
     const messageMentionSelf = sandbox.stub(message, 'mentionSelf').returns(Promise.resolve(true))
@@ -62,16 +62,16 @@ test('isMatchOptions {at: true}', async t => {
   }
 })
 
-test('isMatchOptions {at: false}', async t => {
+test('isMatchConfig {at: false}', async t => {
   for await (const {
     message,
     room,
   } of wechatyFixtures()) {
-    const OPTIONS = {
+    const CONFIG = {
       at: false,
       room: true,
-    } as DingDongOptionsObject
-    const isMatch = isMatchOptions(OPTIONS)
+    } as DingDongConfigObject
+    const isMatch = isMatchConfig(CONFIG)
 
     const sandbox = sinon.createSandbox()
 
@@ -87,16 +87,16 @@ test('isMatchOptions {at: false}', async t => {
   }
 })
 
-test('isMatchOptions {room: true}', async t => {
+test('isMatchConfig {room: true}', async t => {
   for await (const {
     message,
     room,
   } of wechatyFixtures()) {
-    const OPTIONS = {
+    const CONFIG = {
       dm   : false,
       room : true,
-    } as DingDongOptionsObject
-    const isMatch = isMatchOptions(OPTIONS)
+    } as DingDongConfigObject
+    const isMatch = isMatchConfig(CONFIG)
 
     const sandbox = sinon.createSandbox()
     const messageRoom = sandbox.stub(message, 'room').returns(room)
@@ -110,15 +110,15 @@ test('isMatchOptions {room: true}', async t => {
   }
 })
 
-test('isMatchOptions {room: false}', async t => {
+test('isMatchConfig {room: false}', async t => {
   for await (const {
     message,
     room,
   } of wechatyFixtures()) {
-    const OPTIONS = {
+    const CONFIG = {
       room: false,
-    } as DingDongOptionsObject
-    const isMatch = isMatchOptions(OPTIONS)
+    } as DingDongConfigObject
+    const isMatch = isMatchConfig(CONFIG)
 
     const sandbox = sinon.createSandbox()
     sandbox.stub(message, 'mentionSelf').returns(Promise.resolve(false))
@@ -133,16 +133,16 @@ test('isMatchOptions {room: false}', async t => {
   }
 })
 
-test('isMatchOptions {dm: true}', async t => {
+test('isMatchConfig {dm: true}', async t => {
   for await (const {
     message,
     room,
   } of wechatyFixtures()) {
-    const OPTIONS = {
+    const CONFIG = {
       dm   : true,
       room : false,
-    } as DingDongOptionsObject
-    const isMatch = isMatchOptions(OPTIONS)
+    } as DingDongConfigObject
+    const isMatch = isMatchConfig(CONFIG)
 
     const sandbox = sinon.createSandbox()
     const messageRoom = sandbox.stub(message, 'room').returns(null)
@@ -157,16 +157,16 @@ test('isMatchOptions {dm: true}', async t => {
   }
 })
 
-test('isMatchOptions {dm: false}', async t => {
+test('isMatchConfig {dm: false}', async t => {
   for await (const {
     message,
     room,
   } of wechatyFixtures()) {
-    const OPTIONS = {
+    const CONFIG = {
       dm   : false,
       room : true,
-    } as DingDongOptionsObject
-    const isMatch = isMatchOptions(OPTIONS)
+    } as DingDongConfigObject
+    const isMatch = isMatchConfig(CONFIG)
 
     const sandbox = sinon.createSandbox()
 
@@ -180,17 +180,17 @@ test('isMatchOptions {dm: false}', async t => {
   }
 })
 
-test('isMatchOptions {self: false}', async t => {
+test('isMatchConfig {self: false}', async t => {
   for await (const {
     message,
     messageSelfStub,
     room,
     sandbox,
   } of wechatyFixtures()) {
-    const OPTIONS = {
+    const CONFIG = {
       self : false,
-    } as DingDongOptionsObject
-    const isMatch = isMatchOptions(OPTIONS)
+    } as DingDongConfigObject
+    const isMatch = isMatchConfig(CONFIG)
 
     /**
      * Direct Message
@@ -220,17 +220,17 @@ test('isMatchOptions {self: false}', async t => {
   }
 })
 
-test('isMatchOptions {self: true}', async t => {
+test('isMatchConfig {self: true}', async t => {
   for await (const {
     message,
     messageSelfStub,
     room,
     sandbox,
   } of wechatyFixtures()) {
-    const OPTIONS = {
+    const CONFIG = {
       self : true,
-    } as DingDongOptionsObject
-    const isMatch = isMatchOptions(OPTIONS)
+    } as DingDongConfigObject
+    const isMatch = isMatchConfig(CONFIG)
 
     messageSelfStub.returns(true)
 
