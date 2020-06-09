@@ -13,8 +13,6 @@ export {
   HeartbeatConfig,
 }                                     from './contrib/heartbeat/'
 export {
-}                                     from './contrib/room-connector/'
-export {
   OneToManyRoomConnector,
   OneToManyRoomConnectorConfig,
   ManyToOneRoomConnector,
@@ -35,6 +33,10 @@ export {
   ChatOpsConfig,
 }                             from './contrib/chatops'
 export {
-  FriendshipAccepterConfig,
   FriendshipAccepter,
+  FriendshipAccepterConfig,
 }                             from './contrib/friendship-accepter'
+export {
+  RoomInviter,
+  RoomInviterConfig,
+}                             from './contrib/room-inviter'
