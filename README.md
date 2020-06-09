@@ -133,49 +133,51 @@ Connect rooms together, it supports three modes:
 #### 6.1 `OneToManyRoomConnector()`
 
 ```ts
-wechaty.use(
-  OneToManyRoomConnector({
-    blacklist: [ async () => true ],
-    many: [
-      '20049383519@chatroom',     // 小句子测试
-      '5611663299@chatroom',      // 'ChatOps - Mike BO'
-    ],
-    map: async message => message.from()?.name() + '(one to many): ' + message.text(),
-    one: '17237607145@chatroom',  // PreAngel 动态
-    whitelist: [ async message => message.type() === Message.Type.Text ],
-  }),
-)
+import { OneToManyRoomConnector, OneToManyRoomConnectorConfig } from 'wechaty-plugin-contrib'
+const config: OneToManyRoomConnectorConfig = {
+  blacklist: [ async () => true ],
+  many: [
+    '20049383519@chatroom',     // 小句子测试
+    '5611663299@chatroom',      // 'ChatOps - Mike BO'
+  ],
+  map: async message => message.from()?.name() + '(one to many): ' + message.text(),
+  one: '17237607145@chatroom',  // PreAngel 动态
+  whitelist: [ async message => message.type() === Message.Type.Text ],
+}
+wechaty.use(OneToManyRoomConnector(config))
 ```
 
 #### 6.2 `ManyToOneRoomConnector()`
 
 ```ts
-wechaty.use(
-  ManyToOneRoomConnector({
-    blacklist: [ async () => true ],
-    many: [
-      '20049383519@chatroom',     // 小句子测试
-      '5611663299@chatroom',      // 'ChatOps - Mike BO'
-    ],
-    map: async message => message.from()?.name() + '(many to one): ' + message.text(),
-    one: '17237607145@chatroom',  // PreAngel 动态
-    whitelist: [ async message => message.type() === Message.Type.Text ],
-  }),
+import { ManyToOneRoomConnector, ManyToOneRoomConnectorConfig } from 'wechaty-plugin-contrib'
+const config: ManyToOneRoomConnectorConfig = {
+  blacklist: [ async () => true ],
+  many: [
+    '20049383519@chatroom',     // 小句子测试
+    '5611663299@chatroom',      // 'ChatOps - Mike BO'
+  ],
+  map: async message => message.from()?.name() + '(many to one): ' + message.text(),
+  one: '17237607145@chatroom',  // PreAngel 动态
+  whitelist: [ async message => message.type() === Message.Type.Text ],
+}
+wechaty.use(ManyToOneRoomConnector(config))
 ```
 
 #### 6.3 `ManyToManyRoomConnector()`
 
 ```ts
-wechaty.use(
-  ManyToManyRoomConnector({
-    blacklist: [ async () => true ],
-    many: [
-      '20049383519@chatroom',     // 小句子测试
-      '5611663299@chatroom',      // 'ChatOps - Mike BO'
-    ],
-    map: async message => message.from()?.name() + '(many to many): ' + message.text(),
-    whitelist: [ async message => message.type() === Message.Type.Text ],
-  })
+import { ManyToManyRoomConnector, ManyToManyRoomConnectorConfig } from 'wechaty-plugin-contrib'
+const config: ManyToManyRoomConnectorConfig = {
+  blacklist: [ async () => true ],
+  many: [
+    '20049383519@chatroom',     // 小句子测试
+    '5611663299@chatroom',      // 'ChatOps - Mike BO'
+  ],
+  map: async message => message.from()?.name() + '(many to many): ' + message.text(),
+  whitelist: [ async message => message.type() === Message.Type.Text ],
+}
+wechaty.use(ManyToManyRoomConnector(config))
 ```
 
 ### 7 FriendshipAccepter
