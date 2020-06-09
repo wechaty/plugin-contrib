@@ -196,6 +196,21 @@ wechaty.use(FriendshipAccepter(config))
 1. `greeting` will be sent after the friendship has been accepted.
 1. `keyword` if set, the friendship must match the `keyword` text.
 
+### 8 RoomInviter
+
+Invite a contact to the room with `password`, `welcome`, and `rule` options supported.
+
+```ts
+import { RoomInviter, RoomInviterConfig } from 'wechaty-plugin-contrib'
+const config: RoomInviterConfig = {
+  password : 'wechaty',
+  room     : '18171595067@chatroom',
+  welcome  : 'Welcome to join the room!',
+  rule     : 'Please be a good people',
+}
+wechaty.use(RoomInviter(config))
+```
+
 ## Wechaty Plugin Directory
 
 The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
@@ -218,7 +233,8 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 ### v0.6 (Jun 9, 2020)
 
 1. New Plugins: `OneToManyRoomConnector`, `ManyToOneRoomConnector`, and `ManyToManyRoomConnector`.
-1. New Plugins: `FriendshipAccepter` for setting to accept friendship automatically.
+1. New Plugin: `FriendshipAccepter` for setting to accept friendship automatically.
+1. New Plugin: `RoomInviter` for invite user to rooms with `password`, `rule`, and `welcome` options support.
 
 ### v0.4 (May 2020)
 
