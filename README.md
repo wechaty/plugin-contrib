@@ -1,6 +1,7 @@
 # wechaty-plugin-contrib [![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Contrib-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib)
 
- [![NPM Version](https://img.shields.io/npm/v/wechaty-plugin-contrib?color=brightgreen)](https://www.npmjs.com/package/wechaty-plugin-contrib) [![NPM](https://github.com/wechaty/wechaty-plugin-contrib/workflows/NPM/badge.svg)](https://github.com/wechaty/wechaty-plugin-contrib/actions?query=workflow%3ANPM)
+ [![NPM Version](https://img.shields.io/npm/v/wechaty-plugin-contrib?color=brightgreen)](https://www.npmjs.com/package/wechaty-plugin-contrib)
+ [![NPM](https://github.com/wechaty/wechaty-plugin-contrib/workflows/NPM/badge.svg)](https://github.com/wechaty/wechaty-plugin-contrib/actions?query=workflow%3ANPM)
 
 Wechaty Plugin Contrib Package for the Community
 
@@ -198,7 +199,7 @@ wechaty.use(FriendshipAccepter(config))
 
 ### 8 RoomInviter
 
-Invite a contact to the room with `password`, `welcome`, and `rule` options supported.
+Invite a contact to the room with `password`, `welcome`(public message), and `rule`(private message) options supported.
 
 ```ts
 import { RoomInviter, RoomInviterConfig } from 'wechaty-plugin-contrib'
@@ -207,6 +208,7 @@ const config: RoomInviterConfig = {
   room     : '18171595067@chatroom',
   welcome  : 'Welcome to join the room!',
   rule     : 'Please be a good people',
+  repeat   : 'You have already in our room'.
 }
 wechaty.use(RoomInviter(config))
 ```

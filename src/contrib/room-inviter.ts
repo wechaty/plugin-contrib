@@ -28,12 +28,15 @@ type RuleFunction = (contact: Contact) => void | Promise<void>
 type RuleOption = string | RuleFunction
 export type RuleOptions = RuleOption | RuleOption[]
 
+type RepeatOptions = string | ((room: Room) => Promise<string>)
+
 export interface RoomInviterConfig {
   password : PasswordOptions,
   room     : RoomOptions,
 
   welcome? : WelcomeOptions,
   rule?    : RuleOptions,
+  repeat?  : RepeatOptions,
 }
 
 export function getRoomListConfig (config: RoomInviterConfig) {
@@ -212,7 +215,22 @@ export function RoomInviter (
       await showRule(contact)
       for (const room of roomList) {
         log.verbose('WechatyPluginContrib', 'RoomInviterPlugin inviting %s to %s', contact, room)
-        await room.add(contact)
+
+        if (await room.has(contact)) {
+          log.verbose('WechatyPluginContrib', 'RoomInviterPlugin %s has already in %s', contact, room)
+
+          if (config.repeat) {
+            let repeat = config.repeat
+            if (repeat instanceof Function) {
+              repeat = await repeat(room)
+            }
+            await contact.say(repeat)
+          }
+
+        } else {
+          await room.add(contact)
+        }
+
         await new Promise(resolve => setTimeout(resolve, 1000))
       }
     })
