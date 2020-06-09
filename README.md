@@ -208,7 +208,7 @@ const config: RoomInviterConfig = {
   room     : '18171595067@chatroom',
   welcome  : 'Welcome to join the room!',
   rule     : 'Please be a good people',
-  repeat   : 'You have already in our room'.
+  repeat   : 'You have already in our room',
 }
 wechaty.use(RoomInviter(config))
 ```
