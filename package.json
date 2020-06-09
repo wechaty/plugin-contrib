@@ -4,6 +4,10 @@
   "description": "Wechaty Plugin Ecosystem Contrib Package",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
+  "engines": {
+    "node": ">= 12",
+    "wechaty": ">=0.40.7"
+  },
   "directories": {
     "test": "tests"
   },
@@ -19,7 +23,7 @@
     "shx": "^0.3.2",
     "tstest": "^0.4.10",
     "wechaty-puppet-mock": "^0.22.28",
-    "wechaty": "^0.40.1"
+    "wechaty": "^0.40.7"
   },
   "peerDependencies": {
     "wechaty": "*"

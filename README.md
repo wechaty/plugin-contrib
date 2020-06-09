@@ -178,6 +178,22 @@ wechaty.use(
   })
 ```
 
+### 7 FriendshipAccepter
+
+Accept friendship automatically, and say/do something for greeting.
+
+```ts
+import { FriendshipAccepter, FriendshipAccepterConfig } from 'wechaty-plugin-contrib'
+const config: FriendshipAccepterConfig = {
+  greeting: 'we are friends now!',
+  keyword: '42',
+}
+wechaty.use(FriendshipAccepter(config))
+```
+
+1. `greeting` will be sent after the friendship has been accepted.
+1. `keyword` if set, the friendship must match the `keyword` text.
+
 ## Wechaty Plugin Directory
 
 The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
@@ -199,7 +215,8 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### v0.6 (Jun 9, 2020)
 
-1. New plugins: `OneToManyRoomConnector`, `ManyToOneRoomConnector`, and `ManyToManyRoomConnector`.
+1. New Plugins: `OneToManyRoomConnector`, `ManyToOneRoomConnector`, and `ManyToManyRoomConnector`.
+1. New Plugins: `FriendshipAccepter` for setting to accept friendship automatically.
 
 ### v0.4 (May 2020)
 

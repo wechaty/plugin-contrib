@@ -11,7 +11,7 @@ async function loadRoom (
   wechaty : Wechaty,
   roomId  : string | string[],
 ): Promise<Room | Room[]> {
-  log.verbose('WechatyPuginContrib', 'loadRoom(%s, %s)', wechaty, JSON.stringify(roomId))
+  log.verbose('WechatyPluginContrib', 'loadRoom(%s, %s)', wechaty, JSON.stringify(roomId))
 
   if (Array.isArray(roomId)) {
     return Promise.all(roomId.map(id => loadRoom(wechaty, id)))

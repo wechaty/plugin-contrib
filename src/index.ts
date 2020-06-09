@@ -25,12 +25,16 @@ export {
 export {
   QRCodeTerminal,
   QRCodeTerminalConfig,
-}                         from './contrib/qr-code-terminal'
+}                             from './contrib/qr-code-terminal'
 export {
   EventLogger,
   EventLoggerConfig,
-}                         from './contrib/event-logger'
+}                             from './contrib/event-logger'
 export {
   ChatOps,
   ChatOpsConfig,
-}                         from './contrib/chatops'
+}                             from './contrib/chatops'
+export {
+  FriendshipAccepterConfig,
+  FriendshipAccepter,
+}                             from './contrib/friendship-accepter'
