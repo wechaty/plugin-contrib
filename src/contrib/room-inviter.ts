@@ -28,7 +28,7 @@ type RuleFunction = (contact: Contact) => void | Promise<void>
 type RuleOption = string | RuleFunction
 export type RuleOptions = RuleOption | RuleOption[]
 
-type RepeatOptions = string | ((room: Room) => Promise<string>)
+type RepeatOptions = string | ((room: Room, contact: Contact) => Promise<string>)
 
 export interface RoomInviterConfig {
   password : PasswordOptions,
@@ -48,24 +48,40 @@ export function getRoomListConfig (config: RoomInviterConfig) {
 
   const doWelcome = showWelcomeConfig(config)
 
-  const roomList = [] as Room[]
+  const cachedRoomList = [] as Room[]
 
   return async function getRoomList (wechaty: Wechaty): Promise<Room[]> {
-    if (roomList.length > 0) {
-      return roomList
+    log.verbose('WechatyPluginContrib', 'RoomInviter() getRoomConfig() getRoomList(%s) cachedRoomList.length=%s',
+      wechaty,
+      cachedRoomList.length,
+    )
+    if (cachedRoomList.length > 0) {
+      return cachedRoomList
     }
 
+    cachedRoomList.push(...await getRawRoomList(wechaty))
+    return cachedRoomList
+  }
+
+  async function getRawRoomList (wechaty: Wechaty): Promise<Room[]> {
+    log.verbose('WechatyPluginContrib', 'RoomInviter() getRoomConfig() getRawRoomList(%s)', wechaty)
+
     if (Array.isArray(configRoom)) {
+      const list = [] as Room[]
+
       for (const config of configRoom) {
-        const list = await roomItem(config)
-        roomList.push(...list)
+        list.push(...await roomItem(config))
       }
-      return roomList
+      return list
     }
 
     return [ ...await roomItem(configRoom) ]
 
     async function roomItem (config: RoomOption): Promise<Room[]> {
+      log.verbose('WechatyPluginContrib', 'RoomInviter() getRoomConfig() roomItem(%s)',
+        JSON.stringify(config),
+      )
+
       let localRoomList: Room[]
       if (typeof config === 'string') {
         localRoomList = [ wechaty.Room.load(config) ]
@@ -213,6 +229,8 @@ export function RoomInviter (
       if (!contact) { return }
 
       await showRule(contact)
+      await wechaty.sleep(1000)
+
       for (const room of roomList) {
         log.verbose('WechatyPluginContrib', 'RoomInviterPlugin inviting %s to %s', contact, room)
 
@@ -222,16 +240,18 @@ export function RoomInviter (
           if (config.repeat) {
             let repeat = config.repeat
             if (repeat instanceof Function) {
-              repeat = await repeat(room)
+              repeat = await repeat(room, contact)
             }
             await contact.say(repeat)
+            await wechaty.sleep(1000)
           }
 
         } else {
           await room.add(contact)
+          await wechaty.sleep(1000)
         }
 
-        await new Promise(resolve => setTimeout(resolve, 1000))
+        await wechaty.sleep(1000)
       }
     })
   }
