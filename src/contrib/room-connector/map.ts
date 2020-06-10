@@ -11,13 +11,13 @@ import {
  * 1. `undefined` means drop the message
  * 1. `Message` means forward the original message
  */
-type MappedMsgType = undefined | Message | string | FileBox | Contact | UrlLink | MiniProgram
-export type MapFunction = (message: Message) => Promise<MappedMsgType | MappedMsgType[]>
+type MessageMappedType = undefined | Message | string | FileBox | Contact | UrlLink | MiniProgram
+export type MessageMapperFunction = (message: Message) => Promise<MessageMappedType | MessageMappedType[]>
 
 async function getMappedMessage (
   message: Message,
-  mapFunc?: MapFunction,
-): Promise<MappedMsgType[]> {
+  mapFunc?: MessageMapperFunction,
+): Promise<MessageMappedType[]> {
 
   if (!mapFunc) {
     return [ message ]
@@ -33,7 +33,7 @@ async function getMappedMessage (
 }
 
 async function sayMappedMessage (
-  mappedMsgList: MappedMsgType[],
+  mappedMsgList: MessageMappedType[],
   roomList: Room[],
 ): Promise<void> {
   for (const room of roomList) {
