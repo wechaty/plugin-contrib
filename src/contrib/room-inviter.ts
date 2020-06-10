@@ -215,7 +215,7 @@ export function RoomInviter (
     wechaty.on('message', async message => {
       log.verbose('WechatyPluginContrib', 'RoomInviterPlugin wechaty.on(message) %s', message)
 
-      if (message.room())                                 { return }
+      if (message.room() || message.self())               { return }
       if (message.type() !== wechaty.Message.Type.Text)   { return }
       if (!await isMatchPassword(message.text()))         { return }
 
