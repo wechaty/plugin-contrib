@@ -5,13 +5,13 @@ import {
   UrlLink,
   MiniProgram,
   Room,
-  log,
-}                       from 'wechaty'
+}               from 'wechaty'
 
 /**
- * `undefined` means drop the message
+ * 1. `undefined` means drop the message
+ * 1. `Message` means forward the original message
  */
-type MappedMsgType = undefined | string | FileBox | Contact | UrlLink | MiniProgram
+type MappedMsgType = undefined | Message | string | FileBox | Contact | UrlLink | MiniProgram
 export type MapFunction = (message: Message) => Promise<MappedMsgType | MappedMsgType[]>
 
 async function getMappedMessage (
@@ -19,34 +19,17 @@ async function getMappedMessage (
   mapFunc?: MapFunction,
 ): Promise<MappedMsgType[]> {
 
-  if (mapFunc) {
-    let mappedMsgList = await mapFunc(message)
-    if (!mappedMsgList) {
-      mappedMsgList = []
-    } else if (!Array.isArray(mappedMsgList)) {
-      mappedMsgList = [ mappedMsgList ]
-    }
-    return mappedMsgList
+  if (!mapFunc) {
+    return [ message ]
   }
 
-  switch (message.type()) {
-    case Message.Type.Text:         return [ message.text() ]
-    case Message.Type.Url:          return [ await message.toUrlLink() ]
-    case Message.Type.Contact:      return [ await message.toContact() ]
-    case Message.Type.MiniProgram:  return [ await message.toMiniProgram() ]
-
-    case Message.Type.Emoticon:
-    case Message.Type.Audio:
-    case Message.Type.Video:
-    case Message.Type.Image:
-    case Message.Type.Attachment:
-      return [ await message.toFileBox() ]
-
-    default:
-      log.silly('WechatyPluginContrib', 'RoomConnector getMappedMessage() message.type() not support: ' + message.type())
-      break
+  let mappedMsgList = await mapFunc(message)
+  if (!mappedMsgList) {
+    mappedMsgList = []
+  } else if (!Array.isArray(mappedMsgList)) {
+    mappedMsgList = [ mappedMsgList ]
   }
-  return []
+  return mappedMsgList
 }
 
 async function sayMappedMessage (
@@ -56,7 +39,11 @@ async function sayMappedMessage (
   for (const room of roomList) {
     for (const msg of mappedMsgList) {
       if (msg) {
-        await room.say(msg as any)
+        if (msg instanceof Message) {
+          await msg.forward(room)
+        } else {
+          await room.say(msg as any)
+        }
         await room.wechaty.sleep(1000)
       }
     }
