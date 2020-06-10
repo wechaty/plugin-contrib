@@ -12,11 +12,11 @@ import {
  * 1. `Message` means forward the original message
  */
 type MessageMappedType = undefined | Message | string | FileBox | Contact | UrlLink | MiniProgram
-export type MessageMapperFunction = (message: Message) => Promise<MessageMappedType | MessageMappedType[]>
+export type MessageMapFunction = (message: Message) => Promise<MessageMappedType | MessageMappedType[]>
 
 async function getMappedMessage (
   message: Message,
-  mapFunc?: MessageMapperFunction,
+  mapFunc?: MessageMapFunction,
 ): Promise<MessageMappedType[]> {
 
   if (!mapFunc) {

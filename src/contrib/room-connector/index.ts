@@ -10,3 +10,6 @@ export {
   ManyToManyRoomConnector,
   ManyToManyRoomConnectorConfig,
 }                                   from './many-to-many-room-connector'
+export {
+  MessageMapFunction as RoomConnectorMessageMapFunction,
+}                                   from './map'

@@ -18,7 +18,7 @@ import {
 import {
   getMappedMessage,
   sayMappedMessage,
-  MessageMapperFunction,
+  MessageMapFunction,
 }                     from './map'
 
 export interface ManyToOneRoomConnectorConfig {
@@ -34,7 +34,7 @@ export interface ManyToOneRoomConnectorConfig {
   blacklist?: MessageMatcherList,
   whitelist?: MessageMatcherList,
 
-  map?: MessageMapperFunction,
+  map?: MessageMapFunction,
 }
 
 export const isMatchConfig = (config: ManyToOneRoomConnectorConfig) => {
