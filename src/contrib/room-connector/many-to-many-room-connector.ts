@@ -15,9 +15,11 @@ import {
   messageMatcher,
 }                   from '../../utils/'
 
-// import {
-//   loadRoom,
-// }             from '../utils'
+import {
+  getMappedMessage,
+  sayMappedMessage,
+  MapFunction,
+}                     from './map'
 
 export interface ManyToManyRoomConnectorConfig {
   /**
@@ -28,7 +30,7 @@ export interface ManyToManyRoomConnectorConfig {
   blacklist?: MessageMatcherList,
   whitelist?: MessageMatcherList,
 
-  map?: (message: Message) => any,
+  map?: MapFunction,
 }
 
 export const isMatchConfig = (config: ManyToManyRoomConnectorConfig) => {
@@ -82,19 +84,15 @@ export function ManyToManyRoomConnector (
 
   const matchAndForward = (message: Message, roomList: Room[]) => {
     isMatch(message).then(async match => {
-      let ret
+      // eslint-disable-next-line promise/always-return
       if (match) {
-        let newMsg: any = message
-        if (config.map) {
-          newMsg = await config.map(message)
-        }
-        ret = Promise.all(
-          roomList
+        const msgList = await getMappedMessage(message, config.map)
+        if (msgList) {
+          const otherRoomList = roomList
             .filter(room => room.id !== message.room()?.id)
-            .map(room => room.say(newMsg))
-        )
+          await sayMappedMessage(msgList, otherRoomList)
+        }
       }
-      return ret
     }).catch(e => log.error('WechatyPluginContrib', 'ManyToManyRoomConnector() filterThenToManyRoom(%s, %s) rejection: %s',
       message,
       roomList.join(','),
