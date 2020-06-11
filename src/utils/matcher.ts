@@ -9,7 +9,14 @@ async function messageMatcher (
 ): Promise<boolean> {
   for (const filter of matcherList) {
     if (typeof filter === 'string') {
-      if (message.text() === filter) { return true }
+      const checkList = [
+        message.text(),
+        message.from()?.id,
+        message.from()?.name(),
+      ]
+      if (checkList.includes(filter)) {
+        return true
+      }
     } else if (typeof filter === 'function') {
       if (await filter(message)) { return true }
     }
