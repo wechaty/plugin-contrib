@@ -18,7 +18,7 @@ import {
 type AnyFunction = (...args: any[]) => any
 
 export type EventHotHandlerConfig = {
-  [event in WechatyEventName]: string
+  [event in WechatyEventName]?: string
 }
 
 export function EventHotHandler (
