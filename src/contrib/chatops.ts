@@ -11,9 +11,9 @@ import {
 }                   from 'wechaty'
 
 import {
-  MessageMatcherList,
+  MessageMatcherOptions,
   messageMatcher,
-}                   from '../utils/'
+}                           from '../utils/'
 
 export interface ChatOpsConfig {
   /**
@@ -33,8 +33,8 @@ export interface ChatOpsConfig {
   /**
    * Blacklist & Whitelist
    */
-  blacklist?: MessageMatcherList,
-  whitelist?: MessageMatcherList,
+  blacklist?: MessageMatcherOptions,
+  whitelist?: MessageMatcherOptions       ,
 }
 
 const DEFAULT_CONFIG: Partial<ChatOpsConfig> = {

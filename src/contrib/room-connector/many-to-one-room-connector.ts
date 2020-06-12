@@ -11,9 +11,9 @@ import {
 }                   from 'wechaty'
 
 import {
-  MessageMatcherList,
+  MessageMatcherOptions,
   messageMatcher,
-}                   from '../../utils/'
+}                           from '../../utils/'
 
 import {
   getMappedMessage,
@@ -31,8 +31,8 @@ export interface ManyToOneRoomConnectorConfig {
    */
   many: string[],
 
-  blacklist?: MessageMatcherList,
-  whitelist?: MessageMatcherList,
+  blacklist?: MessageMatcherOptions,
+  whitelist?: MessageMatcherOptions,
 
   map?: MessageMapFunction,
 }
