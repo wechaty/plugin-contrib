@@ -34,7 +34,7 @@ export interface ChatOpsConfig {
    * Blacklist & Whitelist
    */
   blacklist?: MessageMatcherOptions,
-  whitelist?: MessageMatcherOptions       ,
+  whitelist?: MessageMatcherOptions,
 }
 
 const DEFAULT_CONFIG: Partial<ChatOpsConfig> = {
