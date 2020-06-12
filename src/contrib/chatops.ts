@@ -52,29 +52,17 @@ export const isMatchConfig = (config: ChatOpsConfig) => {
     ...config,
   } as Required<ChatOpsConfig>
 
+  const matchWhitelist = normalizedConfig.whitelist ? messageMatcher(normalizedConfig.whitelist) : () => false
+  const matchBlacklist = normalizedConfig.blacklist ? messageMatcher(normalizedConfig.blacklist) : () => false
+
   return async function isMatch (message: Message) {
     log.verbose('WechatyPluginContrib', 'ChatOps isMatchConfig(%s) isMatch(%s)',
       JSON.stringify(config),
       message.toString(),
     )
 
-    if (normalizedConfig.whitelist) {
-      if (await messageMatcher(
-        normalizedConfig.whitelist,
-        message,
-      )) {
-        return true
-      }
-    }
-
-    if (normalizedConfig.blacklist) {
-      if (await messageMatcher(
-        normalizedConfig.blacklist,
-        message,
-      )) {
-        return false
-      }
-    }
+    if (await matchWhitelist(message)) { return true  }
+    if (await matchBlacklist(message)) { return false }
 
     if (normalizedConfig.dm) {
       if (!message.room()) {

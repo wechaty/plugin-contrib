@@ -1,27 +1,50 @@
-import { Message } from 'wechaty'
+import {
+  Message,
+  log,
+}           from 'wechaty'
 
-type MessageMatcherFunction = (msg: Message) => Promise<boolean>
-export type MessageMatcherList = (string | MessageMatcherFunction)[]
+type MessageMatcherFunction = (msg: Message) => boolean | Promise<boolean>
+type MessageMatcherOption = string | RegExp | MessageMatcherFunction
+export type MessageMatcherOptions = MessageMatcherOption | MessageMatcherOption[]
 
-async function messageMatcher (
-  matcherList : MessageMatcherList,
-  message     : Message,
-): Promise<boolean> {
-  for (const filter of matcherList) {
-    if (typeof filter === 'string') {
-      const checkList = [
-        message.text(),
-        message.from()?.id,
-        message.from()?.name(),
-      ]
-      if (checkList.includes(filter)) {
-        return true
-      }
-    } else if (typeof filter === 'function') {
-      if (await filter(message)) { return true }
-    }
+function messageMatcher (
+  matcherOptions: MessageMatcherOptions,
+) {
+  log.verbose('WechatyPluginContrib', 'messageMatcher(%s)', JSON.stringify(matcherOptions))
+
+  if (!Array.isArray(matcherOptions)) {
+    matcherOptions = [ matcherOptions ]
   }
-  return false
+
+  const matcherOptionList = matcherOptions
+
+  return async function (message: Message): Promise<boolean> {
+
+    for (const matcher of matcherOptionList) {
+      if (typeof matcher === 'string') {
+        const idCheckList = [
+          message.from()?.id,
+          message.room()?.id,
+        ]
+        return idCheckList.includes(matcher)
+
+      } else if (matcher instanceof RegExp) {
+        const textCheckList = [
+          message.text(),
+          message.from()?.name(),
+          await message.room()?.topic(),
+        ]
+        if (textCheckList.some(text => text && matcher.test(text))) {
+          return true
+        }
+      } else if (typeof matcher === 'function') {
+        return matcher(message)
+      } else {
+        throw new Error('unknown matcher ' + matcher)
+      }
+    }
+    return false
+  }
 }
 
 export {

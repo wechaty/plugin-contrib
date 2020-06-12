@@ -38,6 +38,9 @@ export const isMatchConfig = (config: ManyToManyRoomConnectorConfig) => {
     JSON.stringify(config),
   )
 
+  const matchWhitelist = config.whitelist ? messageMatcher(config.whitelist) : () => false
+  const matchBlacklist = config.blacklist ? messageMatcher(config.blacklist) : () => false
+
   return async function isMatch (message: Message) {
     log.verbose('WechatyPluginContrib', 'ManyToManyRoomConnector() isMatchConfig() isMatch(%s)',
       message.toString(),
@@ -51,22 +54,11 @@ export const isMatchConfig = (config: ManyToManyRoomConnectorConfig) => {
       return
     }
 
-    if (config.whitelist) {
-      if (await messageMatcher(
-        config.whitelist,
-        message,
-      )) {
-        return true
-      }
+    if (await matchWhitelist(message)) {
+      return true
     }
-
-    if (config.blacklist) {
-      if (await messageMatcher(
-        config.blacklist,
-        message,
-      )) {
-        return false
-      }
+    if (await matchBlacklist(message)) {
+      return false
     }
 
     return true

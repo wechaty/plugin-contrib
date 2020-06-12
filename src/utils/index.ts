@@ -1,6 +1,6 @@
 // export { loadRoom }       from './load-room'
 
 export {
-  MessageMatcherList,
+  MessageMatcherOptions as MessageMatcherList,
   messageMatcher,
 }                        from './matcher'
