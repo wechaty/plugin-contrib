@@ -41,3 +41,7 @@ export {
   RoomInviter,
   RoomInviterConfig,
 }                             from './contrib/room-inviter'
+export {
+  EventHotHandler,
+  EventHotHandlerConfig,
+}                             from './contrib/event-hot-handler'

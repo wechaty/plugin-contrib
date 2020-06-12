@@ -40,6 +40,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | 6 | RoomConnector | @huan | Connect rooms together with `1:N`, `M:1`, and `M:N` modes |
 | 7 | FriendshipAccepter | @huan | Accept friendship automatically, and say/do something for greeting. |
 | 8 | RoomInviter | @huan | Invite user to rooms by keyword |
+| 9 | EventHotHandler | @huan | Hot reloading event handler module files |
 
 ### 1 DingDong
 
@@ -216,6 +217,19 @@ const config: RoomInviterConfig = {
 wechaty.use(RoomInviter(config))
 ```
 
+### 9 HotEventHandler
+
+Hot reloading event handler module files.
+
+```ts
+import { HotEventHandler, HotEventHandlerConfig } from 'wechaty-plugin-contrib'
+const config: HotEventHandlerConfig = {
+  login: './handlers/on-login',
+  logout: './handlers/on0-logout',
+}
+wechaty.use(HotEventHandler(config))
+```
+
 ## Wechaty Plugin Directory
 
 The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
@@ -240,6 +254,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 1. New Plugins: `OneToManyRoomConnector`, `ManyToOneRoomConnector`, and `ManyToManyRoomConnector`.
 1. New Plugin: `FriendshipAccepter` for setting to accept friendship automatically.
 1. New Plugin: `RoomInviter` for invite user to rooms with `password`, `rule`, and `welcome` options support.
+1. New Plugin: `EventHotHandler` for hot reloading event handler module files.
 
 ### v0.4 (May 2020)
 
