@@ -23,7 +23,7 @@
     "shx": "^0.3.2",
     "tstest": "^0.4.10",
     "wechaty-puppet-mock": "^0.22.28",
-    "wechaty": "^0.41.1"
+    "wechaty": "^0.41.2"
   },
   "peerDependencies": {
     "wechaty": "*"
