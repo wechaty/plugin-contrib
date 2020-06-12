@@ -15,8 +15,6 @@ import {
   hotImport,
 }                   from 'hot-import'
 
-type AnyFunction = (...args: any[]) => any
-
 export type EventHotHandlerConfig = {
   [event in WechatyEventName]?: string
 }
@@ -26,43 +24,46 @@ export function EventHotHandler (
 ): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'EventHotHandler("%s")', JSON.stringify(config))
 
-  return function EventHotHandlerPlugin (wechaty: Wechaty) {
+  const absolutePathConfig: EventHotHandlerConfig = {}
+
+  for (const key of Object.keys(config)) {
+    const eventName  = key as WechatyEventName
+    const modulePath = config[eventName]
+
+    if (modulePath) {
+      const absoluteFilename = callerResolve(modulePath, __filename)
+      absolutePathConfig[eventName] = absoluteFilename
+    }
+  }
+
+  return async function EventHotHandlerPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'EventHotHandler installing on %s ...', wechaty)
 
-    for (const key of Object.keys(config)) {
-      const eventName  = key as WechatyEventName
-      const modulePath = config[eventName]
+    for (const key of Object.keys(absolutePathConfig)) {
+      const eventName        = key as WechatyEventName
+      const absoluteFilename = absolutePathConfig[eventName]
 
-      if (modulePath) {
-        addListenerModuleFile(wechaty, eventName, modulePath)
+      if (absoluteFilename) {
+        try {
+          const eventHandler = await hotImport(absoluteFilename)
+          wechaty.on(eventName as any, (...args: any[]) => {
+            try {
+              return eventHandler.apply(wechaty, args)
+            } catch (e) {
+              log.error('WechatyPluginContrib', 'EventHotHandler EventHotHandlerPlugin(%s) listener(%s) exception%s',
+                wechaty, eventName, e,
+              )
+              wechaty.emit('error', e)
+            }
+          })
+        } catch (e) {
+          log.error('WechatyPluginContrib', 'EventHotHandler EventHotHandlerPlugin() eventName(%s) hotImport(%s) rejection: %s',
+            eventName, absoluteFilename, e,
+          )
+          wechaty.emit('error', e)
+        }
+
       }
     }
   }
-}
-
-function addListenerModuleFile (
-  wechaty    : Wechaty,
-  event      : WechatyEventName,
-  modulePath : string,
-): void {
-  const absoluteFilename = callerResolve(modulePath, __filename)
-  log.verbose('WechatyPluginContrib', 'EventHotHandler addListenerModuleFile() hotImport(%s)', absoluteFilename)
-
-  hotImport(absoluteFilename)
-    .then((func: AnyFunction) => wechaty.on(event as any, (...args: any[]) => {
-      try {
-        return func.apply(wechaty, args)
-      } catch (e) {
-        log.error('WechatyPluginContrib', 'EventHotHandler addListenerModuleFile(%s, %s) listener exception: %s',
-          event, modulePath, e,
-        )
-        wechaty.emit('error', e)
-      }
-    }))
-    .catch(e => {
-      log.error('WechatyPluginContrib', 'EventHotHandler addListenerModuleFile(%s, %s) hotImport() rejection: %s',
-        event, modulePath, e,
-      )
-      wechaty.emit('error', e)
-    })
 }
