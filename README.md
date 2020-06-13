@@ -249,6 +249,14 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### master
 
+### v0.8 (Jun 13, 2020)
+
+Add more helper utility functions.
+
+1. Matchers: `RoomMatcher`, `ContactMatcher`, `MessageMatcher`
+1. Talkers: `RoomTalker`, `ContactTalker`, `MessageTalker`
+1. Finders: `RoomFinder`, `ContactFinder`
+
 ### v0.6 (Jun 9, 2020)
 
 1. New Plugins: `OneToManyRoomConnector`, `ManyToOneRoomConnector`, and `ManyToManyRoomConnector`.
