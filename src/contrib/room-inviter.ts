@@ -91,14 +91,14 @@ export function RoomInviter (
       if (await targetRoom.has(contact)) {
         log.verbose('WechatyPluginContrib', 'RoomInviterPlugin %s has already in %s', contact, targetRoom)
         await warnRepeat(contact, targetRoom)
-      } else {
-        /**
-          * Set to trigger the welcome message
-          */
-        welcomeId[targetRoom.id][contact.id] = true
-        await targetRoom.add(contact)
-        await wechaty.sleep(1000)
       }
+
+      /**
+        * Set to trigger the welcome message
+        */
+      welcomeId[targetRoom.id][contact.id] = true
+      await targetRoom.add(contact)
+      await wechaty.sleep(1000)
     })
   }
 
