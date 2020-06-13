@@ -13,7 +13,7 @@ export function roomMatcher (
   log.verbose('WechatyPluginContrib', 'roomMatcher(%s)', JSON.stringify(matcherOptions))
 
   if (!matcherOptions) {
-    return () => false
+    return (..._: any[]) => false
   }
 
   if (!Array.isArray(matcherOptions)) {

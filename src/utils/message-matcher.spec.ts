@@ -57,6 +57,11 @@ test('messageMatcher() with string option', async t => {
     text: textNotOk,
   } as any as Message
 
+  const falseMatcher = messageMatcher()
+  t.false(await falseMatcher(messageFromOk), 'should not match any message: from')
+  t.false(await falseMatcher(messageTopicOk), 'should not match any message: topic')
+  t.false(await falseMatcher(messageIdOk), 'should not match any message: text')
+
   const idMatcher = messageMatcher(TEXT_OK)
 
   t.false(await idMatcher(messageNotOk), 'should not match unexpected message by id')

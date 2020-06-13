@@ -32,6 +32,10 @@ test('roomMatcher() with string option', async t => {
     topic: topicNotOk,
   } as any as Room
 
+  const falseMatcher = roomMatcher()
+  t.false(await falseMatcher(roomIdOk), 'should not match any room without options')
+  t.false(await falseMatcher(roomTopicOk), 'should not match any room without options')
+
   const idMatcher = roomMatcher(TEXT_OK)
 
   t.false(await idMatcher(roomNotOk), 'should not match unexpected room by id')

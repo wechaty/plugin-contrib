@@ -13,7 +13,7 @@ function messageMatcher (
   log.verbose('WechatyPluginContrib', 'messageMatcher(%s)', JSON.stringify(matcherOptions))
 
   if (!matcherOptions) {
-    return () => false
+    return (..._: any[]) => false
   }
 
   if (!Array.isArray(matcherOptions)) {
