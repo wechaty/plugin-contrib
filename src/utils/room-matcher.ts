@@ -3,8 +3,8 @@ import {
   log,
 }             from 'wechaty'
 
-type RoomMatcherFunction = (room: Room) => boolean | Promise<boolean>
-type RoomMatcherOption      = string | RegExp | RoomMatcherFunction
+type RoomMatcherFunction      = (room: Room) => boolean | Promise<boolean>
+type RoomMatcherOption        = string | RegExp | RoomMatcherFunction
 export type RoomMatcherOptions = RoomMatcherOption | RoomMatcherOption[]
 
 export function roomMatcher (
@@ -26,15 +26,6 @@ export function roomMatcher (
     log.silly('WechatyPluginContrib', 'roomMatcher() matchRoom(%s)', room)
 
     for (const option of matcherOptionList) {
-      if (await matchRoomSingle(option)) {
-        return true
-      }
-    }
-    return false
-
-    async function matchRoomSingle (option: RoomMatcherOption): Promise<boolean> {
-      log.verbose('WechatyPluginContrib', 'matchRoomConfig() matchRoom() matchRoomSingle(%s)', JSON.stringify(option))
-
       if (typeof option === 'string') {
         return option === room.id
       } else if (option instanceof Function) {
@@ -45,6 +36,6 @@ export function roomMatcher (
         throw new Error('unknown option: ' + option)
       }
     }
-
+    return false
   }
 }
