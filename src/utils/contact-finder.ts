@@ -30,7 +30,9 @@ export function contactFinder (options?: ContactFinderOptions): ContactFindFunct
 
     for (const option of optoinList) {
       if (typeof option === 'string') {
-        allContactList.push(wechaty.Contact.load(option))
+        const contact = wechaty.Contact.load(option)
+        await contact.ready()
+        allContactList.push(contact)
       } else if (option instanceof RegExp) {
         allContactList.push(...await wechaty.Contact.findAll({ name: option }))
         allContactList.push(...await wechaty.Contact.findAll({ alias: option }))
