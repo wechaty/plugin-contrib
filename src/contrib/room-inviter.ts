@@ -96,7 +96,10 @@ export function RoomInviter (
       /**
         * Set to trigger the welcome message
         */
-      welcomeId[targetRoom.id][contact.id] = true
+      welcomeId[targetRoom.id] = {
+        ...welcomeId[targetRoom.id],
+        [contact.id]: true,
+      }
       await targetRoom.add(contact)
       await wechaty.sleep(1000)
     })
