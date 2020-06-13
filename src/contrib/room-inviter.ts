@@ -34,63 +34,6 @@ export interface RoomInviterConfig {
   repeat?  : MessageTalkerOptions,
 }
 
-// export function getRoomListConfig (config: RoomInviterConfig) {
-//   log.verbose('WechatyPluginContrib', 'RoomInviter() getRoomConfig({room: %s})',
-//     JSON.stringify(config.password),
-//   )
-
-//   const configRoom = config.room
-
-//   const cachedRoomList = [] as Room[]
-
-//   return async function getRoomList (wechaty: Wechaty): Promise<Room[]> {
-//     log.verbose('WechatyPluginContrib', 'RoomInviter() getRoomConfig() getRoomList(%s) cachedRoomList.length=%s',
-//       wechaty,
-//       cachedRoomList.length,
-//     )
-//     if (cachedRoomList.length > 0) {
-//       return cachedRoomList
-//     }
-
-//     cachedRoomList.push(...await getRawRoomList(wechaty))
-//     return cachedRoomList
-//   }
-
-// async function getRawRoomList (wechaty: Wechaty): Promise<Room[]> {
-//   log.verbose('WechatyPluginContrib', 'RoomInviter() getRoomConfig() getRawRoomList(%s)', wechaty)
-
-//   if (Array.isArray(configRoom)) {
-//     const list = [] as Room[]
-
-//     for (const config of configRoom) {
-//       list.push(...await roomItem(config))
-//     }
-//     return list
-//   }
-
-//   return [ ...await roomItem(configRoom) ]
-
-//   async function roomItem (config: RoomOption): Promise<Room[]> {
-//     log.verbose('WechatyPluginContrib', 'RoomInviter() getRoomConfig() roomItem(%s)',
-//       JSON.stringify(config),
-//     )
-
-//     let localRoomList: Room[]
-//     if (typeof config === 'string') {
-//       localRoomList = [ wechaty.Room.load(config) ]
-//     } else if (config instanceof RegExp) {
-//       localRoomList = await wechaty.Room.findAll({ topic: config })
-//     } else {
-//       throw new Error('config is unknown: ' + config)
-//     }
-//     localRoomList.forEach(room => room.on('join', (inviteeList) => {
-//       inviteeList.forEach(invitee => doWelcome(room, invitee))
-//     }))
-//     return localRoomList
-//   }
-// }
-// }
-
 export function RoomInviter (
   config: RoomInviterConfig,
 ): WechatyPlugin {
