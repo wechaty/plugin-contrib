@@ -30,6 +30,14 @@ export interface HeartbeatConfig {
 const DEFAULT_CONTACT_ID       = 'filehelper'
 const DEFAULT_INTERVAL_SECONDS = 60 * 60       // 1 Hour
 
+/**
+ *   emoji: {
+ *     heartbeat : '[爱心]',
+ *     login     : '[太阳]',
+ *     logout    : '[月亮]',
+ *     ready     : '[拳头]',
+ *   },
+ */
 const DEFAULT_HEARTBEAT_CONFIG: HeartbeatConfig = {
   emoji: {
     heartbeat: '[爱心]',
