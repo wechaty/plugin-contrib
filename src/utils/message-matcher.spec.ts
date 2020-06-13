@@ -2,7 +2,7 @@
 
 import test  from 'tstest'
 
-import { messageMatcher } from './matcher'
+import { messageMatcher } from './message-matcher'
 import { Message } from 'wechaty'
 
 test('messageMatcher() smoke testing', async t => {

@@ -18,7 +18,7 @@ function messageMatcher (
 
   const matcherOptionList = matcherOptions
 
-  return async function (message: Message): Promise<boolean> {
+  return async function matchMessage (message: Message): Promise<boolean> {
 
     for (const matcher of matcherOptionList) {
       if (typeof matcher === 'string') {
