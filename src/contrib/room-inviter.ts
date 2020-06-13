@@ -14,7 +14,6 @@ import {
   ContactTalkerOptions,
   RoomTalkerOptions,
   StringMatcherOptions,
-  MessageTalkerOptions,
   messageTalker,
   contactTalker,
   roomTalker,
@@ -31,7 +30,7 @@ export interface RoomInviterConfig {
 
   welcome? : RoomTalkerOptions,
   rule?    : ContactTalkerOptions,
-  repeat?  : MessageTalkerOptions,
+  repeat?  : ContactTalkerOptions,
 }
 
 export function RoomInviter (
@@ -42,7 +41,7 @@ export function RoomInviter (
   const isMatchPassword = stringMatcher(config.password)
   const showRule        = contactTalker(config.rule)
   const getRoomList     = roomFinder(config.room)
-  const warnRepeat      = messageTalker(config.repeat)
+  const warnRepeat      = contactTalker(config.repeat)
 
   const doWelcome = roomTalker(config.welcome)
 
@@ -92,7 +91,7 @@ export function RoomInviter (
 
       if (await targetRoom.has(contact)) {
         log.verbose('WechatyPluginContrib', 'RoomInviterPlugin %s has already in %s', contact, targetRoom)
-        await warnRepeat(message)
+        await warnRepeat(contact, targetRoom)
       } else {
         /**
           * Set to trigger the welcome message
@@ -107,6 +106,8 @@ export function RoomInviter (
 }
 
 async function selectRoomWithLeastMembers (roomList: Room[]): Promise<Room> {
+  log.verbose('WechatyPluginContrib', 'RoomInviterPlugin selectRoomWithLeastMembers(roomList.length=%s)', roomList.length)
+
   if (roomList.length <= 0) {
     throw new Error('roomList is empty')
   }
@@ -115,6 +116,16 @@ async function selectRoomWithLeastMembers (roomList: Room[]): Promise<Room> {
     room => room.memberAll()
       .then(list => list.length)
   ))
+
+  let info = ''
+  for (let i = 0; i < roomList.length; i++) {
+    const topic = await roomList[i].topic()
+    const num   = roomMemberNumList[i]
+
+    info += `${topic}(${num}),`
+  }
+
+  log.verbose('WechatyPluginContrib', 'RoomInviterPlugin selectRoomWithLeastMembers() %s', info)
 
   const minNum = Math.min(...roomMemberNumList)
   const minIdx = roomMemberNumList.indexOf(minNum)
