@@ -6,3 +6,7 @@ export {
   RoomMatcherOptions,
   roomMatcher,
 }                        from './room-matcher'
+export {
+  ContactMatcherOptions,
+  contactMatcher,
+}                        from './contact-matcher'
