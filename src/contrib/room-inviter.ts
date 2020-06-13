@@ -14,7 +14,6 @@ import {
   ContactTalkerOptions,
   RoomTalkerOptions,
   StringMatcherOptions,
-  messageTalker,
   contactTalker,
   roomTalker,
   stringMatcher,
