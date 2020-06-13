@@ -29,6 +29,10 @@ export {
   ContactTalkerOptions,
   contactTalker,
 }                        from './contact-talker'
+export {
+  MessageTalkerOptions,
+  messageTalker,
+}                        from './message-talker'
 
 /**
  * Finders
