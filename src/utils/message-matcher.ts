@@ -25,13 +25,14 @@ function messageMatcher (
   return async function matchMessage (message: Message): Promise<boolean> {
     log.silly('WechatyPluginContrib', 'messageMatcher() matchMessage(%s)', message)
 
+    let isMatch = false
     for (const matcher of matcherOptionList) {
       if (typeof matcher === 'string') {
         const idCheckList = [
           message.from()?.id,
           message.room()?.id,
         ]
-        return idCheckList.includes(matcher)
+        isMatch = idCheckList.includes(matcher)
 
       } else if (matcher instanceof RegExp) {
         const textCheckList = [
@@ -39,15 +40,18 @@ function messageMatcher (
           message.from()?.name(),
           await message.room()?.topic(),
         ]
-        if (textCheckList.some(text => text && matcher.test(text))) {
-          return true
-        }
+        isMatch = textCheckList.some(text => text && matcher.test(text))
       } else if (typeof matcher === 'function') {
-        return matcher(message)
+        isMatch = await matcher(message)
       } else {
         throw new Error('unknown matcher ' + matcher)
       }
+
+      if (isMatch) {
+        return true
+      }
     }
+    // no match
     return false
   }
 }

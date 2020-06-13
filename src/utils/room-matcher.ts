@@ -3,8 +3,12 @@ import {
   log,
 }             from 'wechaty'
 
-type RoomMatcherFunction      = (room: Room) => boolean | Promise<boolean>
+/**
+ * string here should be the room id only.
+ * topic should use the RegExp as the filter
+ */
 type RoomMatcherOption        = string | RegExp | RoomMatcherFunction
+type RoomMatcherFunction      = (room: Room) => boolean | Promise<boolean>
 export type RoomMatcherOptions = RoomMatcherOption | RoomMatcherOption[]
 
 export function roomMatcher (
@@ -25,17 +29,23 @@ export function roomMatcher (
   return async function matchRoom (room: Room): Promise<boolean> {
     log.silly('WechatyPluginContrib', 'roomMatcher() matchRoom(%s)', room)
 
+    let isMatch = false
     for (const option of matcherOptionList) {
       if (typeof option === 'string') {
-        return option === room.id
+        isMatch = option === room.id
       } else if (option instanceof Function) {
-        return option(room)
+        isMatch = await option(room)
       } else if (option instanceof RegExp) {
-        return option.test(await room.topic())
+        isMatch = option.test(await room.topic())
       } else {
         throw new Error('unknown option: ' + option)
       }
+
+      if (isMatch) {
+        return true
+      }
     }
+    // no match
     return false
   }
 }

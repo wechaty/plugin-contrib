@@ -25,17 +25,23 @@ export function contactMatcher (
   return async function matchContact (contact: Contact): Promise<boolean> {
     log.silly('WechatyPluginContrib', 'contactMatcher() matchContact(%s)', contact)
 
+    let isMatch = false
     for (const option of matcherOptionList) {
       if (typeof option === 'string') {
-        return option === contact.id
+        isMatch = option === contact.id
       } else if (option instanceof Function) {
-        return option(contact)
+        isMatch = await option(contact)
       } else if (option instanceof RegExp) {
-        return option.test(contact.name())
+        isMatch = option.test(contact.name())
       } else {
         throw new Error('unknown option: ' + option)
       }
+
+      if (isMatch) {
+        return true
+      }
     }
+    // no match
     return false
   }
 }
