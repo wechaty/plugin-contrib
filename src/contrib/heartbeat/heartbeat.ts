@@ -12,19 +12,23 @@ import {
   log,
 }                 from '../../config'
 
-import { getTalkerList }  from './get-talker-list'
+import {
+  roomFinder,
+  contactFinder,
+}                           from '../../utils/'
+
 import {
   HeartbeatConfig,
   buildConfig,
 }                        from './options'
 import { sayEmoji }       from './say-emoji'
 
-function heartbeatManager () {
+function heartbeater () {
   let timer: undefined | NodeJS.Timer
 
   const cleanTimer = () => {
     if (timer) {
-      log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager() cleanTimer() cleaning previous timer')
+      log.silly('WechatyPluginContrib', 'Heartbeat heartbeater() cleanTimer() cleaning previous timer')
       clearInterval(timer)
       timer = undefined
     }
@@ -34,12 +38,12 @@ function heartbeatManager () {
     talkerList : Sayable[],
     config    : HeartbeatConfig,
   ) => {
-    log.verbose('WechatyPluginContrib', 'Heartbeat heartbeatManager...')
+    log.verbose('WechatyPluginContrib', 'Heartbeat heartbeater...')
 
     const emojiHeartbeatOption = config.emoji?.heartbeat
 
     if (!emojiHeartbeatOption) {
-      log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager no emoji heartbeat option')
+      log.silly('WechatyPluginContrib', 'Heartbeat heartbeater no emoji heartbeat option')
       return cleanTimer
     }
 
@@ -49,7 +53,7 @@ function heartbeatManager () {
       sayEmoji('heartbeat', talkerList, emojiHeartbeatOption),
       config.intervalSeconds * 1000,
     )
-    log.silly('WechatyPluginContrib', 'Heartbeat heartbeatManager new timer set')
+    log.silly('WechatyPluginContrib', 'Heartbeat heartbeater new timer set')
 
     return cleanTimer
   }
@@ -63,7 +67,10 @@ export function Heartbeat (
 
   const normalizedConfig = buildConfig(config)
 
-  const setupHeartbeat = heartbeatManager()
+  const heartbeat = heartbeater()
+
+  const getContactList = contactFinder(normalizedConfig.contact)
+  const getRoomList    = roomFinder(normalizedConfig.room)
 
   return function HeartbeatPlugin (wechaty: Wechaty): void {
     log.verbose('WechatyPluginContrib', 'Heartbeat installing on %s ...', wechaty)
@@ -74,12 +81,12 @@ export function Heartbeat (
       log.verbose('WechatyPluginContrib', 'Heartbeat wechaty.on(login)')
 
       talkerList = [
-        ...await getTalkerList(wechaty, normalizedConfig.contact),
-        ...await getTalkerList(wechaty, normalizedConfig.room),
+        ...await getContactList(wechaty),
+        ...await getRoomList(wechaty),
       ]
       log.verbose('WechatyPluginContrib', 'Heartbeat talkerList numbers: %s', talkerList.length)
 
-      const cleanTimer = setupHeartbeat(talkerList, normalizedConfig)
+      const cleanTimer = heartbeat(talkerList, normalizedConfig)
       wechaty.once('logout', cleanTimer)
 
       /**

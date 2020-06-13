@@ -4,12 +4,13 @@ import {
   Wechaty,
 }             from 'wechaty'
 
-type ContactFinderOption        = string | RegExp
+type ContactFinderFunction = (wechaty: Wechaty) => Contact[] | Promise<Contact[]>
+type ContactFinderOption        = string | RegExp | ContactFinderFunction
 export type ContactFinderOptions = ContactFinderOption | ContactFinderOption[]
 
-type ContactFinderFunction = (wechaty: Wechaty) => Contact[] | Promise<Contact[]>
+type ContactFindFunction = (wechaty: Wechaty) => Contact[] | Promise<Contact[]>
 
-export function contactFinder (options?: ContactFinderOptions): ContactFinderFunction {
+export function contactFinder (options?: ContactFinderOptions): ContactFindFunction {
   log.verbose('WechatyPluginContrib', 'contactFinder(%s)', JSON.stringify(options))
 
   if (!options) {
@@ -33,6 +34,8 @@ export function contactFinder (options?: ContactFinderOptions): ContactFinderFun
       } else if (option instanceof RegExp) {
         allContactList.push(...await wechaty.Contact.findAll({ name: option }))
         allContactList.push(...await wechaty.Contact.findAll({ alias: option }))
+      } else if (option instanceof Function) {
+        allContactList.push(...await option(wechaty))
       } else {
         throw new Error('option is unknown: ' + option)
       }

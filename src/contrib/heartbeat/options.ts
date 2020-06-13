@@ -2,12 +2,17 @@ import {
   Wechaty,
 }                   from 'wechaty'
 
-import { Sayable } from 'wechaty/dist/src/types'
+import {
+  RoomFinderOptions,
+  ContactFinderOptions,
+}                           from '../../utils/'
 
-type FindTalkerFunction = (wechaty: Wechaty) => Sayable | Sayable[] | Promise<Sayable> | Promise<Sayable[]>
+// import { Sayable } from 'wechaty/dist/src/types'
+
+// type FindTalkerFunction = (wechaty: Wechaty) => Sayable | Sayable[] | Promise<Sayable> | Promise<Sayable[]>
 type HeartbeatFunction  = (wechaty: Wechaty) => string | Promise<string>
 
-export type SayableOption = string | string[] | FindTalkerFunction
+// export type SayableOption = string | string[] | FindTalkerFunction
 export type EmojiOption   = string | HeartbeatFunction
 
 /**
@@ -21,8 +26,8 @@ interface EmojiSetting {
 }
 
 export interface HeartbeatConfig {
-  contact?        : SayableOption,
-  room?           : SayableOption,
+  contact?        : ContactFinderOptions, // SayableOption,
+  room?           : RoomFinderOptions,    // SayableOption,
   emoji           : Partial<EmojiSetting>,
   intervalSeconds : number,
 }
