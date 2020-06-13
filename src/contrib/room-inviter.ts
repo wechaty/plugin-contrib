@@ -141,24 +141,38 @@ export function RoomInviter (
         return
       }
 
-      for (const room of roomList) {
-        log.verbose('WechatyPluginContrib', 'RoomInviterPlugin inviting %s to %s', contact, room)
+      const targetRoom = await selectRoomWithLeastMembers(roomList)
 
-        if (await room.has(contact)) {
-          log.verbose('WechatyPluginContrib', 'RoomInviterPlugin %s has already in %s', contact, room)
-          await warnRepeat(contact)
-        } else {
-          /**
-            * Set to trigger the welcome message
-            */
-          welcomeId[room.id][contact.id] = true
-          await room.add(contact)
-          await wechaty.sleep(1000)
-        }
+      log.verbose('WechatyPluginContrib', 'RoomInviterPlugin inviting %s to %s', contact, targetRoom)
 
+      if (await targetRoom.has(contact)) {
+        log.verbose('WechatyPluginContrib', 'RoomInviterPlugin %s has already in %s', contact, targetRoom)
+        await warnRepeat(contact)
+      } else {
+        /**
+          * Set to trigger the welcome message
+          */
+        welcomeId[targetRoom.id][contact.id] = true
+        await targetRoom.add(contact)
         await wechaty.sleep(1000)
       }
     })
   }
 
+}
+
+async function selectRoomWithLeastMembers (roomList: Room[]): Promise<Room> {
+  if (roomList.length <= 0) {
+    throw new Error('roomList is empty')
+  }
+
+  const roomMemberNumList = await Promise.all(roomList.map(
+    room => room.memberAll()
+      .then(list => list.length)
+  ))
+
+  const minNum = Math.min(...roomMemberNumList)
+  const minIdx = roomMemberNumList.indexOf(minNum)
+
+  return roomList[minIdx]
 }
