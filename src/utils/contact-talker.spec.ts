@@ -7,7 +7,7 @@ import { Contact } from 'wechaty'
 
 import {
   contactTalker,
-  ContactTalkerOptions
+  ContactTalkerOptions,
 }                             from './contact-talker'
 
 test('contactTalker()', async t => {
