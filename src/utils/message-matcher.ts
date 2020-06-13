@@ -8,9 +8,13 @@ type MessageMatcherOption = string | RegExp | MessageMatcherFunction
 export type MessageMatcherOptions = MessageMatcherOption | MessageMatcherOption[]
 
 function messageMatcher (
-  matcherOptions: MessageMatcherOptions,
+  matcherOptions?: MessageMatcherOptions,
 ) {
   log.verbose('WechatyPluginContrib', 'messageMatcher(%s)', JSON.stringify(matcherOptions))
+
+  if (!matcherOptions) {
+    return () => false
+  }
 
   if (!Array.isArray(matcherOptions)) {
     matcherOptions = [ matcherOptions ]
@@ -19,6 +23,7 @@ function messageMatcher (
   const matcherOptionList = matcherOptions
 
   return async function matchMessage (message: Message): Promise<boolean> {
+    log.silly('WechatyPluginContrib', 'messageMatcher() matchMessage(%s)', message)
 
     for (const matcher of matcherOptionList) {
       if (typeof matcher === 'string') {

@@ -271,7 +271,7 @@ Added the following Wechaty Plugins:
 
 ### v0.0.1 (Apr 2020)
 
-Kicked off by issue [#1939](https://github.com/wechaty/wechaty/issues/1939)(Wechaty Plugin Support with Kickout Example) and PR [#1946](https://github.com/wechaty/wechaty/pull/1946)(feat: added wechaty plugin).
+The `wechaty-plugin-contrib` project was kicked off by the issue [Wechaty Plugin Support with Kickout Example #1939](https://github.com/wechaty/wechaty/issues/1939) and the PR [feat: added wechaty plugin #1946](https://github.com/wechaty/wechaty/pull/1946).
 
 ## Maintainers
 
