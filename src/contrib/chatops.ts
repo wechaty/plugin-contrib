@@ -55,11 +55,13 @@ export const isMatchConfig = (config: ChatOpsConfig) => {
   const matchWhitelist = normalizedConfig.whitelist ? messageMatcher(normalizedConfig.whitelist) : () => false
   const matchBlacklist = normalizedConfig.blacklist ? messageMatcher(normalizedConfig.blacklist) : () => false
 
-  return async function isMatch (message: Message) {
+  return async function isMatch (message: Message): Promise<boolean> {
     log.verbose('WechatyPluginContrib', 'ChatOps isMatchConfig(%s) isMatch(%s)',
       JSON.stringify(config),
       message.toString(),
     )
+
+    if (message.self())               { return false }
 
     if (await matchWhitelist(message)) { return true  }
     if (await matchBlacklist(message)) { return false }
@@ -88,7 +90,7 @@ export function ChatOps (config: ChatOpsConfig): WechatyPlugin {
         : JSON.stringify(config)
   )
 
-  const isMatch: (message: Message) => Promise<boolean> = isMatchConfig(config)
+  const isMatch = isMatchConfig(config)
 
   return function ChatOpsPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'ChatOps installing on %s ...', wechaty)
