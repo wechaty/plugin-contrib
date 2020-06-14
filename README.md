@@ -249,6 +249,11 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### master
 
+### v0.10 (Jun 14, 2020)
+
+1. export `talkers.*`, `finders.*`, and `matchers.*`
+1. Add [Mustache](https://github.com/janl/mustache.js) support for all talkers.
+
 ### v0.8 (Jun 13, 2020)
 
 Add more helper utility functions.
