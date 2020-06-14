@@ -5,12 +5,10 @@ import {
 }             from 'wechaty'
 
 type ContactFinderFunction = (wechaty: Wechaty) => Contact[] | Promise<Contact[]>
-type ContactFinderOption        = string | RegExp | ContactFinderFunction
+type ContactFinderOption = string | RegExp | ContactFinderFunction
 export type ContactFinderOptions = ContactFinderOption | ContactFinderOption[]
 
-type ContactFindFunction = (wechaty: Wechaty) => Contact[] | Promise<Contact[]>
-
-export function contactFinder (options?: ContactFinderOptions): ContactFindFunction {
+export function contactFinder (options?: ContactFinderOptions): ContactFinderFunction {
   log.verbose('WechatyPluginContrib', 'contactFinder(%s)', JSON.stringify(options))
 
   if (!options) {
@@ -21,14 +19,14 @@ export function contactFinder (options?: ContactFinderOptions): ContactFindFunct
     options = [ options ]
   }
 
-  const optoinList = options
+  const optionList = options
 
-  return async function contactFind (wechaty: Wechaty): Promise<Contact[]> {
+  return async function findContact (wechaty: Wechaty): Promise<Contact[]> {
     log.silly('WechatyPluginContrib', 'contactFinder() contactFind(%s)', wechaty)
 
     const allContactList: Contact[] = []
 
-    for (const option of optoinList) {
+    for (const option of optionList) {
       if (typeof option === 'string') {
         const contact = wechaty.Contact.load(option)
         await contact.ready()

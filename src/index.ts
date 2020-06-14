@@ -1,3 +1,16 @@
+import * as finders   from './finders/'
+import * as matchers  from './matchers/'
+import * as talkers   from './talkers/'
+
+/**
+ * Plugin utility helper functions
+ */
+export {
+  finders,
+  matchers,
+  talkers,
+}
+
 export { VERSION } from './config'
 
 export {
