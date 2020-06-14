@@ -5,7 +5,7 @@ import {
 import {
   RoomFinderOptions,
   ContactFinderOptions,
-}                           from '../../utils/'
+}                           from '../../finders/'
 
 // import { Sayable } from 'wechaty/dist/src/types'
 

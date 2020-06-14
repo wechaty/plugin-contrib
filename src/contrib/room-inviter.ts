@@ -13,19 +13,21 @@ import {
 import {
   ContactTalkerOptions,
   RoomTalkerOptions,
-  StringMatcherOptions,
   contactTalker,
   roomTalker,
+}                           from '../talkers/'
+import {
+  StringMatcherOptions,
   stringMatcher,
+}                           from '../matchers/'
+import {
+  RoomFinderOptions,
   roomFinder,
-}                           from '../utils/'
-
-type RoomOption = string | RegExp
-export type RoomOptions = RoomOption | RoomOption[]
+}                           from '../finders/'
 
 export interface RoomInviterConfig {
   password : StringMatcherOptions,
-  room     : RoomOptions,
+  room     : RoomFinderOptions,
 
   welcome? : RoomTalkerOptions,
   rule?    : ContactTalkerOptions,
@@ -90,7 +92,7 @@ export function RoomInviter (
 
       if (await targetRoom.has(contact)) {
         log.verbose('WechatyPluginContrib', 'RoomInviterPlugin %s has already in %s', contact, targetRoom)
-        await warnRepeat(contact, targetRoom)
+        await warnRepeat(contact)
       }
 
       /**

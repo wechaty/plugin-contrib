@@ -13,9 +13,11 @@ import {
 import {
   StringMatcherOptions,
   stringMatcher,
+}                         from '../matchers/'
+import {
   contactTalker,
   ContactTalkerOptions,
-}                       from '../utils/'
+}                         from '../talkers/'
 
 // type GreetingFunction = (contact: Contact) => Promise<void>
 // type GreetingOption   = string | GreetingFunction
