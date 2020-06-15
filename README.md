@@ -217,17 +217,17 @@ const config: RoomInviterConfig = {
 wechaty.use(RoomInviter(config))
 ```
 
-### 9 HotEventHandler
+### 9 EventHotHandler
 
 Hot reloading event handler module files.
 
 ```ts
-import { HotEventHandler, HotEventHandlerConfig } from 'wechaty-plugin-contrib'
-const config: HotEventHandlerConfig = {
+import { EventHotHandler, EventHotHandlerConfig } from 'wechaty-plugin-contrib'
+const config: EventHotHandlerConfig = {
   login: './handlers/on-login',
   logout: './handlers/on0-logout',
 }
-wechaty.use(HotEventHandler(config))
+wechaty.use(EventHotHandler(config))
 ```
 
 ## Wechaty Plugin Directory
