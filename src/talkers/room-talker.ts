@@ -6,7 +6,7 @@ import {
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-type RoomTalkerFunction       = (room: Room, contact: void | Contact) => void | string | Promise<void | string>
+type RoomTalkerFunction       = (room: Room, contact: Contact) => void | string | Promise<void | string>
 type RoomTalkerOption         = string | RoomTalkerFunction
 export type RoomTalkerOptions = RoomTalkerOption | RoomTalkerOption[]
 
@@ -23,7 +23,7 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
 
   const optionList = options
 
-  return async function talkRoom (room: Room, contact: void | Contact = undefined, mustacheView: T): Promise<void> {
+  return async function talkRoom (room: Room, contact: Contact, mustacheView: T): Promise<void> {
     log.silly('WechatyPluginContrib', 'roomTalker() talkRoom(%s, %s)',
       room,
       contact,

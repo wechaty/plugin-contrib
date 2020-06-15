@@ -4,8 +4,8 @@ import {
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-type MessageTalkerFunction      = (message: Message) => void | string | Promise<void | string>
-type MessageTalkerOption        = string | MessageTalkerFunction
+type MessageTalkerFunction = (message: Message) => void | string | Promise<void | string>
+type MessageTalkerOption = string | MessageTalkerFunction
 export type MessageTalkerOptions = MessageTalkerOption | MessageTalkerOption[]
 
 export function messageTalker<T = void> (options?: MessageTalkerOptions) {
