@@ -3,8 +3,8 @@ import {
   log,
 }             from 'wechaty'
 
-type ContactMatcherFunction = (contact: Contact) => boolean | Promise<boolean>
-type ContactMatcherOption   = string | RegExp | ContactMatcherFunction
+type ContactMatcherFunction       = (contact: Contact) => boolean | Promise<boolean>
+type ContactMatcherOption         = string | RegExp | ContactMatcherFunction
 export type ContactMatcherOptions = ContactMatcherOption | ContactMatcherOption[]
 
 export function contactMatcher (

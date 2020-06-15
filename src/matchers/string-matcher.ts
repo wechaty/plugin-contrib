@@ -2,9 +2,9 @@ import {
   log,
 }           from 'wechaty'
 
-type StringMatcherFunction = (str: string) => boolean | Promise<boolean>
-type StringMatcherOption = string | RegExp | StringMatcherFunction
-export type StringMatcherOptions = StringMatcherOption | StringMatcherOption[]
+type StringMatcherFunction        = (str: string) => boolean | Promise<boolean>
+type StringMatcherOption          = string | RegExp | StringMatcherFunction
+export type StringMatcherOptions  = StringMatcherOption | StringMatcherOption[]
 
 export function stringMatcher (options?: StringMatcherOptions) {
   log.verbose('WechatyPluginContrib', 'stringMatcher(%s)', JSON.stringify(options))

@@ -7,8 +7,8 @@ import {
  * string here should be the room id only.
  * topic should use the RegExp as the filter
  */
-type RoomMatcherOption        = string | RegExp | RoomMatcherFunction
-type RoomMatcherFunction      = (room: Room) => boolean | Promise<boolean>
+type RoomMatcherOption         = string | RegExp | RoomMatcherFunction
+type RoomMatcherFunction       = (room: Room) => boolean | Promise<boolean>
 export type RoomMatcherOptions = RoomMatcherOption | RoomMatcherOption[]
 
 export function roomMatcher (

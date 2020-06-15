@@ -4,8 +4,8 @@ import {
   Wechaty,
 }             from 'wechaty'
 
-type RoomFinderFunction = (wechaty: Wechaty) => Room[] | Promise<Room[]>
-type RoomFinderOption = string | RegExp | RoomFinderFunction
+type RoomFinderFunction       = (wechaty: Wechaty) => Room[] | Promise<Room[]>
+type RoomFinderOption         = string | RegExp | RoomFinderFunction
 export type RoomFinderOptions = RoomFinderOption | RoomFinderOption[]
 
 export function roomFinder (options?: RoomFinderOptions): RoomFinderFunction {

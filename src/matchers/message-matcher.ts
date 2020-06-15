@@ -3,8 +3,8 @@ import {
   log,
 }           from 'wechaty'
 
-type MessageMatcherFunction = (msg: Message) => boolean | Promise<boolean>
-type MessageMatcherOption = string | RegExp | MessageMatcherFunction
+type MessageMatcherFunction       = (msg: Message) => boolean | Promise<boolean>
+type MessageMatcherOption         = string | RegExp | MessageMatcherFunction
 export type MessageMatcherOptions = MessageMatcherOption | MessageMatcherOption[]
 
 function messageMatcher (

@@ -4,9 +4,9 @@ import {
   Wechaty,
 }             from 'wechaty'
 
-type ContactFinderFunction = (wechaty: Wechaty) => Contact[] | Promise<Contact[]>
-type ContactFinderOption = string | RegExp | ContactFinderFunction
-export type ContactFinderOptions = ContactFinderOption | ContactFinderOption[]
+type ContactFinderFunction        = (wechaty: Wechaty) => Contact[] | Promise<Contact[]>
+type ContactFinderOption          = string | RegExp | ContactFinderFunction
+export type ContactFinderOptions  = ContactFinderOption | ContactFinderOption[]
 
 export function contactFinder (options?: ContactFinderOptions): ContactFinderFunction {
   log.verbose('WechatyPluginContrib', 'contactFinder(%s)', JSON.stringify(options))

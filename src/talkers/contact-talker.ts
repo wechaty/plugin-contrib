@@ -5,9 +5,9 @@ import {
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-type ContactTalkerFunction      = (contact: Contact, room?: Room) => void | string | Promise<void | string>
-type ContactTalkerOption        = string | ContactTalkerFunction
-export type ContactTalkerOptions = ContactTalkerOption | ContactTalkerOption[]
+type ContactTalkerFunction        = (contact: Contact, room?: Room) => void | string | Promise<void | string>
+type ContactTalkerOption          = string | ContactTalkerFunction
+export type ContactTalkerOptions  = ContactTalkerOption | ContactTalkerOption[]
 
 export function contactTalker<T = void> (options?: ContactTalkerOptions) {
   log.verbose('WechatyPluginContrib', 'contactTalker(%s)', JSON.stringify(options))
