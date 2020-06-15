@@ -62,7 +62,7 @@ test('contactTalker() with mustache', async t => {
 
   const talkContact = contactTalker<typeof view>(OPTIONS_TEXT)
 
-  await talkContact(mockContact, view)
+  await talkContact(mockContact, undefined, view)
   t.true(spy.called, 'should called the contact.say')
   t.equal(spy.args[0][0], EXPECTED_TEXT, 'should say the expected text')
 })

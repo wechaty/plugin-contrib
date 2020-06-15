@@ -1,10 +1,11 @@
 import {
   Contact,
   log,
+  Room,
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-type ContactTalkerFunction        = (contact: Contact) => void | string | Promise<void | string>
+type ContactTalkerFunction        = (contact: Contact, room?: Room) => void | string | Promise<void | string>
 type ContactTalkerOption          = string | ContactTalkerFunction
 export type ContactTalkerOptions  = ContactTalkerOption | ContactTalkerOption[]
 
@@ -21,7 +22,7 @@ export function contactTalker<T = void> (options?: ContactTalkerOptions) {
 
   const optionList = options
 
-  return async function talkContact (contact: Contact, mustacheView: T): Promise<void> {
+  return async function talkContact (contact: Contact, room?: Room, mustacheView?: T): Promise<void> {
     log.silly('WechatyPluginContrib', 'contactTalker() talkContact(%s, %s)',
       contact,
       mustacheView
@@ -34,7 +35,7 @@ export function contactTalker<T = void> (options?: ContactTalkerOptions) {
       if (typeof option === 'string') {
         text = option
       } else if (option instanceof Function) {
-        text = await option(contact)
+        text = await option(contact, room)
       } else {
         throw new Error('talkContact() option unknown: ' + option)
       }
