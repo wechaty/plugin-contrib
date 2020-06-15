@@ -7,12 +7,7 @@ import {
   ContactFinderOptions,
 }                           from '../../finders/'
 
-// import { Sayable } from 'wechaty/dist/src/types'
-
-// type FindTalkerFunction = (wechaty: Wechaty) => Sayable | Sayable[] | Promise<Sayable> | Promise<Sayable[]>
 type HeartbeatFunction  = (wechaty: Wechaty) => string | Promise<string>
-
-// export type SayableOption = string | string[] | FindTalkerFunction
 export type EmojiOption   = string | HeartbeatFunction
 
 /**

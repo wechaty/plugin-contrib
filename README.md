@@ -41,6 +41,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | 7 | FriendshipAccepter | @huan | Accept friendship automatically, and say/do something for greeting. |
 | 8 | RoomInviter | @huan | Invite user to rooms by keyword |
 | 9 | EventHotHandler | @huan | Hot reloading event handler module files |
+| 10 | RoomInvitationAccepter | @huan | Automatically accepting any room invitations |
 
 ### 1 DingDong
 
@@ -228,6 +229,15 @@ const config: HotEventHandlerConfig = {
   logout: './handlers/on0-logout',
 }
 wechaty.use(HotEventHandler(config))
+```
+
+### 10 RoomInvitationAccepter
+
+Automatically accepting any room invitations.
+
+```ts
+import { RoomInvitationAccepter } from 'wechaty-plugin-contrib'
+wechaty.use(RoomInvitationAccepter())
 ```
 
 ## Wechaty Plugin Directory

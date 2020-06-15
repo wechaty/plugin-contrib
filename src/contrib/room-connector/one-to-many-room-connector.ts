@@ -20,10 +20,6 @@ import {
   MessageMapFunction,
 }                       from './map'
 
-// import {
-//   loadRoom,
-// }             from '../utils'
-
 export interface OneToManyRoomConnectorConfig {
   /**
    * From Room ID

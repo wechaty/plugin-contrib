@@ -58,3 +58,6 @@ export {
   EventHotHandler,
   EventHotHandlerConfig,
 }                             from './contrib/event-hot-handler'
+export {
+  RoomInvitationAccepter,
+}                             from './contrib/room-invitation-accepter'
