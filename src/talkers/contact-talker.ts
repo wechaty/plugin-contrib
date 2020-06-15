@@ -1,11 +1,10 @@
 import {
   Contact,
   log,
-  Room,
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-type ContactTalkerFunction        = (contact: Contact, room?: Room) => void | string | Promise<void | string>
+type ContactTalkerFunction        = (contact: Contact) => void | string | Promise<void | string>
 type ContactTalkerOption          = string | ContactTalkerFunction
 export type ContactTalkerOptions  = ContactTalkerOption | ContactTalkerOption[]
 
