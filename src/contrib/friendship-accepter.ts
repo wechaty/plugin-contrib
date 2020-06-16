@@ -29,13 +29,13 @@ export function FriendshipAccepter (
   log.verbose('WechatyPluginContrib', 'FriendshipAccepter("%s")', JSON.stringify(config))
 
   const doGreeting     = contactTalker(config.greeting)
-  const isMatchKeyword = stringMatcher(config.keyword)
+  const isMatchKeyword = config.keyword ? stringMatcher(config.keyword) : () => true
 
   return function FriendshipAccepterPlugin (wechaty: Wechaty) {
-    log.verbose('WechatyPluginContrib', 'FriendshipAccepter installing on %s ...', wechaty)
+    log.verbose('WechatyPluginContrib', 'FriendshipAccepterPlugin installing on %s ...', wechaty)
 
     wechaty.on('friendship', async friendship => {
-      log.verbose('WechatyPluginContrib', 'FriendshipAccepter wechaty.on(friendship) %s', friendship)
+      log.verbose('WechatyPluginContrib', 'FriendshipAccepterPlugin wechaty.on(friendship) %s', friendship)
 
       const friendshipType = friendship.type()
 
