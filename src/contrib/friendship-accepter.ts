@@ -29,7 +29,9 @@ export function FriendshipAccepter (
   log.verbose('WechatyPluginContrib', 'FriendshipAccepter("%s")', JSON.stringify(config))
 
   const doGreeting     = contactTalker(config.greeting)
-  const isMatchKeyword = config.keyword ? stringMatcher(config.keyword) : () => true
+  const isMatchKeyword = config.keyword
+    ? stringMatcher(config.keyword)
+    : () => true  // accept all invitations if there's no keyword set.
 
   return function FriendshipAccepterPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'FriendshipAccepterPlugin installing on %s ...', wechaty)
