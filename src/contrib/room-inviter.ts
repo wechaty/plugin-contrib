@@ -59,6 +59,7 @@ export function RoomInviter (
 
       for (const contact of inviteeList) {
         if (contact.id in welcomeId[room.id]) {
+          await room.wechaty.sleep(1000)
           await doWelcome(room, contact)
           delete welcomeId[room.id][contact.id]
         }
