@@ -296,6 +296,17 @@ Added the following Wechaty Plugins:
 
 The `wechaty-plugin-contrib` project was kicked off by the issue [Wechaty Plugin Support with Kickout Example #1939](https://github.com/wechaty/wechaty/issues/1939) and the PR [feat: added wechaty plugin #1946](https://github.com/wechaty/wechaty/pull/1946).
 
+## Contributors
+
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/0)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/0)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/1)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/1)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/2)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/2)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/3)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/3)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/4)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/4)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/5)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/5)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/6)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/6)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/7)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/7)
+
 ## Maintainers
 
 - @gcaufy - [Gcuafy](https://github.com/Gcaufy), Creator of [WePY](https://github.com/tencent/wepy)
