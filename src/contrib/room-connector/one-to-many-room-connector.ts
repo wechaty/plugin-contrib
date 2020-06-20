@@ -13,16 +13,12 @@ import {
 import {
   MessageMatcherOptions,
   messageMatcher,
-}                           from '../../utils/'
+}                           from '../../matchers/'
 import {
   getMappedMessage,
   sayMappedMessage,
   MessageMapFunction,
 }                       from './map'
-
-// import {
-//   loadRoom,
-// }             from '../utils'
 
 export interface OneToManyRoomConnectorConfig {
   /**

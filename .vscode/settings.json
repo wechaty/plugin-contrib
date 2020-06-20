@@ -70,6 +70,9 @@
     "javascript",
     "typescript",
   ],
+  "cSpell.words": [
+    "deduped"
+  ],
 
 }
 

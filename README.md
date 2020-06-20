@@ -24,7 +24,7 @@ This package is for publishing the Wechaty Plugins that are very common used by 
 
 ## Requirements
 
-1. Wechaty v0.39.25 or above versions
+1. Wechaty v0.40 or above versions
 
 ## Plugins Contrib
 
@@ -41,6 +41,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | 7 | FriendshipAccepter | @huan | Accept friendship automatically, and say/do something for greeting. |
 | 8 | RoomInviter | @huan | Invite user to rooms by keyword |
 | 9 | EventHotHandler | @huan | Hot reloading event handler module files |
+| 10 | RoomInvitationAccepter | @huan | Automatically accepting any room invitations |
 
 ### 1 DingDong
 
@@ -217,17 +218,26 @@ const config: RoomInviterConfig = {
 wechaty.use(RoomInviter(config))
 ```
 
-### 9 HotEventHandler
+### 9 EventHotHandler
 
 Hot reloading event handler module files.
 
 ```ts
-import { HotEventHandler, HotEventHandlerConfig } from 'wechaty-plugin-contrib'
-const config: HotEventHandlerConfig = {
+import { EventHotHandler, EventHotHandlerConfig } from 'wechaty-plugin-contrib'
+const config: EventHotHandlerConfig = {
   login: './handlers/on-login',
   logout: './handlers/on0-logout',
 }
-wechaty.use(HotEventHandler(config))
+wechaty.use(EventHotHandler(config))
+```
+
+### 10 RoomInvitationAccepter
+
+Automatically accepting any room invitations.
+
+```ts
+import { RoomInvitationAccepter } from 'wechaty-plugin-contrib'
+wechaty.use(RoomInvitationAccepter())
 ```
 
 ## Wechaty Plugin Directory
@@ -240,7 +250,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 [![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib#wechaty-plugin-directory)
 
-1. [Voteout Plugin](https://github.com/Gcaufy/wechaty-voteout) by [@gcaufy](https://github.com/gcaufy) - help you to have a vote and kickout feature for you room.
+1. [VoteOut Plugin](https://github.com/Gcaufy/wechaty-voteout) by [@gcaufy](https://github.com/gcaufy) - help you to have a vote and kickout feature for you room.
 1. [Schedule](https://github.com/Gcaufy/wechaty-schedule) by [@gcaufy](https://github.com/gcaufy) - easily schedule jobs for your Wechaty bots.
 1. [GotKicked](https://github.com/wechaty/wechaty-got-kicked-out) by [@JesseWeb](https://github.com/JesseWeb) - monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
 1. [WebPanel](https://github.com/gengchen528/wechaty-web-panel) by [@Leo_chen](https://github.com/gengchen528) - help you quickly access the web panel
@@ -248,6 +258,11 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 ## History
 
 ### master
+
+### v0.10 (Jun 14, 2020)
+
+1. export `talkers.*`, `finders.*`, and `matchers.*`
+1. Add [Mustache](https://github.com/janl/mustache.js) template & view support for all talkers.
 
 ### v0.8 (Jun 13, 2020)
 
@@ -280,6 +295,17 @@ Added the following Wechaty Plugins:
 ### v0.0.1 (Apr 2020)
 
 The `wechaty-plugin-contrib` project was kicked off by the issue [Wechaty Plugin Support with Kickout Example #1939](https://github.com/wechaty/wechaty/issues/1939) and the PR [feat: added wechaty plugin #1946](https://github.com/wechaty/wechaty/pull/1946).
+
+## Contributors
+
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/0)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/0)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/1)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/1)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/2)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/2)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/3)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/3)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/4)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/4)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/5)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/5)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/6)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/6)
+[![contributor](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/images/7)](https://sourcerer.io/fame/huan/wechaty/wechaty-plugin-contrib/links/7)
 
 ## Maintainers
 

@@ -15,7 +15,7 @@ import {
 import {
   roomFinder,
   contactFinder,
-}                           from '../../utils/'
+}                           from '../../finders/'
 
 import {
   HeartbeatConfig,
@@ -23,12 +23,12 @@ import {
 }                        from './options'
 import { sayEmoji }       from './say-emoji'
 
-function heartbeater () {
+function heart () {
   let timer: undefined | NodeJS.Timer
 
   const cleanTimer = () => {
     if (timer) {
-      log.silly('WechatyPluginContrib', 'Heartbeat heartbeater() cleanTimer() cleaning previous timer')
+      log.silly('WechatyPluginContrib', 'Heartbeat heart() cleanTimer() cleaning previous timer')
       clearInterval(timer)
       timer = undefined
     }
@@ -38,12 +38,12 @@ function heartbeater () {
     talkerList : Sayable[],
     config    : HeartbeatConfig,
   ) => {
-    log.verbose('WechatyPluginContrib', 'Heartbeat heartbeater...')
+    log.verbose('WechatyPluginContrib', 'Heartbeat heart()...')
 
     const emojiHeartbeatOption = config.emoji?.heartbeat
 
     if (!emojiHeartbeatOption) {
-      log.silly('WechatyPluginContrib', 'Heartbeat heartbeater no emoji heartbeat option')
+      log.silly('WechatyPluginContrib', 'Heartbeat heart() no emoji heartbeat option')
       return cleanTimer
     }
 
@@ -53,7 +53,7 @@ function heartbeater () {
       sayEmoji('heartbeat', talkerList, emojiHeartbeatOption),
       config.intervalSeconds * 1000,
     )
-    log.silly('WechatyPluginContrib', 'Heartbeat heartbeater new timer set')
+    log.silly('WechatyPluginContrib', 'Heartbeat heart() new timer set')
 
     return cleanTimer
   }
@@ -67,7 +67,7 @@ export function Heartbeat (
 
   const normalizedConfig = buildConfig(config)
 
-  const heartbeat = heartbeater()
+  const heartbeat = heart()
 
   const getContactList = contactFinder(normalizedConfig.contact)
   const getRoomList    = roomFinder(normalizedConfig.room)

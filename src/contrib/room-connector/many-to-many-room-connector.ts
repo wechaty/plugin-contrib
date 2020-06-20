@@ -13,7 +13,7 @@ import {
 import {
   MessageMatcherOptions,
   messageMatcher,
-}                         from '../../utils/'
+}                         from '../../matchers/'
 
 import {
   getMappedMessage,
