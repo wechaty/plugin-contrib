@@ -61,3 +61,7 @@ export {
 export {
   RoomInvitationAccepter,
 }                             from './contrib/room-invitation-accepter'
+
+export {
+  MessageAwaiter,
+}                             from './contrib/message-awaiter'
