@@ -11,13 +11,13 @@ import {
  * 1. `undefined` means drop the message
  * 1. `Message` means forward the original message
  */
-type MappedMessage =  undefined
-                      | Message
-                      | string
-                      | FileBox
-                      | Contact
-                      | UrlLink
-                      | MiniProgram
+export type MappedMessage =   undefined
+                            | Message
+                            | string
+                            | FileBox
+                            | Contact
+                            | UrlLink
+                            | MiniProgram
 type MessageMapperFunction = (message: Message) =>  MappedMessage
                                                   | MappedMessage[]
                                                   | Promise<

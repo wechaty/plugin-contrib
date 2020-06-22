@@ -18,7 +18,7 @@ When you find yourself writing repetitive code, it's time to extract it into a p
 
 Wechaty has a great support for using Plugins by calling `Wechaty.use(WechatyPlugin())`. A Wechaty Plugin is a JavaScript function that returns a function which accepts a Wechaty instance.
 
-The first Wechaty Plugin system was design by our core team developer [@gcaufy](https://github.com/gcaufy) from issue [#1939](https://github.com/wechaty/wechaty/issues/1939)(Wechaty Plugin Support with Kickout Example) to PR [#1946](https://github.com/wechaty/wechaty/pull/1946)(feat: added wechaty plugin).
+The first Wechaty Plugin system was design by our core team developer [@gcaufy](https://github.com/gcaufy) from issue [#1939](https://github.com/wechaty/wechaty/issues/1939)(Wechaty Plugin Support with Kick out Example) to PR [#1946](https://github.com/wechaty/wechaty/pull/1946)(feat: added wechaty plugin).
 
 This package is for publishing the Wechaty Plugins that are very common used by the core developer team.
 
@@ -121,8 +121,8 @@ const config = {
   room : 'xxx@chatroom',      // required: room id for ChatOps
   at?  : true,                // default: true - Response to Mention Self (@/at) Message in Room
   dm?  : true,                // default: true - Response to Direct Message
-  whitelist?: ChatOpsFilter,  // whitelist for messates that allow to send to ChatOps Room
-  blacklist?: ChatOpsFilter,  // blacklist for messates that forbidden to send to ChatOps Room
+  whitelist?: ChatOpsFilter,  // whitelist for messages that allow to send to ChatOps Room
+  blacklist?: ChatOpsFilter,  // blacklist for messages that forbidden to send to ChatOps Room
 }
 
 wechaty.use(ChatOps(config))
@@ -250,7 +250,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 [![Wechaty Plugin Contrib](https://img.shields.io/badge/Wechaty%20Plugin-Directory-brightgreen.svg)](https://github.com/wechaty/wechaty-plugin-contrib#wechaty-plugin-directory)
 
-1. [VoteOut Plugin](https://github.com/Gcaufy/wechaty-voteout) by [@gcaufy](https://github.com/gcaufy) - help you to have a vote and kickout feature for you room.
+1. [VoteOut Plugin](https://github.com/Gcaufy/wechaty-voteout) by [@gcaufy](https://github.com/gcaufy) - help you to have a vote and kick out feature for you room.
 1. [Schedule](https://github.com/Gcaufy/wechaty-schedule) by [@gcaufy](https://github.com/gcaufy) - easily schedule jobs for your Wechaty bots.
 1. [GotKicked](https://github.com/wechaty/wechaty-got-kicked-out) by [@JesseWeb](https://github.com/JesseWeb) - monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
 1. [WebPanel](https://github.com/gengchen528/wechaty-web-panel) by [@Leo_chen](https://github.com/gengchen528) - help you quickly access the web panel
@@ -261,8 +261,9 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### v0.10 (Jun 14, 2020)
 
-1. export `talkers.*`, `finders.*`, and `matchers.*`
+1. Export `talkers.*`, `finders.*`, and `matchers.*`
 1. Add [Mustache](https://github.com/janl/mustache.js) template & view support for all talkers.
+1. Add `mappers.MessageMapper`
 
 ### v0.8 (Jun 13, 2020)
 
