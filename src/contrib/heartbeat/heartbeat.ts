@@ -15,7 +15,7 @@ import {
 import {
   roomFinder,
   contactFinder,
-}                           from '../../finders/'
+}                           from '../../finders/mod'
 
 import {
   HeartbeatConfig,

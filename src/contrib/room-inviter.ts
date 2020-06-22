@@ -15,15 +15,15 @@ import {
   RoomTalkerOptions,
   contactTalker,
   roomTalker,
-}                           from '../talkers/'
+}                           from '../talkers/mod'
 import {
   StringMatcherOptions,
   stringMatcher,
-}                           from '../matchers/'
+}                           from '../matchers/mod'
 import {
   RoomFinderOptions,
   roomFinder,
-}                           from '../finders/'
+}                           from '../finders/mod'
 
 export interface RoomInviterConfig {
   password : StringMatcherOptions,

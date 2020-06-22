@@ -4,7 +4,7 @@ import {
   test,
 }             from 'tstest'
 
-import * as plugins             from '../src/'
+import * as plugins             from '../src/mod'
 
 import {
   Wechaty,

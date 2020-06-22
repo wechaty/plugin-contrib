@@ -2,7 +2,7 @@
 
 import test  from 'tstest'
 
-import * as contrib from './index'
+import * as contrib from './mod'
 
 test('Make sure the module export list is expected', async (t) => {
   t.ok(contrib.DingDong, 'should has #1 DingDong')
