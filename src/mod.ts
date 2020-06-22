@@ -34,7 +34,6 @@ export {
   ManyToOneRoomConnectorConfig,
   ManyToManyRoomConnector,
   ManyToManyRoomConnectorConfig,
-  RoomConnectorMessageMapFunction,
 }                                     from './contrib/room-connector/mod'
 export {
   QRCodeTerminal,

@@ -46,7 +46,7 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
         msg = option
       }
 
-      if (!msg) { return }
+      if (!msg) { continue }
 
       if (typeof msg === 'string') {
         if (mustacheView) {

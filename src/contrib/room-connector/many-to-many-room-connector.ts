@@ -14,7 +14,6 @@ import {
   MessageMatcherOptions,
   messageMatcher,
 }                         from '../../matchers/mod'
-
 import {
   messageMapper,
   MessageMapperOptions,
