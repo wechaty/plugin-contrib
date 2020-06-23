@@ -11,7 +11,9 @@ import Mustache from  'mustache'
 
 import * as mapper from '../mappers/message-mapper'
 
-export function messageTalker<T = void> (options?: mapper.MessageMapperOptions) {
+export type MessageTalkerOptions = mapper.MessageMapperOptions
+
+export function messageTalker<T = void> (options?: MessageTalkerOptions) {
   log.verbose('WechatyPluginContrib', 'messageTalker(%s)', JSON.stringify(options))
 
   if (!options) {
