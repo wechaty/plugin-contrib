@@ -42,6 +42,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | 8 | RoomInviter | @huan | Invite user to rooms by keyword |
 | 9 | EventHotHandler | @huan | Hot reloading event handler module files |
 | 10 | RoomInvitationAccepter | @huan | Automatically accepting any room invitations |
+| 11 | MessageAwaiter | @ssine | Wait for a particular message using `await` syntax |
 
 ### 1 DingDong
 
@@ -239,6 +240,29 @@ Automatically accepting any room invitations.
 import { RoomInvitationAccepter } from 'wechaty-plugin-contrib'
 wechaty.use(RoomInvitationAccepter())
 ```
+
+### 11 MessageAwaiter
+
+- Description: Wait for a particular message using `await` syntax (`await bot.waitForMessage(...)`).
+- Author: @ssine
+
+```ts
+import { MessageAwaiter } from 'wechaty-plugin-contrib'
+wechaty.use(MessageAwaiter())
+
+wechaty.on('message' async (message) => {
+  if (message.text() === 'whatever triggers the dialog') {
+    await message.say('hint message')
+
+    // wait for the reply from the same sender
+    let reply = await wechaty.waitForMessage({ contact: msg.from()?.id, room: msg.room()?.id })
+
+    // do anything you want...
+  }
+})
+```
+
+Other arguments include `regex` which is tested on the message and `timeoutSecond` which automatically rejects the dialog after specified seconds.
 
 ## Wechaty Plugin Directory
 
