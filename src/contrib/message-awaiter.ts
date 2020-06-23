@@ -9,10 +9,12 @@ import {
   log,
 } from 'wechaty'
 
+import * as matchers from '../matchers/'
+
 type MessageAwaiterArgs = {
-  contactId?: string,
-  roomId?: string,
-  regex?: RegExp,
+  contact?: matchers.ContactMatcherOptions,
+  room?: matchers.RoomMatcherOptions,
+  text?: matchers.StringMatcherOptions,
   timeoutSecond?: number
 }
 
@@ -31,32 +33,33 @@ export function MessageAwaiter (): WechatyPlugin {
     log.verbose('WechatyPluginContrib', 'MessageAwaiter installing on %s ...', wechaty)
 
     wechaty.waitForMessage = async (args: MessageAwaiterArgs): Promise<Message> => {
-      let { contactId, roomId, regex, timeoutSecond } = args
-      let waitTime = new Date()
+      const matchContact = matchers.contactMatcher(args.contact)
+      const matchRoom = matchers.roomMatcher(args.room)
+      const matchString = matchers.stringMatcher(args.text)
+      const waitTime = new Date()
 
       return new Promise<Message>((resolve, reject) => {
 
-        let callback = async (message: Message) => {
-          let messageFrom = message.from()
-          let messageRoom = message.room()
+        const callback = async (message: Message) => {
+          const messageFrom = message.from()
+          const messageRoom = message.room()
           if (message.date() < waitTime) return
-          if (contactId && messageFrom?.id !== contactId) return
-          if (roomId && messageRoom?.id !== roomId) return
-          if (regex && !regex.test(message.text())) return
+          if (args.contact && !(messageFrom && await matchContact(messageFrom))) return
+          if (args.room && !(messageRoom && await matchRoom(messageRoom))) return
+          if (args.text && !await matchString(message.text())) return
           wechaty.off('message', callback)
           resolve(message)
         }
 
         wechaty.on('message', callback)
 
-        if (timeoutSecond) {
+        if (args.timeoutSecond) {
           setTimeout(() => {
             wechaty.off('message', callback)
             reject(Error('timed out'))
-          }, timeoutSecond * 1000)
+          }, args.timeoutSecond * 1000)
         }
 
-        log.verbose('begin waiting for message from %s', contactId)
       })
     }
   }

@@ -40,7 +40,7 @@ bot.on('message', async (msg) => {
   if (msg.text() === 'repeat me') {
 
     await msg.say('what to repeat?')
-    let repeatMsg = await bot.waitForMessage({ contactId: msg.from()?.id, roomId: msg.room()?.id })
+    let repeatMsg = await bot.waitForMessage({ contact: msg.from()?.id, room: msg.room()?.id })
     await repeatMsg.say(repeatMsg.text())
 
   } else if (msg.text() === 'test') {
@@ -48,9 +48,9 @@ bot.on('message', async (msg) => {
     await msg.say('please reply a message with digits in a minute')
     try {
       let repeatMsg = await bot.waitForMessage({
-        contactId: msg.from()?.id,
-        regex: /\d/,
-        roomId: msg.room()?.id,
+        contact: msg.from()?.id,
+        room: msg.room()?.id,
+        text: /\d/,
         timeoutSecond: 60,
       })
       await repeatMsg.say(repeatMsg.text())
