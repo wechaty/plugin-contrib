@@ -1,6 +1,7 @@
-import * as finders   from './finders/'
-import * as matchers  from './matchers/'
-import * as talkers   from './talkers/'
+import * as finders   from './finders/mod'
+import * as matchers  from './matchers/mod'
+import * as talkers   from './talkers/mod'
+import * as mappers   from './mappers/mod'
 
 /**
  * Plugin utility helper functions
@@ -8,6 +9,7 @@ import * as talkers   from './talkers/'
 export {
   finders,
   matchers,
+  mappers,
   talkers,
 }
 
@@ -20,11 +22,11 @@ export {
 export {
   DingDong,
   DingDongConfig,
-}                                     from './contrib/ding-dong/'
+}                                     from './contrib/ding-dong/mod'
 export {
   Heartbeat,
   HeartbeatConfig,
-}                                     from './contrib/heartbeat/'
+}                                     from './contrib/heartbeat/mod'
 export {
   OneToManyRoomConnector,
   OneToManyRoomConnectorConfig,
@@ -32,8 +34,7 @@ export {
   ManyToOneRoomConnectorConfig,
   ManyToManyRoomConnector,
   ManyToManyRoomConnectorConfig,
-  RoomConnectorMessageMapFunction,
-}                                     from './contrib/room-connector/'
+}                                     from './contrib/room-connector/mod'
 export {
   QRCodeTerminal,
   QRCodeTerminalConfig,

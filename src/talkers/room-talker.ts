@@ -3,11 +3,17 @@ import {
   log,
   Room,
   Contact,
+  FileBox,
+  UrlLink,
+  MiniProgram,
+  Message,
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-type RoomTalkerFunction       = (room: Room, contact: Contact) => void | string | Promise<void | string>
-type RoomTalkerOption         = string | RoomTalkerFunction
+import { MappedMessage } from '../mappers/message-mapper'
+
+type RoomTalkerFunction       = (room: Room, contact?: Contact) => MappedMessage | Promise<MappedMessage>
+type RoomTalkerOption         = MappedMessage | RoomTalkerFunction
 export type RoomTalkerOptions = RoomTalkerOption | RoomTalkerOption[]
 
 export function roomTalker<T = void> (options?: RoomTalkerOptions) {
@@ -23,7 +29,7 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
 
   const optionList = options
 
-  return async function talkRoom (room: Room, contact: Contact, mustacheView: T): Promise<void> {
+  return async function talkRoom (room: Room, contact?: Contact, mustacheView?: T): Promise<void> {
     log.silly('WechatyPluginContrib', 'roomTalker() talkRoom(%s, %s)',
       room,
       contact,
@@ -33,27 +39,41 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
     )
 
     for (const option of optionList) {
-      let text
-      if (typeof option === 'string') {
-        text = option
-      } else if (option instanceof Function) {
-        text = await option(room, contact)
+      let msg
+      if (option instanceof Function) {
+        msg = await option(room, contact)
       } else {
-        throw new Error('talkRoom() option unknown: ' + option)
+        msg = option
       }
 
-      if (text) {
+      if (!msg) { continue }
+
+      if (typeof msg === 'string') {
         if (mustacheView) {
-          text = Mustache.render(text, mustacheView)
+          msg = Mustache.render(msg, mustacheView)
         }
         if (contact) {
-          await room.say(text, contact)
+          await room.say(msg, contact)
         } else {
-          await room.say(text)
+          await room.say(msg)
         }
       }
 
-      await room.wechaty.sleep(5 * 1000)
+      /**
+       * Super verbose
+       *  https://github.com/microsoft/TypeScript/issues/14107
+       */
+      else if (msg instanceof FileBox)      { await room.say(msg) }
+      else if (msg instanceof Contact)      { await room.say(msg) }
+      else if (msg instanceof UrlLink)      { await room.say(msg) }
+      else if (msg instanceof MiniProgram)  { await room.say(msg) }
+      else if (msg instanceof Message)      { await room.say(msg) }
+
+      else {
+        throw new Error('talkRoom() msg unknown: ' + msg)
+      }
+
+      await room.wechaty.sleep(1000)
     }
   }
 }

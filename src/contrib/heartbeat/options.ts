@@ -5,7 +5,7 @@ import {
 import {
   RoomFinderOptions,
   ContactFinderOptions,
-}                           from '../../finders/'
+}                           from '../../finders/mod'
 
 type HeartbeatFunction  = (wechaty: Wechaty) => string | Promise<string>
 export type EmojiOption   = string | HeartbeatFunction

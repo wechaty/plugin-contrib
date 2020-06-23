@@ -13,12 +13,14 @@ import {
 import {
   MessageMatcherOptions,
   messageMatcher,
-}                           from '../../matchers/'
+}                           from '../../matchers/mod'
 import {
-  getMappedMessage,
-  sayMappedMessage,
-  MessageMapFunction,
-}                       from './map'
+  messageMapper,
+  MessageMapperOptions,
+}                         from '../../mappers/mod'
+import {
+  roomTalker,
+}                         from '../../talkers/mod'
 
 export interface OneToManyRoomConnectorConfig {
   /**
@@ -33,7 +35,7 @@ export interface OneToManyRoomConnectorConfig {
   blacklist?: MessageMatcherOptions,
   whitelist?: MessageMatcherOptions,
 
-  map?: MessageMapFunction,
+  map?: MessageMapperOptions,
 }
 
 export const isMatchConfig = (config: OneToManyRoomConnectorConfig) => {
@@ -75,22 +77,29 @@ export function OneToManyRoomConnector (
     JSON.stringify(config),
   )
 
-  const isMatch = isMatchConfig(config)
+  const isMatch     = isMatchConfig(config)
+  const mapMessage  = messageMapper(config.map)
 
-  const matchAndForward = (message: Message, roomList: Room[]) => {
-    isMatch(message).then(async match => {
-      // eslint-disable-next-line promise/always-return
-      if (match) {
-        const msgList = await getMappedMessage(message, config.map)
-        if (msgList) {
-          await sayMappedMessage(msgList, roomList)
-        }
+  const matchAndForward = async (message: Message, roomList: Room[]) => {
+    const match = await isMatch(message)
+    if (!match) { return }
+
+    try {
+      const msgList = await mapMessage(message)
+      const talkRoom = roomTalker(msgList)
+
+      for (const room of roomList) {
+        await talkRoom(room)
+        await room.wechaty.sleep(1000)
       }
-    }).catch(e => log.error('WechatyPluginContrib', 'OneToManyRoomConnector() filterThenToManyRoom(%s, %s) rejection: %s',
-      message,
-      roomList.join(','),
-      e,
-    ))
+
+    } catch (e) {
+      log.error('WechatyPluginContrib', 'OneToManyRoomConnector() filterThenToManyRoom(%s, %s) rejection: %s',
+        message,
+        roomList.join(','),
+        e,
+      )
+    }
   }
 
   return function OneToManyRoomConnectorPlugin (wechaty: Wechaty) {
@@ -105,7 +114,7 @@ export function OneToManyRoomConnector (
         manyRoomList = config.many.map(id => wechaty.Room.load(id))  // await loadRoom(wechaty, config.many)
       }
 
-      matchAndForward(onceMsg, manyRoomList)
+      await matchAndForward(onceMsg, manyRoomList)
       wechaty.on('message', message => matchAndForward(message, manyRoomList))
     })
   }

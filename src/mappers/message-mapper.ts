@@ -4,55 +4,75 @@ import {
   FileBox,
   UrlLink,
   MiniProgram,
-  Room,
+  log,
 }               from 'wechaty'
 
 /**
  * 1. `undefined` means drop the message
  * 1. `Message` means forward the original message
  */
-type MessageMappedType = undefined | Message | string | FileBox | Contact | UrlLink | MiniProgram
-type MessageMapFunction = (message: Message) => Promise<MessageMappedType | MessageMappedType[]>
-type MessageMapOption = MessageMappedType | MessageMapFunction
-export type MessageMapOptions = MessageMapOption | MessageMapOption[]
+export type MappedMessage =   undefined
+                            | Message
+                            | string
+                            | FileBox
+                            | Contact
+                            | UrlLink
+                            | MiniProgram
+type MessageMapperFunction = (message: Message) =>  MappedMessage
+                                                  | MappedMessage[]
+                                                  | Promise<
+                                                        MappedMessage
+                                                      | MappedMessage[]
+                                                    >
+type MessageMapperOption         = MappedMessage | MessageMapperFunction
+export type MessageMapperOptions = MessageMapperOption | MessageMapperOption[]
 
-async function getMappedMessage (
-  message: Message,
-  mapFunc?: MessageMapFunction,
-): Promise<MessageMappedType[]> {
+function messageMapper (
+  mapperOptions: MessageMapperOptions,
+) {
+  log.verbose('WechatyPluginContrib', 'messageMapper(%s)', JSON.stringify(mapperOptions))
 
-  if (!mapFunc) {
-    return [ message ]
+  return async function mapMessage (message: Message): Promise<MappedMessage[]> {
+    log.verbose('WechatyPluginContrib', 'mapMessage(%s)', message)
+
+    return normalizeMappedMessageList(mapperOptions, message)
   }
-
-  let mappedMsgList = await mapFunc(message)
-  if (!mappedMsgList) {
-    mappedMsgList = []
-  } else if (!Array.isArray(mappedMsgList)) {
-    mappedMsgList = [ mappedMsgList ]
-  }
-  return mappedMsgList
 }
 
-async function sayMappedMessage (
-  mappedMsgList: MessageMappedType[],
-  roomList: Room[],
-): Promise<void> {
-  for (const room of roomList) {
-    for (const msg of mappedMsgList) {
-      if (msg) {
-        if (msg instanceof Message) {
-          await msg.forward(room)
-        } else {
-          await room.say(msg as any)
-        }
-        await room.wechaty.sleep(1000)
+async function normalizeMappedMessageList (
+  options: MessageMapperOptions,
+  message: Message,
+): Promise<MappedMessage[]> {
+  log.verbose('WechatyPluginContrib', 'normalizeMappedMessageList(%s, %s)',
+    JSON.stringify(options),
+    message,
+  )
+
+  let msgList = [] as MappedMessage[]
+
+  let optionList
+  if (Array.isArray(options)) {
+    optionList = options
+  } else {
+    optionList = [ options ]
+  }
+
+  for (const option of optionList) {
+    if (!option) { continue }
+
+    if (typeof option === 'function') {
+      const ret = await option(message)
+      if (ret) {
+        msgList.push(...await normalizeMappedMessageList(ret, message))
       }
+    } else {
+      msgList.push(option)
     }
   }
+
+  return msgList
 }
 
 export {
-  getMappedMessage,
-  sayMappedMessage,
+  messageMapper,
 }

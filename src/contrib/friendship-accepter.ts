@@ -12,11 +12,11 @@ import {
 import {
   StringMatcherOptions,
   stringMatcher,
-}                         from '../matchers/'
+}                         from '../matchers/mod'
 import {
   contactTalker,
   ContactTalkerOptions,
-}                         from '../talkers/'
+}                         from '../talkers/mod'
 
 export interface FriendshipAccepterConfig {
   greeting?: ContactTalkerOptions,
