@@ -42,6 +42,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | 8 | RoomInviter | @huan | Invite user to rooms by keyword |
 | 9 | EventHotHandler | @huan | Hot reloading event handler module files |
 | 10 | RoomInvitationAccepter | @huan | Automatically accepting any room invitations |
+| 11 | MessageAwaiter | @ssine | Wait for a particular message using `await` syntax |
 
 ### 1 DingDong
 
@@ -240,6 +241,29 @@ import { RoomInvitationAccepter } from 'wechaty-plugin-contrib'
 wechaty.use(RoomInvitationAccepter())
 ```
 
+### 11 MessageAwaiter
+
+- Description: Wait for a particular message using `await` syntax (`await bot.waitForMessage(...)`).
+- Author: @ssine
+
+```ts
+import { MessageAwaiter } from 'wechaty-plugin-contrib'
+wechaty.use(MessageAwaiter())
+
+wechaty.on('message' async (message) => {
+  if (message.text() === 'whatever triggers the dialog') {
+    await message.say('hint message')
+
+    // wait for the reply from the same sender
+    let reply = await wechaty.waitForMessage({ contact: msg.from()?.id, room: msg.room()?.id })
+
+    // do anything you want...
+  }
+})
+```
+
+Other arguments include `regex` which is tested on the message and `timeoutSecond` which automatically rejects the dialog after specified seconds.
+
 ## Wechaty Plugin Directory
 
 The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
@@ -254,6 +278,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 1. [Schedule](https://github.com/Gcaufy/wechaty-schedule) by [@gcaufy](https://github.com/gcaufy) - easily schedule jobs for your Wechaty bots.
 1. [GotKicked](https://github.com/wechaty/wechaty-got-kicked-out) by [@JesseWeb](https://github.com/JesseWeb) - monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
 1. [WebPanel](https://github.com/gengchen528/wechaty-web-panel) by [@Leo_chen](https://github.com/gengchen528) - help you quickly access the web panel
+1. [Intercom](https://github.com/wechaty/wechaty-plugin-intercom) by [@huan](https://github.com/huan) - helps you to manage your customers/leads/users in the WeChat Room, with the power of the Intercom service.
 
 ## History
 
