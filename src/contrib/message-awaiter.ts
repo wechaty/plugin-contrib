@@ -9,7 +9,7 @@ import {
   log,
 } from 'wechaty'
 
-import * as matchers from '../matchers/'
+import * as matchers from '../matchers/mod'
 
 type MessageAwaiterArgs = {
   contact?: matchers.ContactMatcherOptions,
