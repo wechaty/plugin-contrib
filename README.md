@@ -255,7 +255,7 @@ wechaty.on('message' async (message) => {
     await message.say('hint message')
 
     // wait for the reply from the same sender
-    let reply = await wechaty.waitForMessage({ contactId: msg.from()?.id, roomId: msg.room()?.id })
+    let reply = await wechaty.waitForMessage({ contact: msg.from()?.id, room: msg.room()?.id })
 
     // do anything you want...
   }
