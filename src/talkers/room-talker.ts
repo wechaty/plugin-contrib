@@ -60,7 +60,7 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
       }
 
       /**
-       * Super verbose
+       * Super verbose:
        *  https://github.com/microsoft/TypeScript/issues/14107
        */
       else if (msg instanceof FileBox)      { await room.say(msg) }

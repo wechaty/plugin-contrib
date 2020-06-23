@@ -1,25 +1,24 @@
+/* eslint-disable brace-style */
 import {
   Message,
   log,
+  FileBox,
+  Contact,
+  UrlLink,
+  MiniProgram,
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-type MessageTalkerFunction      = (message: Message) => void | string | Promise<void | string>
-type MessageTalkerOption        = string | MessageTalkerFunction
-export type MessageTalkerOptions = MessageTalkerOption | MessageTalkerOption[]
+import * as mapper from '../mappers/message-mapper'
 
-export function messageTalker<T = void> (options?: MessageTalkerOptions) {
+export function messageTalker<T = void> (options?: mapper.MessageMapperOptions) {
   log.verbose('WechatyPluginContrib', 'messageTalker(%s)', JSON.stringify(options))
 
   if (!options) {
     return () => undefined
   }
 
-  if (!Array.isArray(options)) {
-    options = [ options ]
-  }
-
-  const optionList = options
+  const mapMessage = mapper.messageMapper(options)
 
   return async function talkMessage (message: Message, mustacheView: T): Promise<void> {
     log.silly('WechatyPluginContrib', 'messageTalker() talkMessage(%s, %s)',
@@ -29,24 +28,31 @@ export function messageTalker<T = void> (options?: MessageTalkerOptions) {
         : '',
     )
 
-    for (const option of optionList) {
-      let text
-      if (typeof option === 'string') {
-        text = option
-      } else if (option instanceof Function) {
-        text = await option(message)
-      } else {
-        throw new Error('talkMessage() option unknown: ' + option)
-      }
+    const msgList = await mapMessage(message)
 
-      if (text) {
+    for (const msg of msgList) {
+      if (!msg) { continue }
+
+      if (typeof msg === 'string') {
+        let text = msg
         if (mustacheView) {
-          text = Mustache.render(text, mustacheView)
+          text = Mustache.render(msg, mustacheView)
         }
         await message.say(text)
+      } else {
+        /**
+         * Super verbose:
+         *  https://github.com/microsoft/TypeScript/issues/14107
+         */
+        if (msg instanceof FileBox)           { await message.say(msg) }
+        else if (msg instanceof Contact)      { await message.say(msg) }
+        else if (msg instanceof UrlLink)      { await message.say(msg) }
+        else if (msg instanceof MiniProgram)  { await message.say(msg) }
+        else if (msg instanceof Message)      { await message.say(msg) }
+        else { throw new Error('unknown msg type: ' + typeof msg) }
       }
 
-      await message.wechaty.sleep(5 * 1000)
+      await message.wechaty.sleep(1000)
     }
   }
 }
