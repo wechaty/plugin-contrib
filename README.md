@@ -42,7 +42,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | 8 | RoomInviter | @huan | Invite user to rooms by keyword |
 | 9 | EventHotHandler | @huan | Hot reloading event handler module files |
 | 10 | RoomInvitationAccepter | @huan | Automatically accepting any room invitations |
-| 11 | MessageAwaiter | @ssine | Wait for a particular message using `await` syntax |
+| 11 | MessageAwaiter | @ssine | Wait for a particular message using `await` syntax [#13](https://github.com/wechaty/wechaty-plugin-contrib/issues/13) |
 
 ### 1 DingDong
 
@@ -263,6 +263,8 @@ wechaty.on('message' async (message) => {
 ```
 
 Other arguments include `regex` which is tested on the message and `timeoutSecond` which automatically rejects the dialog after specified seconds.
+
+Learn more from [New Plugin: Message Awaiter #13](https://github.com/wechaty/wechaty-plugin-contrib/issues/13)
 
 ## Wechaty Plugin Directory
 
