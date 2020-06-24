@@ -42,7 +42,7 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 | 8 | RoomInviter | @huan | Invite user to rooms by keyword |
 | 9 | EventHotHandler | @huan | Hot reloading event handler module files |
 | 10 | RoomInvitationAccepter | @huan | Automatically accepting any room invitations |
-| 11 | MessageAwaiter | @ssine | Wait for a particular message using `await` syntax |
+| 11 | MessageAwaiter | @ssine | Wait for a particular message using `await` syntax [#13](https://github.com/wechaty/wechaty-plugin-contrib/issues/13) |
 
 ### 1 DingDong
 
@@ -264,6 +264,8 @@ wechaty.on('message' async (message) => {
 
 Other arguments include `regex` which is tested on the message and `timeoutSecond` which automatically rejects the dialog after specified seconds.
 
+Learn more from [New Plugin: Message Awaiter #13](https://github.com/wechaty/wechaty-plugin-contrib/issues/13)
+
 ## Wechaty Plugin Directory
 
 The Wechaty Plugin Contrib will only accept simple plugins which does not dependence very heavy NPM modules, and the SLOC (Source Line Of Code) is no more than 100.
@@ -279,6 +281,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 1. [GotKicked](https://github.com/wechaty/wechaty-got-kicked-out) by [@JesseWeb](https://github.com/JesseWeb) - monitor whether your bot got kicked out of group chat. Just few line of code to implement this instead fussy judging.
 1. [WebPanel](https://github.com/gengchen528/wechaty-web-panel) by [@Leo_chen](https://github.com/gengchen528) - help you quickly access the web panel
 1. [Intercom](https://github.com/wechaty/wechaty-plugin-intercom) by [@huan](https://github.com/huan) - helps you to manage your customers/leads/users in the WeChat Room, with the power of the Intercom service.
+1. [Wechaty Vorpal](https://github.com/wechaty/wechaty-vorpal) by [@huan](https://github.com/huan) - CLI for Chatbot - Extensible Commands for ChatOps, Powered by Vorpal.
 
 ## History
 
