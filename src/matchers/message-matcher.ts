@@ -4,7 +4,7 @@ import {
 }           from 'wechaty'
 
 type MessageMatcherFunction       = (msg: Message) => boolean | Promise<boolean>
-type MessageMatcherOption         = string | RegExp | MessageMatcherFunction
+type MessageMatcherOption         = boolean | string | RegExp | MessageMatcherFunction
 export type MessageMatcherOptions = MessageMatcherOption | MessageMatcherOption[]
 
 function messageMatcher (
@@ -26,30 +26,32 @@ function messageMatcher (
     log.silly('WechatyPluginContrib', 'messageMatcher() matchMessage(%s)', message)
 
     let isMatch = false
-    for (const matcher of matcherOptionList) {
-      if (typeof matcher === 'string') {
+    for (const option of matcherOptionList) {
+      if (typeof option === 'boolean') {
+        isMatch = option
+      } else if (typeof option === 'string') {
         const idCheckList = [
           message.from()?.id,
           message.room()?.id,
         ]
-        isMatch = idCheckList.includes(matcher)
-
-      } else if (matcher instanceof RegExp) {
+        isMatch = idCheckList.includes(option)
+      } else if (option instanceof RegExp) {
         const textCheckList = [
           message.text(),
           message.from()?.name(),
           await message.room()?.topic(),
         ]
-        isMatch = textCheckList.some(text => text && matcher.test(text))
-      } else if (typeof matcher === 'function') {
-        isMatch = await matcher(message)
+        isMatch = textCheckList.some(text => text && option.test(text))
+      } else if (typeof option === 'function') {
+        isMatch = await option(message)
       } else {
-        throw new Error('unknown matcher ' + matcher)
+        throw new Error('unknown matcher ' + option)
       }
 
       if (isMatch) {
         return true
       }
+
     }
     // no match
     return false

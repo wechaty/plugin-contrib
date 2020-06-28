@@ -8,7 +8,7 @@ import {
  * topic should use the RegExp as the filter
  */
 type RoomMatcherFunction       = (room: Room) => boolean | Promise<boolean>
-type RoomMatcherOption         = string | RegExp | RoomMatcherFunction
+type RoomMatcherOption         = boolean | string | RegExp | RoomMatcherFunction
 export type RoomMatcherOptions = RoomMatcherOption | RoomMatcherOption[]
 
 export function roomMatcher (
@@ -31,7 +31,9 @@ export function roomMatcher (
 
     let isMatch = false
     for (const option of matcherOptionList) {
-      if (typeof option === 'string') {
+      if (typeof option === 'boolean') {
+        isMatch = option
+      } else if (typeof option === 'string') {
         isMatch = option === room.id
       } else if (option instanceof Function) {
         isMatch = await option(room)
@@ -44,6 +46,7 @@ export function roomMatcher (
       if (isMatch) {
         return true
       }
+
     }
     // no match
     return false

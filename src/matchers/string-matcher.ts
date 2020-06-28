@@ -3,7 +3,7 @@ import {
 }           from 'wechaty'
 
 type StringMatcherFunction        = (str: string) => boolean | Promise<boolean>
-type StringMatcherOption          = string | RegExp | StringMatcherFunction
+type StringMatcherOption          = boolean | string | RegExp | StringMatcherFunction
 export type StringMatcherOptions  = StringMatcherOption | StringMatcherOption[]
 
 export function stringMatcher (options?: StringMatcherOptions) {
@@ -24,7 +24,9 @@ export function stringMatcher (options?: StringMatcherOptions) {
 
     let isMatch = false
     for (const option of optionsList) {
-      if (typeof option === 'string') {
+      if (typeof option === 'boolean') {
+        isMatch = option
+      } if (typeof option === 'string') {
         isMatch = str === option
       } else if (option instanceof RegExp) {
         isMatch = option.test(str)
@@ -37,6 +39,7 @@ export function stringMatcher (options?: StringMatcherOptions) {
       if (isMatch) {
         return true
       }
+
     }
     // no match
     return false

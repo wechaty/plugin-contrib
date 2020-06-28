@@ -4,7 +4,7 @@ import {
 }             from 'wechaty'
 
 type ContactMatcherFunction       = (contact: Contact) => boolean | Promise<boolean>
-type ContactMatcherOption         = string | RegExp | ContactMatcherFunction
+type ContactMatcherOption         = boolean | string | RegExp | ContactMatcherFunction
 export type ContactMatcherOptions = ContactMatcherOption | ContactMatcherOption[]
 
 export function contactMatcher (
@@ -27,7 +27,9 @@ export function contactMatcher (
 
     let isMatch = false
     for (const option of matcherOptionList) {
-      if (typeof option === 'string') {
+      if (typeof option === 'boolean') {
+        isMatch = option
+      } else if (typeof option === 'string') {
         isMatch = option === contact.id
       } else if (option instanceof Function) {
         isMatch = await option(contact)
