@@ -4,16 +4,20 @@
 export {
   MessageMatcherOptions,
   messageMatcher,
-}                        from './message-matcher'
+}                         from './message-matcher'
 export {
   RoomMatcherOptions,
   roomMatcher,
-}                        from './room-matcher'
+}                         from './room-matcher'
 export {
   ContactMatcherOptions,
   contactMatcher,
-}                        from './contact-matcher'
+}                         from './contact-matcher'
 export {
   StringMatcherOptions,
   stringMatcher,
-}                        from './string-matcher'
+}                         from './string-matcher'
+export {
+  LanguageMatcherOptions,
+  languageMatcher,
+}                         from './language-matcher'

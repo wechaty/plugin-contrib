@@ -292,7 +292,8 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 1. Export `talkers.*`, `finders.*`, and `matchers.*`
 1. Add [Mustache](https://github.com/janl/mustache.js) template & view support for all talkers.
-1. Add `mappers.MessageMapper`
+1. Add `mappers.messageMapper()`
+1. Add `matcher.languageMatcher()`
 
 ### v0.8 (Jun 13, 2020)
 

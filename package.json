@@ -12,6 +12,7 @@
     "test": "tests"
   },
   "dependencies": {
+    "language-monitor": "^1.0.3",
     "mustache": "^4.0.1",
     "qrcode-terminal": "^0.12.0"
   },
