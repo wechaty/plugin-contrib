@@ -36,8 +36,9 @@ function messageMatcher (
         ]
         isMatch = idCheckList.includes(option)
       } else if (option instanceof RegExp) {
+        const text = await message.mentionText()
         const textCheckList = [
-          message.text(),
+          text,
           message.from()?.name(),
           await message.room()?.topic(),
         ]
