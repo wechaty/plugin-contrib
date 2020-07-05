@@ -25,6 +25,7 @@ test('messageMatcher() with string option', async t => {
   const messageFromOk = {
     from: fromOk,
     id: TEXT_NOT_OK,
+    mentionText: textNotOk,
     room: roomNotOk,
     text: textNotOk,
   } as any as Message
@@ -32,6 +33,7 @@ test('messageMatcher() with string option', async t => {
   const messageTextOk = {
     from: fromNotOk,
     id: TEXT_NOT_OK,
+    mentionText: textOk,
     room: roomNotOk,
     text: textOk,
   } as any as Message
@@ -39,6 +41,7 @@ test('messageMatcher() with string option', async t => {
   const messageTopicOk = {
     from: fromNotOk,
     id: TEXT_NOT_OK,
+    mentionText: textNotOk,
     room: roomOk,
     text: textNotOk,
   } as any as Message
@@ -53,6 +56,7 @@ test('messageMatcher() with string option', async t => {
   const messageNotOk = {
     from: fromNotOk,
     id: TEXT_NOT_OK,
+    mentionText: textNotOk,
     room: roomNotOk,
     text: textNotOk,
   } as any as Message
