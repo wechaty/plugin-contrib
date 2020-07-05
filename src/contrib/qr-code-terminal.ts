@@ -32,11 +32,11 @@ export function QRCodeTerminal (
         })
 
         /**
-         * Generate a QR Code online via
-         *  http://goqr.me/api/doc/create-qr-code/
+         * Wechaty QR Code Image Generator:
+         *  https://github.com/wechaty/qrcode
          */
         const qrcodeImageUrl = [
-          'https://api.qrserver.com/v1/create-qr-code/?data=',
+          'https://wechaty.github.io/qrcode/',
           encodeURIComponent(qrcode),
         ].join('')
 
