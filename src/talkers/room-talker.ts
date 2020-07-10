@@ -7,12 +7,13 @@ import {
   UrlLink,
   MiniProgram,
   Message,
-  SayableMessage,
 }                 from 'wechaty'
 import Mustache   from  'mustache'
 
-type RoomTalkerFunction       = (room: Room, contact?: Contact) => SayableMessage | Promise<SayableMessage>
-type RoomTalkerOption         = SayableMessage | RoomTalkerFunction
+import * as types from '../types/mod'
+
+type RoomTalkerFunction       = (room: Room, contact?: Contact) => types.SayableMessage | Promise<types.SayableMessage>
+type RoomTalkerOption         = types.SayableMessage | RoomTalkerFunction
 export type RoomTalkerOptions = RoomTalkerOption | RoomTalkerOption[]
 
 export function roomTalker<T = void> (options?: RoomTalkerOptions) {
