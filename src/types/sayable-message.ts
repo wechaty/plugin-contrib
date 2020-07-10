@@ -14,6 +14,7 @@ import {
 export type SayableMessage =  undefined
                             | Message
                             | string
+                            | number
                             | FileBox
                             | Contact
                             | UrlLink
