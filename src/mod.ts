@@ -2,6 +2,7 @@ import * as finders   from './finders/mod'
 import * as matchers  from './matchers/mod'
 import * as talkers   from './talkers/mod'
 import * as mappers   from './mappers/mod'
+import * as types     from './types/mod'
 
 /**
  * Plugin utility helper functions
@@ -11,6 +12,7 @@ export {
   matchers,
   mappers,
   talkers,
+  types,
 }
 
 export { VERSION } from './config'

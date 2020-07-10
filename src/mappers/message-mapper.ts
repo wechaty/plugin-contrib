@@ -1,30 +1,19 @@
 import {
-  Contact,
   Message,
-  FileBox,
-  UrlLink,
-  MiniProgram,
   log,
-}               from 'wechaty'
+}                 from 'wechaty'
 
-/**
- * 1. `undefined` means drop the message
- * 1. `Message` means forward the original message
- */
-export type MappedMessage =   undefined
-                            | Message
-                            | string
-                            | FileBox
-                            | Contact
-                            | UrlLink
-                            | MiniProgram
-type MessageMapperFunction = (message: Message) =>  MappedMessage
-                                                  | MappedMessage[]
+import {
+  SayableMessage,
+}                 from '../types/mod'
+
+type MessageMapperFunction = (message: Message) =>  SayableMessage
+                                                  | SayableMessage[]
                                                   | Promise<
-                                                        MappedMessage
-                                                      | MappedMessage[]
+                                                        SayableMessage
+                                                      | SayableMessage[]
                                                     >
-type MessageMapperOption         = MappedMessage | MessageMapperFunction
+type MessageMapperOption         = SayableMessage | MessageMapperFunction
 export type MessageMapperOptions = MessageMapperOption | MessageMapperOption[]
 
 function messageMapper (
@@ -32,7 +21,7 @@ function messageMapper (
 ) {
   log.verbose('WechatyPluginContrib', 'messageMapper(%s)', JSON.stringify(mapperOptions))
 
-  return async function mapMessage (message: Message): Promise<MappedMessage[]> {
+  return async function mapMessage (message: Message): Promise<SayableMessage[]> {
     log.verbose('WechatyPluginContrib', 'mapMessage(%s)', message)
 
     return normalizeMappedMessageList(mapperOptions, message)
@@ -42,13 +31,13 @@ function messageMapper (
 async function normalizeMappedMessageList (
   options: MessageMapperOptions,
   message: Message,
-): Promise<MappedMessage[]> {
+): Promise<SayableMessage[]> {
   log.verbose('WechatyPluginContrib', 'normalizeMappedMessageList(%s, %s)',
     JSON.stringify(options),
     message,
   )
 
-  let msgList = [] as MappedMessage[]
+  let msgList = [] as SayableMessage[]
 
   let optionList
   if (Array.isArray(options)) {

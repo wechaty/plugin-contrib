@@ -7,13 +7,12 @@ import {
   UrlLink,
   MiniProgram,
   Message,
-}               from 'wechaty'
-import Mustache from  'mustache'
+  SayableMessage,
+}                 from 'wechaty'
+import Mustache   from  'mustache'
 
-import { MappedMessage } from '../mappers/message-mapper'
-
-type RoomTalkerFunction       = (room: Room, contact?: Contact) => MappedMessage | Promise<MappedMessage>
-type RoomTalkerOption         = MappedMessage | RoomTalkerFunction
+type RoomTalkerFunction       = (room: Room, contact?: Contact) => SayableMessage | Promise<SayableMessage>
+type RoomTalkerOption         = SayableMessage | RoomTalkerFunction
 export type RoomTalkerOptions = RoomTalkerOption | RoomTalkerOption[]
 
 export function roomTalker<T = void> (options?: RoomTalkerOptions) {

@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-contrib",
-  "version": "0.11.13",
+  "version": "0.13.0",
   "description": "Wechaty Plugin Ecosystem Contrib Package",
   "main": "dist/src/mod.js",
   "typings": "dist/src/mod.d.ts",
@@ -25,7 +25,7 @@
     "pkg-jq": "^0.2.4",
     "shx": "^0.3.2",
     "tstest": "^0.4.10",
-    "wechaty": "^0.41.2",
+    "wechaty": "^0.41.35",
     "wechaty-puppet-mock": "^0.22.28"
   },
   "peerDependencies": {
