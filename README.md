@@ -289,6 +289,10 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### master
 
+### v0.13 master
+
+1. Add `types.SayableMessage` and `types.toSayableMessage`
+
 ### v0.10 (Jun 14, 2020)
 
 1. Export `talkers.*`, `finders.*`, and `matchers.*`
