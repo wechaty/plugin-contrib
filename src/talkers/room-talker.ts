@@ -3,10 +3,6 @@ import {
   log,
   Room,
   Contact,
-  FileBox,
-  UrlLink,
-  MiniProgram,
-  Message,
 }                 from 'wechaty'
 import Mustache   from  'mustache'
 
@@ -60,18 +56,9 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
       }
 
       /**
-       * Super verbose:
-       *  https://github.com/microsoft/TypeScript/issues/14107
+       *  FIXME(huan): https://github.com/microsoft/TypeScript/issues/14107
        */
-      else if (msg instanceof FileBox)      { await room.say(msg) }
-      else if (msg instanceof Contact)      { await room.say(msg) }
-      else if (msg instanceof UrlLink)      { await room.say(msg) }
-      else if (msg instanceof MiniProgram)  { await room.say(msg) }
-      else if (msg instanceof Message)      { await room.say(msg) }
-
-      else {
-        throw new Error('talkRoom() msg unknown: ' + msg)
-      }
+      await room.say(msg as any)
 
       await room.wechaty.sleep(1000)
     }

@@ -2,10 +2,6 @@
 import {
   Message,
   log,
-  FileBox,
-  Contact,
-  UrlLink,
-  MiniProgram,
 }               from 'wechaty'
 import Mustache from  'mustache'
 
@@ -36,22 +32,18 @@ export function messageTalker<T = void> (options?: MessageTalkerOptions) {
       if (!msg) { continue }
 
       if (typeof msg === 'string') {
+
         let text = msg
         if (mustacheView) {
           text = Mustache.render(msg, mustacheView)
         }
         await message.say(text)
+
       } else {
         /**
-         * Super verbose:
-         *  https://github.com/microsoft/TypeScript/issues/14107
+         *  FIXME(huan): https://github.com/microsoft/TypeScript/issues/14107
          */
-        if (msg instanceof FileBox)           { await message.say(msg) }
-        else if (msg instanceof Contact)      { await message.say(msg) }
-        else if (msg instanceof UrlLink)      { await message.say(msg) }
-        else if (msg instanceof MiniProgram)  { await message.say(msg) }
-        else if (msg instanceof Message)      { await message.say(msg) }
-        else { throw new Error('unknown msg type: ' + typeof msg) }
+        await message.say(msg as any)
       }
 
       await message.wechaty.sleep(1000)
