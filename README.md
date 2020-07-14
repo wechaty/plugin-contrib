@@ -289,9 +289,12 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ### master
 
-### v0.13 master
+### v0.14 master
 
 1. Add `types.SayableMessage` and `types.toSayableMessage`
+1. Normalize config option:
+    1. `dm` renamed to `contact`
+    1. `at` renamed to `mention`
 
 ### v0.10 (Jun 14, 2020)
 
