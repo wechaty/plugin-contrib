@@ -38,15 +38,15 @@ async function * wechatyFixtures () {
   await wechaty.stop()
 }
 
-test('isMatchConfig {at: true}', async t => {
+test('isMatchConfig {mention: true}', async t => {
   for await (const {
     message,
     room,
     sandbox,
   } of wechatyFixtures()) {
     const CONFIG = {
-      at   : true,
-      room : false,
+      mention : true,
+      room    : false,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
@@ -62,14 +62,14 @@ test('isMatchConfig {at: true}', async t => {
   }
 })
 
-test('isMatchConfig {at: false}', async t => {
+test('isMatchConfig {mention: false}', async t => {
   for await (const {
     message,
     room,
   } of wechatyFixtures()) {
     const CONFIG = {
-      at: false,
-      room: true,
+      mention : false,
+      room    : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
@@ -93,8 +93,8 @@ test('isMatchConfig {room: true}', async t => {
     room,
   } of wechatyFixtures()) {
     const CONFIG = {
-      dm   : false,
-      room : true,
+      contact : false,
+      room    : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
@@ -139,8 +139,8 @@ test('isMatchConfig {dm: true}', async t => {
     room,
   } of wechatyFixtures()) {
     const CONFIG = {
-      dm   : true,
-      room : false,
+      contact : true,
+      room    : false,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
@@ -163,8 +163,8 @@ test('isMatchConfig {dm: false}', async t => {
     room,
   } of wechatyFixtures()) {
     const CONFIG = {
-      dm   : false,
-      room : true,
+      contact : false,
+      room    : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 

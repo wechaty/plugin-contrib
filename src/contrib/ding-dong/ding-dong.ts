@@ -20,12 +20,12 @@ export interface DingDongConfigObject {
    * Whether response the Room Message with mention self.
    * Default: true
    */
-  at: boolean,
+  mention: boolean,
   /**
    * Whether response to the Direct Message
    * Default: true
    */
-  dm: boolean,
+  contact: boolean,
   /**
    * Whether response in the Room
    * Default: true
@@ -36,10 +36,10 @@ export interface DingDongConfigObject {
 export type DingDongConfig = Partial<DingDongConfigObject> | DingDongConfigFunction
 
 const DEFAULT_CONFIG: DingDongConfigObject = {
-  at   : true,
-  dm   : true,
-  room : true,
-  self : true,
+  contact : true,
+  mention : true,
+  room    : true,
+  self    : true,
 }
 
 export const isMatchConfig = (config?: Partial<DingDongConfigObject>) => async (message: Message) => {
@@ -66,14 +66,14 @@ export const isMatchConfig = (config?: Partial<DingDongConfigObject>) => async (
     }
   }
 
-  if (normalizedConfig.dm) {
+  if (normalizedConfig.contact) {
     if (!message.room()) {
       log.silly('WechatyPluginContrib', 'DingDong isMatchConfig: match [dm]')
       return true
     }
   }
 
-  if (normalizedConfig.at) {
+  if (normalizedConfig.mention) {
     if (message.room() && await message.mentionSelf()) {
       log.silly('WechatyPluginContrib', 'DingDong isMatchConfig: match [at]')
       return true

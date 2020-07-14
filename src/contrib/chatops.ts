@@ -24,12 +24,12 @@ export interface ChatOpsConfig {
    * Whether response the Room Message with mention self.
    * Default: true
    */
-  at?: boolean,
+  mention?: boolean,
   /**
    * Whether response to the Direct Message
    * Default: true
    */
-  dm?: boolean,
+  contact?: boolean,
   /**
    * Blacklist & Whitelist
    */
@@ -38,8 +38,8 @@ export interface ChatOpsConfig {
 }
 
 const DEFAULT_CONFIG: Partial<ChatOpsConfig> = {
-  at : true,
-  dm : true,
+  contact : true,
+  mention : true,
 }
 
 export const isMatchConfig = (config: ChatOpsConfig) => {
@@ -66,13 +66,13 @@ export const isMatchConfig = (config: ChatOpsConfig) => {
     if (await matchWhitelist(message)) { return true  }
     if (await matchBlacklist(message)) { return false }
 
-    if (normalizedConfig.dm) {
+    if (normalizedConfig.contact) {
       if (!message.room()) {
         log.silly('WechatyPluginContrib', 'ChatOps isMatchConfig: match [dm]')
         return true
       }
     }
-    if (normalizedConfig.at) {
+    if (normalizedConfig.mention) {
       if (message.room() && await message.mentionSelf()) {
         log.silly('WechatyPluginContrib', 'ChatOps isMatchConfig: match [at]')
         return true

@@ -53,10 +53,10 @@ You are welcome to send your plugin to our contrib by creating a Pull Request!
 import { DingDong } from 'wechaty-plugin-contrib'
 
 const config = {
-  at   : true,    // default: true - Response to Mention Self (@/at) Message in Room
-  dm   : true,    // default: true - Response to Direct Message
-  room : true,    // default: true - Response to Rooms Message
-  self : true,    // default: true - Response to Message that send from the bot itself
+  mention : true,    // default: true - Response to Mention Self (@/at) Message in Room
+  contact : true,    // default: true - Response to Direct Message
+  room    : true,    // default: true - Response to Rooms Message
+  self    : true,    // default: true - Response to Message that send from the bot itself
 }
 
 wechaty.use(DingDong(config))
@@ -120,8 +120,8 @@ import { ChatOps } from 'wechaty-plugin-contrib'
 
 const config = {
   room : 'xxx@chatroom',      // required: room id for ChatOps
-  at?  : true,                // default: true - Response to Mention Self (@/at) Message in Room
-  dm?  : true,                // default: true - Response to Direct Message
+  mention?  : true,                // default: true - Response to Mention Self (@/at) Message in Room
+  contact?  : true,                // default: true - Response to Direct Message
   whitelist?: ChatOpsFilter,  // whitelist for messages that allow to send to ChatOps Room
   blacklist?: ChatOpsFilter,  // blacklist for messages that forbidden to send to ChatOps Room
 }
