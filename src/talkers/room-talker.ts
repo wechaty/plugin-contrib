@@ -26,9 +26,9 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
   const optionList = options
 
   return async function talkRoom (room: Room, contact?: Contact, mustacheView?: T): Promise<void> {
-    log.silly('WechatyPluginContrib', 'roomTalker() talkRoom(%s, %s)',
+    log.verbose('WechatyPluginContrib', 'roomTalker() talkRoom(%s, %s, %s)',
       room,
-      contact,
+      contact || '',
       mustacheView
         ? JSON.stringify(mustacheView)
         : '',
@@ -53,12 +53,12 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
         } else {
           await room.say(msg)
         }
+      } else {
+        /**
+         *  FIXME(huan): https://github.com/microsoft/TypeScript/issues/14107
+         */
+        await room.say(msg as any)
       }
-
-      /**
-       *  FIXME(huan): https://github.com/microsoft/TypeScript/issues/14107
-       */
-      await room.say(msg as any)
 
       await room.wechaty.sleep(1000)
     }

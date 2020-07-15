@@ -40,6 +40,7 @@ export function contactTalker<T = void> (options?: ContactTalkerOptions) {
         throw new Error('talkContact() option unknown: ' + option)
       }
 
+      // TODO(huan, 202007): support other sayable msg types
       if (text) {
         if (mustacheView) {
           text = Mustache.render(text, mustacheView)
