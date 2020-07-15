@@ -19,7 +19,11 @@ export type MessageMapperOptions = MessageMapperOption | MessageMapperOption[]
 function messageMapper (
   mapperOptions: MessageMapperOptions,
 ) {
-  log.verbose('WechatyPluginContrib', 'messageMapper(%s)', JSON.stringify(mapperOptions))
+  log.verbose('WechatyPluginContrib', 'messageMapper(%s)',
+    typeof mapperOptions === 'function'
+      ? 'function'
+      : JSON.stringify(mapperOptions),
+  )
 
   return async function mapMessage (message: Message): Promise<SayableMessage[]> {
     log.verbose('WechatyPluginContrib', 'mapMessage(%s)', message)
