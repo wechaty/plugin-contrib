@@ -284,6 +284,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 1. [Wechaty Vorpal](https://github.com/wechaty/wechaty-vorpal) by [@huan](https://github.com/huan) - CLI for Chatbot - Extensible Commands for ChatOps, Powered by Vorpal.
 1. [Freshdesk](https://github.com/wechaty/wechaty-plugin-freshdesk) by [@huan](https://github.com/huan) - Managing Conversations in WeChat Rooms by Freshdesk.
 1. [QnAMaker](https://github.com/wechaty/wechaty-plugin-qnamaker) by [@huan](https://github.com/huan) - Wechaty QnAMaker Plugin helps you to answer questions in WeChat with the power of <https://QnAMaker.ai>.
+1. [Weixin OpenAI](https://github.com/wechaty/wechaty-weixin-openai) by [@windmemory](https://github.com/windmemory) - Wechaty Weixin OpenAI Plugin helps you to answer questions in WeChat with the power of <https://openai.weixin.qq.com>.
 
 ## History
 
