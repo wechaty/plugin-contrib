@@ -287,7 +287,6 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 1. [Weixin OpenAI](https://github.com/wechaty/wechaty-weixin-openai) by [@windmemory](https://github.com/windmemory) - Wechaty Weixin OpenAI Plugin helps you to answer questions in WeChat with the power of <https://openai.weixin.qq.com>.
 1. [YouDao Translate](https://github.com/chs97/wechaty-plugin-youdao) by [@Chs97](https://github.com/chs97) - Wechaty YouDao Translate Plugin helps you to translate word in WeChat with the power of <https://ai.youdao.com/>.
 
-
 ## History
 
 ### master
