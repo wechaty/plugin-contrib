@@ -43,15 +43,19 @@ export function FriendshipAccepter (
 
       switch (friendshipType) {
         case Friendship.Type.Receive:
-          const hello = friendship.hello()
-          if (await isMatchKeyword(hello)) {
-            await friendship.accept()
+          {
+            const hello = friendship.hello()
+            if (await isMatchKeyword(hello)) {
+              await friendship.accept()
+            }
           }
           break
 
         case Friendship.Type.Confirm:
-          const contact = friendship.contact()
-          await doGreeting(contact)
+          {
+            const contact = friendship.contact()
+            await doGreeting(contact)
+          }
           break
 
         case Friendship.Type.Verify:

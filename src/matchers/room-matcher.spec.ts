@@ -43,7 +43,7 @@ test('roomMatcher() with string option', async t => {
   t.true(await idMatcher(roomIdOk), 'should match expected room by id')
   t.false(await idMatcher(roomTopicOk), 'should not match room by topic')
 
-  const idListMatcher = roomMatcher([ TEXT_OK ])
+  const idListMatcher = roomMatcher([TEXT_OK])
 
   t.false(await idListMatcher(roomNotOk), 'should not match unexpected room by id list')
 
@@ -57,7 +57,7 @@ test('roomMatcher() with string option', async t => {
   t.false(await regexpMatcher(roomIdOk), 'should match room id by regexp')
   t.true(await regexpMatcher(roomTopicOk), 'should match expected room topic by regexp')
 
-  const regexpListMatcher = roomMatcher([ new RegExp(TEXT_OK) ])
+  const regexpListMatcher = roomMatcher([new RegExp(TEXT_OK)])
 
   t.false(await regexpListMatcher(roomNotOk), 'should not match unexpected room by regexp list')
 
@@ -76,7 +76,7 @@ test('roomMatcher() with string option', async t => {
   t.true(await functionMatcher(roomTopicOk), 'should match expected topic by function')
   t.true(await functionMatcher(roomIdOk), 'should match expected id by function')
 
-  const functionListMatcher = roomMatcher([ roomFilter ])
+  const functionListMatcher = roomMatcher([roomFilter])
 
   t.false(await functionListMatcher(roomNotOk), 'should not match unexpected room by function list')
 

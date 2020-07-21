@@ -41,13 +41,13 @@ async function normalizeMappedMessageList (
     message,
   )
 
-  let msgList = [] as SayableMessage[]
+  const msgList = [] as SayableMessage[]
 
   let optionList
   if (Array.isArray(options)) {
     optionList = options
   } else {
-    optionList = [ options ]
+    optionList = [options]
   }
 
   for (const option of optionList) {

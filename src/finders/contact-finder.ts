@@ -16,7 +16,7 @@ export function contactFinder (options?: ContactFinderOptions): ContactFinderFun
   }
 
   if (!Array.isArray(options)) {
-    options = [ options ]
+    options = [options]
   }
 
   const optionList = options

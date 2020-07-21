@@ -14,7 +14,7 @@ export function stringMatcher (options?: StringMatcherOptions) {
   }
 
   if (!Array.isArray(options)) {
-    options = [ options ]
+    options = [options]
   }
 
   const optionsList = options

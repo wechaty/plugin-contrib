@@ -20,7 +20,7 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
   }
 
   if (!Array.isArray(options)) {
-    options = [ options ]
+    options = [options]
   }
 
   const optionList = options

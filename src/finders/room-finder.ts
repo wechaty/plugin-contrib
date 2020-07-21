@@ -16,7 +16,7 @@ export function roomFinder (options?: RoomFinderOptions): RoomFinderFunction {
   }
 
   if (!Array.isArray(options)) {
-    options = [ options ]
+    options = [options]
   }
 
   const optionList = options
