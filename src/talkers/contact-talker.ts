@@ -5,8 +5,10 @@ import {
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-type ContactTalkerFunction        = (contact: Contact, room?: Room) => void | string | Promise<void | string>
-type ContactTalkerOption          = string | ContactTalkerFunction
+import * as types from '../types/mod'
+
+type ContactTalkerFunction        = (contact: Contact, room?: Room) => types.SayableMessage | Promise<types.SayableMessage>
+type ContactTalkerOption          = types.SayableMessage | ContactTalkerFunction
 export type ContactTalkerOptions  = ContactTalkerOption | ContactTalkerOption[]
 
 export function contactTalker<T = void> (options?: ContactTalkerOptions) {
@@ -31,24 +33,30 @@ export function contactTalker<T = void> (options?: ContactTalkerOptions) {
     )
 
     for (const option of optionList) {
-      let text
-      if (typeof option === 'string') {
-        text = option
-      } else if (option instanceof Function) {
-        text = await option(contact, room)
+      let msg
+      if (option instanceof Function) {
+        msg = await option(contact, room)
       } else {
-        throw new Error('talkContact() option unknown: ' + option)
+        msg = option
       }
 
-      // TODO(huan, 202007): support other sayable msg types
-      if (text) {
+      if (!msg) { continue }
+
+      if (typeof msg === 'string') {
         if (mustacheView) {
-          text = Mustache.render(text, mustacheView)
+          msg = Mustache.render(msg, mustacheView)
         }
-        await contact.say(text)
+
+        await contact.say(msg)
+
+      } else {
+        /**
+         *  FIXME(huan): https://github.com/microsoft/TypeScript/issues/14107
+         */
+        await contact.say(msg as any)
       }
 
-      await contact.wechaty.sleep(5 * 1000)
+      await contact.wechaty.sleep(1000)
     }
   }
 }
