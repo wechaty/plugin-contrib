@@ -8,10 +8,11 @@ import {
 }                 from 'wechaty'
 
 /**
- *  1. `undefined` means drop the message
+ *  1. `void` & `undefined` means drop the message
  *  1. `Message` means forward the original message
  */
-export type SayableMessage =  undefined
+export type SayableMessage =  void
+                            | undefined
                             | Message
                             | string
                             | number
