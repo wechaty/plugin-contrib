@@ -2,6 +2,7 @@
  * Author: Huan LI https://github.com/huan
  * Date: Apr 2020
  */
+/* eslint-disable sort-keys */
 import {
   Wechaty,
   WechatyPlugin,
@@ -9,7 +10,8 @@ import {
   log,
 }                   from 'wechaty'
 
-type DingDongConfigFunction = (message: Message) => boolean | Promise<boolean>
+import * as matchers from '../../matchers/mod'
+import * as talkers  from '../../talkers/mod'
 
 export interface DingDongConfigObject {
   /**
@@ -25,27 +27,66 @@ export interface DingDongConfigObject {
    * Whether response to the Direct Message
    * Default: true
    */
-  contact: boolean,
+  contact: matchers.ContactMatcherOptions,
   /**
    * Whether response in the Room
    * Default: true
    */
-  room: boolean,
+  room: matchers.RoomMatcherOptions,
+
+  ding: matchers.MessageMatcherOptions,
+  dong: talkers.MessageTalkerOptions,
 }
 
-export type DingDongConfig = Partial<DingDongConfigObject> | DingDongConfigFunction
+export type DingDongConfig = Partial<DingDongConfigObject>
 
 const DEFAULT_CONFIG: DingDongConfigObject = {
+  ding    : 'ding',
+  dong    : 'dong',
+
   contact : true,
-  mention : true,
+  mention : false,
   room    : true,
   self    : true,
 }
 
-export const isMatchConfig = (config?: Partial<DingDongConfigObject>) => async (message: Message) => {
+const isMatchConfig = (config: DingDongConfigObject) => async (message: Message) => {
   log.verbose('WechatyPluginContrib', 'DingDong isMatchConfig(%s)(%s)',
     JSON.stringify(config),
     message.toString(),
+  )
+
+  config = {
+    ...DEFAULT_CONFIG,
+    ...config,
+  }
+
+  const matchContact = matchers.contactMatcher(config.contact)
+  const matchRoom    = matchers.roomMatcher(config.room)
+
+  const matchDing = matchers.messageMatcher(config.ding)
+
+  const room = message.room()
+  if (room) {
+    if (!matchRoom(room))                     { return false }
+    if (config.mention) {
+      if (!(await message.mentionSelf()))     { return false }
+    }
+  } else {
+    if (!matchContact(message.talker()))      { return false }
+  }
+
+  if (!config.self && message.self())         { return false }
+  if (!matchDing(message))                    { return false }
+
+  return true
+}
+
+function DingDong (config?: DingDongConfig): WechatyPlugin {
+  log.verbose('WechatyPluginContrib', 'DingDong(%s)',
+    typeof config === 'undefined' ? ''
+      : typeof config === 'function' ? 'function'
+        : JSON.stringify(config)
   )
 
   const normalizedConfig: DingDongConfigObject = {
@@ -53,50 +94,8 @@ export const isMatchConfig = (config?: Partial<DingDongConfigObject>) => async (
     ...config,
   }
 
-  if (!normalizedConfig.self) {
-    if (message.self()) {
-      return false
-    }
-  }
-
-  if (normalizedConfig.room) {
-    if (message.room()) {
-      log.silly('WechatyPluginContrib', 'DingDong isMatchConfig: match [room]')
-      return true
-    }
-  }
-
-  if (normalizedConfig.contact) {
-    if (!message.room()) {
-      log.silly('WechatyPluginContrib', 'DingDong isMatchConfig: match [dm]')
-      return true
-    }
-  }
-
-  if (normalizedConfig.mention) {
-    if (message.room() && await message.mentionSelf()) {
-      log.silly('WechatyPluginContrib', 'DingDong isMatchConfig: match [at]')
-      return true
-    }
-  }
-
-  return false
-}
-
-export function DingDong (config?: DingDongConfig): WechatyPlugin {
-  log.verbose('WechatyPluginContrib', 'DingDong(%s)',
-    typeof config === 'undefined' ? ''
-      : typeof config === 'function' ? 'function'
-        : JSON.stringify(config)
-  )
-
-  let isMatch: (message: Message) => Promise<boolean>
-
-  if (typeof config === 'function') {
-    isMatch = (message: Message) => Promise.resolve(config(message))
-  } else {
-    isMatch = isMatchConfig(config)
-  }
+  const isMatch  = isMatchConfig(normalizedConfig)
+  const talkDong = talkers.messageTalker(normalizedConfig.dong)
 
   return function DingDongPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'DingDong installing on %s ...', wechaty)
@@ -106,20 +105,17 @@ export function DingDong (config?: DingDongConfig): WechatyPlugin {
         return
       }
 
-      const text = message.room()
-        ? await message.mentionText()
-        : message.text()
-
-      if (!/^ding$/i.test(text)) {
-        return
-      }
-
       if (!await isMatch(message)) {
         return
       }
 
-      await message.say('dong')
+      await talkDong(message)
     })
   }
 
+}
+
+export {
+  DingDong,
+  isMatchConfig,
 }

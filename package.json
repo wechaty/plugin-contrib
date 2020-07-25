@@ -25,8 +25,7 @@
     "pkg-jq": "^0.2.4",
     "shx": "^0.3.2",
     "tstest": "^0.4.10",
-    "wechaty": "^0.43.2",
-    "wechaty-puppet-mock": "^0.22.28"
+    "wechaty": "^0.43.8"
   },
   "peerDependencies": {
     "wechaty": "*"

@@ -1,245 +1,232 @@
 #!/usr/bin/env ts-node
 
 import test  from 'tstest'
-import sinon from 'sinon'
+// import sinon from 'sinon'
 
 import {
-  Wechaty,
-}             from 'wechaty'
+  // Wechaty,
+  Message,
+}                   from 'wechaty'
 import {
-  PuppetMock,
-}             from 'wechaty-puppet-mock'
+  createFixture,
+}                   from 'wechaty-puppet-mock/dist/src/create-fixture'
 
 import {
   isMatchConfig,
   DingDongConfigObject,
 }                             from './ding-dong'
 
-async function * wechatyFixtures () {
-  const sandbox = sinon.createSandbox()
-
-  const wechaty = new Wechaty({ puppet: new PuppetMock() })
-  await wechaty.start()
-  const message = wechaty.Message.load('mock_message_id')
-  const room = wechaty.Room.load('mock_room_id')
-
-  sandbox.stub(message, 'toString').returns('MockMessage')
-  const messageSelfStub = sandbox.stub(message, 'self').returns(false)
-
-  yield {
-    message,
-    messageSelfStub,
-    room,
-    sandbox,
-    wechaty,
-  }
-
-  sandbox.restore()
-  await wechaty.stop()
-}
-
 test('isMatchConfig {mention: true}', async t => {
-  for await (const {
-    message,
-    room,
-    sandbox,
-  } of wechatyFixtures()) {
+  for await (const fixture of createFixture()) {
     const CONFIG = {
       mention : true,
-      room    : false,
+      room    : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    sandbox.stub(message, 'room').returns(room)
-    const messageMentionSelf = sandbox.stub(message, 'mentionSelf').returns(Promise.resolve(true))
+    const room = fixture.wechaty.Room.load(fixture.room.id)
 
-    let result: boolean = await isMatch(message)
+    const mentionMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.player.say('ding', [fixture.bot]).to(fixture.room)
+    })
+    let result: boolean = await isMatch(mentionMessage)
     t.equal(result, true, 'should match for room mention self message')
 
-    messageMentionSelf.returns(Promise.resolve(false))
-    result = await isMatch(message)
+    const notMentionMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.player.say('ding').to(fixture.room)
+    })
+    result = await isMatch(notMentionMessage)
     t.equal(result, false, 'should not match for room non-mention-self message')
   }
 })
 
 test('isMatchConfig {mention: false}', async t => {
-  for await (const {
-    message,
-    room,
-  } of wechatyFixtures()) {
+  for await (const fixture of createFixture()) {
     const CONFIG = {
       mention : false,
       room    : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const sandbox = sinon.createSandbox()
+    const room = fixture.wechaty.Room.load(fixture.room.id)
 
-    sandbox.stub(message, 'room').returns(room)
-    const messageMentionSelf = sandbox.stub(message, 'mentionSelf').returns(Promise.resolve(true))
-
-    let result: boolean = await isMatch(message)
+    const mentionMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.player.say('ding', [fixture.bot]).to(fixture.room)
+    })
+    let result: boolean = await isMatch(mentionMessage)
     t.equal(result, true, 'should match for room mention self message')
 
-    messageMentionSelf.returns(Promise.resolve(false))
-    result = await isMatch(message)
-    t.equal(result, true, 'should match for room non-mention-self message')
+    const notMentionMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.player.say('ding').to(fixture.room)
+    })
+    result = await isMatch(notMentionMessage)
+    t.equal(result, true, 'should also match for room non-mention-self message')
   }
 })
 
 test('isMatchConfig {room: true}', async t => {
-  for await (const {
-    message,
-    room,
-  } of wechatyFixtures()) {
+  for await (const fixture of createFixture()) {
     const CONFIG = {
       contact : false,
       room    : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const sandbox = sinon.createSandbox()
-    const messageRoom = sandbox.stub(message, 'room').returns(room)
+    const room = fixture.wechaty.Room.load(fixture.room.id)
+    const bot = fixture.wechaty.userSelf()
 
-    let result: boolean = await isMatch(message)
+    const roomMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.player.say().to(fixture.room)
+    })
+    const directMessage = await new Promise<Message>(resolve => {
+      bot.once('message', resolve)
+      fixture.player.say().to(fixture.bot)
+    })
+    let result: boolean = await isMatch(roomMessage)
     t.equal(result, true, 'should match for room message')
 
-    messageRoom.returns(null)
-    result = await isMatch(message)
+    result = await isMatch(directMessage)
     t.equal(result, false, 'should not match for non-room message')
   }
 })
 
 test('isMatchConfig {room: false}', async t => {
-  for await (const {
-    message,
-    room,
-  } of wechatyFixtures()) {
+  for await (const fixture of createFixture()) {
     const CONFIG = {
       room: false,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const sandbox = sinon.createSandbox()
-    sandbox.stub(message, 'mentionSelf').returns(Promise.resolve(false))
-    const messageRoom = sandbox.stub(message, 'room').returns(room)
+    const room = fixture.wechaty.Room.load(fixture.room.id)
+    const bot = fixture.wechaty.userSelf()
 
-    let result: boolean = await isMatch(message)
+    const roomMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.player.say().to(fixture.room)
+    })
+    const directMessage = await new Promise<Message>(resolve => {
+      bot.once('message', resolve)
+      fixture.player.say().to(fixture.bot)
+    })
+
+    let result: boolean = await isMatch(roomMessage)
     t.equal(result, false, 'should not match for room message')
 
-    messageRoom.returns(null)
-    result = await isMatch(message)
+    result = await isMatch(directMessage)
     t.equal(result, true, 'should match for non-room message')
   }
 })
 
 test('isMatchConfig {dm: true}', async t => {
-  for await (const {
-    message,
-    room,
-  } of wechatyFixtures()) {
+  for await (const fixture of createFixture()) {
     const CONFIG = {
       contact : true,
       room    : false,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const sandbox = sinon.createSandbox()
-    const messageRoom = sandbox.stub(message, 'room').returns(null)
+    const room = fixture.wechaty.Room.load(fixture.room.id)
+    const bot = fixture.wechaty.userSelf()
 
-    let result: boolean = await isMatch(message)
-    t.equal(result, true, 'should match for direct message')
+    const roomMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.player.say().to(fixture.room)
+    })
+    const directMessage = await new Promise<Message>(resolve => {
+      bot.once('message', resolve)
+      fixture.player.say().to(fixture.bot)
+    })
 
-    sandbox.stub(message, 'mentionSelf').returns(Promise.resolve(true))
-    messageRoom.returns(room)
-    result = await isMatch(message)
-    t.equal(result, true, 'should not match for room message')
+    let result: boolean = await isMatch(roomMessage)
+    t.equal(result, false, 'should not match for room message')
+
+    result = await isMatch(directMessage)
+    t.equal(result, true, 'should match for non-room message')
   }
 })
 
 test('isMatchConfig {dm: false}', async t => {
-  for await (const {
-    message,
-    room,
-  } of wechatyFixtures()) {
+  for await (const fixture of createFixture()) {
     const CONFIG = {
       contact : false,
       room    : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const sandbox = sinon.createSandbox()
+    const room = fixture.wechaty.Room.load(fixture.room.id)
+    const bot = fixture.wechaty.userSelf()
 
-    const messageRoom = sandbox.stub(message, 'room').returns(null)
-    let result: boolean = await isMatch(message)
-    t.equal(result, false, 'should not match for direct message')
+    const roomMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.player.say().to(fixture.room)
+    })
+    const directMessage = await new Promise<Message>(resolve => {
+      bot.once('message', resolve)
+      fixture.player.say().to(fixture.bot)
+    })
 
-    messageRoom.returns(room)
-    result = await isMatch(message)
+    let result: boolean = await isMatch(roomMessage)
     t.equal(result, true, 'should match for room message')
+
+    result = await isMatch(directMessage)
+    t.equal(result, false, 'should not match for direct message')
   }
 })
 
 test('isMatchConfig {self: false}', async t => {
-  for await (const {
-    message,
-    messageSelfStub,
-    room,
-    sandbox,
-  } of wechatyFixtures()) {
+  for await (const fixture of createFixture()) {
     const CONFIG = {
       self : false,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    /**
-     * Direct Message
-     */
-    const messageRoom = sandbox.stub(message, 'room').returns(null)
+    const room = fixture.wechaty.Room.load(fixture.room.id)
+    const bot = fixture.wechaty.userSelf()
 
-    messageSelfStub.returns(true)
-    let result: boolean = await isMatch(message)
-    t.equal(result, false, 'should not match for self direct message with self:false')
+    const selfMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.bot.say().to(fixture.room)
+    })
+    const notSelfMessage = await new Promise<Message>(resolve => {
+      bot.once('message', resolve)
+      fixture.player.say().to(fixture.bot)
+    })
 
-    messageSelfStub.returns(false)
-    result = await isMatch(message)
-    t.equal(result, true, 'should not match for non-self direct message with self:false')
-
-    /**
-     * Room Message
-     */
-    messageRoom.returns(room)
-
-    messageSelfStub.returns(true)
-    result = await isMatch(message)
+    let result = await isMatch(selfMessage)
     t.equal(result, false, 'should not match for self room message with self:false')
 
-    messageSelfStub.returns(false)
-    result = await isMatch(message)
-    t.equal(result, true, 'should not match for non-self room message with self:false')
+    result = await isMatch(notSelfMessage)
+    t.equal(result, true, 'should match for non-self room message with self:false')
   }
 })
 
 test('isMatchConfig {self: true}', async t => {
-  for await (const {
-    message,
-    messageSelfStub,
-    room,
-    sandbox,
-  } of wechatyFixtures()) {
+  for await (const fixture of createFixture()) {
     const CONFIG = {
       self : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    messageSelfStub.returns(true)
+    const room = fixture.wechaty.Room.load(fixture.room.id)
 
-    const messageRoom = sandbox.stub(message, 'room').returns(null)
-    let result: boolean = await isMatch(message)
-    t.equal(result, true, 'should not match for self direct message with self:false')
+    const selfMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.bot.say().to(fixture.room)
+    })
+    const notSelfMessage = await new Promise<Message>(resolve => {
+      room.once('message', resolve)
+      fixture.player.say().to(fixture.room)
+    })
 
-    messageRoom.returns(room)
-    result = await isMatch(message)
-    t.equal(result, true, 'should not match for self room message with self:false')
+    let result = await isMatch(selfMessage)
+    t.equal(result, true, 'should match for self room message with self:true')
+
+    result = await isMatch(notSelfMessage)
+    t.equal(result, true, 'should match for non-self room message with self:true')
   }
 })
