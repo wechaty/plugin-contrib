@@ -25,7 +25,7 @@ function messageMatcher (
   const matcherOptionList = matcherOptions
 
   return async function matchMessage (message: Message): Promise<boolean> {
-    log.silly('WechatyPluginContrib', 'messageMatcher() matchMessage(%s)', message)
+    log.verbose('WechatyPluginContrib', 'messageMatcher() matchMessage(%s)', message)
 
     let isMatch = false
     for (const option of matcherOptionList) {

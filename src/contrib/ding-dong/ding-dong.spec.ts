@@ -72,6 +72,7 @@ test('isMatchConfig {room: true}', async t => {
   for await (const fixture of createFixture()) {
     const CONFIG = {
       contact : false,
+      ding: /.*/,
       room    : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
@@ -88,7 +89,7 @@ test('isMatchConfig {room: true}', async t => {
       fixture.player.say().to(fixture.bot)
     })
     let result: boolean = await isMatch(roomMessage)
-    t.equal(result, true, 'should match for room message')
+    t.equal(result, true, 'should match for room message with {room: true}')
 
     result = await isMatch(directMessage)
     t.equal(result, false, 'should not match for non-room message')
@@ -98,6 +99,7 @@ test('isMatchConfig {room: true}', async t => {
 test('isMatchConfig {room: false}', async t => {
   for await (const fixture of createFixture()) {
     const CONFIG = {
+      ding: /.*/,
       room: false,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
@@ -126,6 +128,7 @@ test('isMatchConfig {dm: true}', async t => {
   for await (const fixture of createFixture()) {
     const CONFIG = {
       contact : true,
+      ding    : /.*/,
       room    : false,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
@@ -154,6 +157,7 @@ test('isMatchConfig {dm: false}', async t => {
   for await (const fixture of createFixture()) {
     const CONFIG = {
       contact : false,
+      ding: /.*/,
       room    : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
@@ -171,7 +175,7 @@ test('isMatchConfig {dm: false}', async t => {
     })
 
     let result: boolean = await isMatch(roomMessage)
-    t.equal(result, true, 'should match for room message')
+    t.equal(result, true, 'should match for room message with {dm: false}')
 
     result = await isMatch(directMessage)
     t.equal(result, false, 'should not match for direct message')
@@ -181,6 +185,7 @@ test('isMatchConfig {dm: false}', async t => {
 test('isMatchConfig {self: false}', async t => {
   for await (const fixture of createFixture()) {
     const CONFIG = {
+      ding: /.*/,
       self : false,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
@@ -208,6 +213,7 @@ test('isMatchConfig {self: false}', async t => {
 test('isMatchConfig {self: true}', async t => {
   for await (const fixture of createFixture()) {
     const CONFIG = {
+      ding: /.*/,
       self : true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
@@ -228,5 +234,44 @@ test('isMatchConfig {self: true}', async t => {
 
     result = await isMatch(notSelfMessage)
     t.equal(result, true, 'should match for non-self room message with self:true')
+  }
+})
+
+test('isMatchConfig {room: /ChatOps/}', async t => {
+  for await (const fixture of createFixture()) {
+    const CONFIG = {
+      mention : false,
+      room    : /ChatOps/i,
+    } as DingDongConfigObject
+
+    const isMatch = isMatchConfig(CONFIG)
+
+    const chatopsRoomMock = fixture.mocker.createRoom({
+      topic: 'ChatOps - DDR',
+    })
+    const otherRoomMock = fixture.mocker.createRoom({
+      topic: 'other room topic',
+    })
+
+    const chatopsRoom = fixture.wechaty.Room.load(chatopsRoomMock.id)
+    const otherRoom   = fixture.wechaty.Room.load(otherRoomMock.id)
+
+    const chatopsMessage = await new Promise<Message>(resolve => {
+      chatopsRoom.once('message', m => {
+        console.info(m.toString())
+        resolve(m)
+      })
+      fixture.player.say('ding').to(chatopsRoomMock)
+    })
+    const otherMessage = await new Promise<Message>(resolve => {
+      otherRoom.once('message', resolve)
+      fixture.player.say('ding').to(otherRoomMock)
+    })
+
+    let result = await isMatch(chatopsMessage)
+    t.equal(result, true, 'should match for ding message in chatops room')
+
+    result = await isMatch(otherMessage)
+    t.equal(result, false, 'should not match for ding non-chatops room')
   }
 })

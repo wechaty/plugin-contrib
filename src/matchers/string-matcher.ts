@@ -24,14 +24,14 @@ export function stringMatcher (
   const optionsList = options
 
   return async function matchString (str: string): Promise<boolean> {
-    log.silly('WechatyPluginContrib', 'stringMatcher() matchString(%s)', str)
+    log.verbose('WechatyPluginContrib', 'stringMatcher() matchString(%s)', str)
 
     let isMatch = false
     for (const option of optionsList) {
       if (typeof option === 'boolean') {
         isMatch = option
       } if (typeof option === 'string') {
-        isMatch = str === option
+        isMatch = (str === option)
       } else if (option instanceof RegExp) {
         isMatch = option.test(str)
       } else if (option instanceof Function) {
