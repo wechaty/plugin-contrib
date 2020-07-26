@@ -6,11 +6,15 @@ type StringMatcherFunction        = (str: string) => boolean | Promise<boolean>
 type StringMatcherOption          = boolean | string | RegExp | StringMatcherFunction
 export type StringMatcherOptions  = StringMatcherOption | StringMatcherOption[]
 
-export function stringMatcher (options?: StringMatcherOptions) {
+type MatchStringFunction = (text: string) => Promise<boolean>
+
+export function stringMatcher (
+  options?: StringMatcherOptions
+): MatchStringFunction {
   log.verbose('WechatyPluginContrib', 'stringMatcher(%s)', JSON.stringify(options))
 
   if (!options) {
-    return () => false
+    return () => Promise.resolve(false)
   }
 
   if (!Array.isArray(options)) {

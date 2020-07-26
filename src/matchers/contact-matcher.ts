@@ -7,13 +7,15 @@ type ContactMatcherFunction       = (contact: Contact) => boolean | Promise<bool
 type ContactMatcherOption         = boolean | string | RegExp | ContactMatcherFunction
 export type ContactMatcherOptions = ContactMatcherOption | ContactMatcherOption[]
 
+type MatchContactFunction = (contact: Contact) => Promise<boolean>
+
 export function contactMatcher (
   matcherOptions?: ContactMatcherOptions,
-) {
+): MatchContactFunction {
   log.verbose('WechatyPluginContrib', 'contactMatcher(%s)', JSON.stringify(matcherOptions))
 
   if (!matcherOptions) {
-    return (..._: any[]) => false
+    return () => Promise.resolve(false)
   }
 
   if (!Array.isArray(matcherOptions)) {

@@ -7,13 +7,15 @@ type MessageMatcherFunction       = (msg: Message) => boolean | Promise<boolean>
 type MessageMatcherOption         = boolean | string | RegExp | MessageMatcherFunction
 export type MessageMatcherOptions = MessageMatcherOption | MessageMatcherOption[]
 
+type MatchMessageFunction = (message: Message) => Promise<boolean>
+
 function messageMatcher (
   matcherOptions?: MessageMatcherOptions,
-) {
+): MatchMessageFunction {
   log.verbose('WechatyPluginContrib', 'messageMatcher(%s)', JSON.stringify(matcherOptions))
 
   if (!matcherOptions) {
-    return (..._: any[]) => false
+    return () => Promise.resolve(false)
   }
 
   if (!Array.isArray(matcherOptions)) {

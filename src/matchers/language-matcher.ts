@@ -56,7 +56,11 @@ function includeLanguage (
 
 export type LanguageMatcherOptions = LanguageCode | LanguageCode[]
 
-function languageMatcher (options: LanguageMatcherOptions) {
+type MatchLanguageFunction = (text: string) => boolean
+
+function languageMatcher (
+  options: LanguageMatcherOptions,
+): MatchLanguageFunction {
   log.verbose('WechatyQnAMaker', 'languageMatcher(%s)', JSON.stringify(options))
 
   let codeList: LanguageCode[]

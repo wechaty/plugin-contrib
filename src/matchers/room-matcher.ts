@@ -11,13 +11,15 @@ type RoomMatcherFunction       = (room: Room) => boolean | Promise<boolean>
 type RoomMatcherOption         = boolean | string | RegExp | RoomMatcherFunction
 export type RoomMatcherOptions = RoomMatcherOption | RoomMatcherOption[]
 
+type MatchRoomFunction = (room: Room) => Promise<boolean>
+
 export function roomMatcher (
   matcherOptions?: RoomMatcherOptions,
-) {
+): MatchRoomFunction {
   log.verbose('WechatyPluginContrib', 'roomMatcher(%s)', JSON.stringify(matcherOptions))
 
   if (!matcherOptions) {
-    return (..._: any[]) => false
+    return () => Promise.resolve(false)
   }
 
   if (!Array.isArray(matcherOptions)) {
