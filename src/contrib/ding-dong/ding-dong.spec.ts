@@ -9,7 +9,7 @@ import {
 }                   from 'wechaty'
 import {
   createFixture,
-}                   from 'wechaty-puppet-mock/dist/src/create-fixture'
+}                   from 'wechaty-mocker'
 
 import {
   isMatchConfig,
