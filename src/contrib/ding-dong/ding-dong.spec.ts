@@ -24,18 +24,18 @@ test('isMatchConfig {mention: true}', async t => {
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const room = fixture.wechaty.Room.load(fixture.room.id)
+    const room = fixture.wechaty.room
 
     const mentionMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.player.say('ding', [fixture.bot]).to(fixture.room)
+      fixture.mocker.player.say('ding', [fixture.mocker.bot]).to(fixture.mocker.room)
     })
     let result: boolean = await isMatch(mentionMessage)
     t.equal(result, true, 'should match for room mention self message')
 
     const notMentionMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.player.say('ding').to(fixture.room)
+      fixture.mocker.player.say('ding').to(fixture.mocker.room)
     })
     result = await isMatch(notMentionMessage)
     t.equal(result, false, 'should not match for room non-mention-self message')
@@ -50,18 +50,18 @@ test('isMatchConfig {mention: false}', async t => {
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const room = fixture.wechaty.Room.load(fixture.room.id)
+    const room = fixture.wechaty.room
 
     const mentionMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.player.say('ding', [fixture.bot]).to(fixture.room)
+      fixture.mocker.player.say('ding', [fixture.mocker.bot]).to(fixture.mocker.room)
     })
     let result: boolean = await isMatch(mentionMessage)
     t.equal(result, true, 'should match for room mention self message')
 
     const notMentionMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.player.say('ding').to(fixture.room)
+      fixture.mocker.player.say('ding').to(fixture.mocker.room)
     })
     result = await isMatch(notMentionMessage)
     t.equal(result, true, 'should also match for room non-mention-self message')
@@ -77,16 +77,16 @@ test('isMatchConfig {room: true}', async t => {
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const room = fixture.wechaty.Room.load(fixture.room.id)
-    const bot = fixture.wechaty.userSelf()
+    const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
+    const bot = fixture.wechaty.wechaty.userSelf()
 
     const roomMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.player.say().to(fixture.room)
+      fixture.mocker.player.say().to(fixture.mocker.room)
     })
     const directMessage = await new Promise<Message>(resolve => {
       bot.once('message', resolve)
-      fixture.player.say().to(fixture.bot)
+      fixture.mocker.player.say().to(fixture.mocker.bot)
     })
     let result: boolean = await isMatch(roomMessage)
     t.equal(result, true, 'should match for room message with {room: true}')
@@ -104,16 +104,16 @@ test('isMatchConfig {room: false}', async t => {
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const room = fixture.wechaty.Room.load(fixture.room.id)
-    const bot = fixture.wechaty.userSelf()
+    const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
+    const bot = fixture.wechaty.wechaty.userSelf()
 
     const roomMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.player.say().to(fixture.room)
+      fixture.mocker.player.say().to(fixture.mocker.room)
     })
     const directMessage = await new Promise<Message>(resolve => {
       bot.once('message', resolve)
-      fixture.player.say().to(fixture.bot)
+      fixture.mocker.player.say().to(fixture.mocker.bot)
     })
 
     let result: boolean = await isMatch(roomMessage)
@@ -133,16 +133,16 @@ test('isMatchConfig {dm: true}', async t => {
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const room = fixture.wechaty.Room.load(fixture.room.id)
-    const bot = fixture.wechaty.userSelf()
+    const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
+    const bot = fixture.wechaty.wechaty.userSelf()
 
     const roomMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.player.say().to(fixture.room)
+      fixture.mocker.player.say().to(fixture.mocker.room)
     })
     const directMessage = await new Promise<Message>(resolve => {
       bot.once('message', resolve)
-      fixture.player.say().to(fixture.bot)
+      fixture.mocker.player.say().to(fixture.mocker.bot)
     })
 
     let result: boolean = await isMatch(roomMessage)
@@ -162,16 +162,16 @@ test('isMatchConfig {dm: false}', async t => {
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const room = fixture.wechaty.Room.load(fixture.room.id)
-    const bot = fixture.wechaty.userSelf()
+    const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
+    const bot = fixture.wechaty.wechaty.userSelf()
 
     const roomMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.player.say().to(fixture.room)
+      fixture.mocker.player.say().to(fixture.mocker.room)
     })
     const directMessage = await new Promise<Message>(resolve => {
       bot.once('message', resolve)
-      fixture.player.say().to(fixture.bot)
+      fixture.mocker.player.say().to(fixture.mocker.bot)
     })
 
     let result: boolean = await isMatch(roomMessage)
@@ -190,16 +190,16 @@ test('isMatchConfig {self: false}', async t => {
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const room = fixture.wechaty.Room.load(fixture.room.id)
-    const bot = fixture.wechaty.userSelf()
+    const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
+    const bot = fixture.wechaty.wechaty.userSelf()
 
     const selfMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.bot.say().to(fixture.room)
+      fixture.mocker.bot.say().to(fixture.mocker.room)
     })
     const notSelfMessage = await new Promise<Message>(resolve => {
       bot.once('message', resolve)
-      fixture.player.say().to(fixture.bot)
+      fixture.mocker.player.say().to(fixture.mocker.bot)
     })
 
     let result = await isMatch(selfMessage)
@@ -218,15 +218,15 @@ test('isMatchConfig {self: true}', async t => {
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const room = fixture.wechaty.Room.load(fixture.room.id)
+    const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
 
     const selfMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.bot.say().to(fixture.room)
+      fixture.mocker.bot.say().to(fixture.mocker.room)
     })
     const notSelfMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.player.say().to(fixture.room)
+      fixture.mocker.player.say().to(fixture.mocker.room)
     })
 
     let result = await isMatch(selfMessage)
@@ -246,26 +246,26 @@ test('isMatchConfig {room: /ChatOps/}', async t => {
 
     const isMatch = isMatchConfig(CONFIG)
 
-    const chatopsRoomMock = fixture.mocker.createRoom({
+    const chatopsRoomMock = fixture.mocker.mocker.createRoom({
       topic: 'ChatOps - DDR',
     })
-    const otherRoomMock = fixture.mocker.createRoom({
+    const otherRoomMock = fixture.mocker.mocker.createRoom({
       topic: 'other room topic',
     })
 
-    const chatopsRoom = fixture.wechaty.Room.load(chatopsRoomMock.id)
-    const otherRoom   = fixture.wechaty.Room.load(otherRoomMock.id)
+    const chatopsRoom = fixture.wechaty.wechaty.Room.load(chatopsRoomMock.id)
+    const otherRoom   = fixture.wechaty.wechaty.Room.load(otherRoomMock.id)
 
     const chatopsMessage = await new Promise<Message>(resolve => {
       chatopsRoom.once('message', m => {
         console.info(m.toString())
         resolve(m)
       })
-      fixture.player.say('ding').to(chatopsRoomMock)
+      fixture.mocker.player.say('ding').to(chatopsRoomMock)
     })
     const otherMessage = await new Promise<Message>(resolve => {
       otherRoom.once('message', resolve)
-      fixture.player.say('ding').to(otherRoomMock)
+      fixture.mocker.player.say('ding').to(otherRoomMock)
     })
 
     let result = await isMatch(chatopsMessage)
