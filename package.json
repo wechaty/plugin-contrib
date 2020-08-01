@@ -6,7 +6,7 @@
   "typings": "dist/src/mod.d.ts",
   "engines": {
     "node": ">= 12",
-    "wechaty": ">=0.40.7"
+    "wechaty": ">=0.45.15"
   },
   "directories": {
     "test": "tests"
@@ -25,7 +25,8 @@
     "pkg-jq": "^0.2.4",
     "shx": "^0.3.2",
     "tstest": "^0.4.10",
-    "wechaty": "^0.45.2"
+    "wechaty": "^0.45.15",
+    "wechaty-puppet-mock": "^0.22.41"
   },
   "peerDependencies": {
     "wechaty": "*"

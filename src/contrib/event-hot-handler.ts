@@ -5,10 +5,11 @@
 import {
   Wechaty,
   WechatyPlugin,
+  WechatyPluginUninstaller,
   log,
-}                   from 'wechaty'
+}                             from 'wechaty'
 
-import { WechatyEventName } from 'wechaty/dist/src/wechaty'
+import { WechatyEventName } from 'wechaty/dist/src/events/wechaty-events'
 
 import {
   callerResolve,
@@ -36,8 +37,10 @@ export function EventHotHandler (
     }
   }
 
-  return function EventHotHandlerPlugin (wechaty: Wechaty): void {
+  return function EventHotHandlerPlugin (wechaty: Wechaty): WechatyPluginUninstaller {
     log.verbose('WechatyPluginContrib', 'EventHotHandler installing on %s ...', wechaty)
+
+    const uninstallerList = [] as (() => Promise<void>)[]
 
     for (const key of Object.keys(absolutePathConfig)) {
       const eventName        = key as WechatyEventName
@@ -51,9 +54,19 @@ export function EventHotHandler (
         ).catch(e => log.error('WechatyPluginContrib', 'EventHotHandler EventHotHandlerPlugin(%s, %s, %s) rejection: %s',
           wechaty, eventName, absoluteFilename, e,
         ))
+
+        uninstallerList.push(
+          () => hotImport(absoluteFilename, false)
+        )
+
       }
 
     }
+
+    return () => Promise.all(
+      uninstallerList.map(uninstaller => uninstaller())
+    )
+
   }
 }
 
