@@ -61,9 +61,14 @@ export function RoomInviter (
 
       for (const contact of inviteeList) {
         if (contact.id in welcomeId[room.id]) {
-          await room.wechaty.sleep(1000)
-          await doWelcome(room, contact)
           delete welcomeId[room.id][contact.id]
+          /**
+            * Huan(202008): Sleep 15 seconds before greeting:
+            *   1. The group members need some time to sync with server before they can see the invitee has joined
+            *   2. A short delay before greeting will improve the experience for the invitee (I guess?)
+            */
+          await room.wechaty.sleep(15 * 1000)
+          await doWelcome(room, contact)
         }
       }
     })
