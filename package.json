@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-contrib",
-  "version": "0.14.12",
+  "version": "0.14.13",
   "description": "Wechaty Plugin Ecosystem Contrib Package",
   "main": "dist/src/mod.js",
   "typings": "dist/src/mod.d.ts",
