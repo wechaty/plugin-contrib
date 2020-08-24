@@ -20,7 +20,7 @@
     "@chatie/eslint-config": "^0.12.1",
     "@chatie/git-scripts": "^0.6.1",
     "@chatie/semver": "^0.4.7",
-    "@chatie/tsconfig": "^0.11.4",
+    "@chatie/tsconfig": "^0.13.0",
     "@types/mustache": "^4.0.1",
     "pkg-jq": "^0.2.4",
     "shx": "^0.3.2",
