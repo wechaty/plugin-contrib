@@ -56,7 +56,7 @@ export function RoomInviter (
     } = {}
 
     wechaty.on('room-join', async (room: Room, inviteeList: Contact[], inviter: Contact) => {
-      if (inviter.id !== wechaty.self().id) { return }
+      if (inviter.id !== wechaty.userSelf().id) { return }
       if (!(room.id in welcomeId))          { return }
 
       for (const contact of inviteeList) {
