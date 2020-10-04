@@ -27,7 +27,7 @@
     "tstest": "^0.4.10",
     "wechaty": "^0.48.0",
     "wechaty-mocker": "^0.5.5",
-    "wechaty-puppet-mock": "^0.22.41"
+    "wechaty-puppet-mock": "^0.28.1"
   },
   "peerDependencies": {
     "wechaty": "*"
