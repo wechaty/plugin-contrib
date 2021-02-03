@@ -1,4 +1,5 @@
 const rules = {
+  'multiline-ternary': 'off',
 }
 
 module.exports = {
