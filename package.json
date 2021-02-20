@@ -6,7 +6,7 @@
   "typings": "dist/src/mod.d.ts",
   "engines": {
     "node": ">= 12",
-    "wechaty": ">=0.45.15"
+    "wechaty": ">=0.56"
   },
   "directories": {
     "test": "tests"
