@@ -288,6 +288,7 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 1. [YouDao Translate](https://github.com/chs97/wechaty-plugin-youdao) by [@Chs97](https://github.com/chs97) - Wechaty YouDao Translate Plugin helps you to translate word in WeChat with the power of <https://ai.youdao.com/>.
 1. [Log Monitor](https://github.com/archywillhe/wechaty-log-monitor) by [@ArchyWillHe](https://github.com/archywillhe) - For log-related DevOps using only WeChat! Fully functional! Very loose coupling! Pretty much pure (other than side effects in I.O.)! Also contains features like QR Rescue (aka 掉线给码) for 2 Wechaties to rescue one another when one is disconnected from the grpc server.
 1. [Wechaty Xyao](https://github.com/watertao/wechaty-plugin-xyao) by [@watertao](https://github.com/watertao) - Wechaty Xyao Plugin gives bot ability to execute instruction with distributed brain module.
+1. [Wechaty-fanli](https://github.com/gengchen528/wechaty-fanli) by [@Leo_chen](https://github.com/gengchen528) - help you quickly access the rebate robot about taobao
 
 ## History
 
