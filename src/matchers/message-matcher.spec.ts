@@ -101,7 +101,7 @@ test('messageMatcher() with string option', async t => {
   const messageFilter = (message: Message) => [
     message.text(),
     message.room()?.topic(),
-    message.from()?.name(),
+    message.talker().name(),
   ].includes(TEXT_OK)
 
   const functionMatcher = messageMatcher(messageFilter)

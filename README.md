@@ -147,7 +147,7 @@ const config: OneToManyRoomConnectorConfig = {
     '20049383519@chatroom',     // 小句子测试
     '5611663299@chatroom',      // 'ChatOps - Mike BO'
   ],
-  map: async message => message.from()?.name() + '(one to many): ' + message.text(),
+  map: async message => message.talker().name() + '(one to many): ' + message.text(),
   one: '17237607145@chatroom',  // PreAngel 动态
   whitelist: [ async message => message.type() === Message.Type.Text ],
 }
@@ -164,7 +164,7 @@ const config: ManyToOneRoomConnectorConfig = {
     '20049383519@chatroom',     // 小句子测试
     '5611663299@chatroom',      // 'ChatOps - Mike BO'
   ],
-  map: async message => message.from()?.name() + '(many to one): ' + message.text(),
+  map: async message => message.talker().name() + '(many to one): ' + message.text(),
   one: '17237607145@chatroom',  // PreAngel 动态
   whitelist: [ async message => message.type() === Message.Type.Text ],
 }
@@ -181,7 +181,7 @@ const config: ManyToManyRoomConnectorConfig = {
     '20049383519@chatroom',     // 小句子测试
     '5611663299@chatroom',      // 'ChatOps - Mike BO'
   ],
-  map: async message => message.from()?.name() + '(many to many): ' + message.text(),
+  map: async message => message.talker().name() + '(many to many): ' + message.text(),
   whitelist: [ async message => message.type() === Message.Type.Text ],
 }
 wechaty.use(ManyToManyRoomConnector(config))
@@ -255,7 +255,7 @@ wechaty.on('message' async (message) => {
     await message.say('hint message')
 
     // wait for the reply from the same sender
-    let reply = await wechaty.waitForMessage({ contact: msg.from()?.id, room: msg.room()?.id })
+    let reply = await wechaty.waitForMessage({ contact: msg.talker().id, room: msg.room()?.id })
 
     // do anything you want...
   }

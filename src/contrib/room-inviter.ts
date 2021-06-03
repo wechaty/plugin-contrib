@@ -80,7 +80,7 @@ export function RoomInviter (
       if (message.type() !== wechaty.Message.Type.Text)   { return }
       if (!await isMatchPassword(message.text()))          { return }
 
-      const contact = message.from()
+      const contact = message.talker()
       if (!contact) { return }
 
       await showRule(contact)

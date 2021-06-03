@@ -33,7 +33,7 @@ function messageMatcher (
         isMatch = option
       } else if (typeof option === 'string') {
         const idCheckList = [
-          message.from()?.id,
+          message.talker().id,
           message.room()?.id,
         ]
         isMatch = idCheckList.includes(option)
@@ -41,7 +41,7 @@ function messageMatcher (
         const text = await message.mentionText()
         const textCheckList = [
           text,
-          message.from()?.name(),
+          message.talker().name(),
           await message.room()?.topic(),
         ]
         isMatch = textCheckList.some(text => text && option.test(text))
