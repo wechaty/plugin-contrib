@@ -135,7 +135,16 @@ Connect rooms together, it supports three modes:
 
 1. `1:N` - `OneToManyRoomConnector` can broadcast the messages in one room to others.
 1. `M:1` - `ManyToOneRoomConnector` can summary messages from rooms into one room.
-1. `M:N` - `ManyToManyRoomConnector` will broadcast every message in any room to all other rooms.
+1. `M:M` - `ManyToManyRoomConnector` will broadcast every message between rooms.
+1. `M:N` - `SourceToTargetRoomConnector` will broadcast every message from source room(s) to target room(s).
+
+The difference between `SourceToTargetRoomConnector` and `ManyToManyRoomConnector` is that:
+
+1. `SourceToTargetRoomConnector` have two options to specify:
+    1. `source`: use `RoomMatcherOptions` to specify the source rooms
+    1. `target`: use `RoomFinderOptions` to specify the target rooms
+1. `ManyToManyRoomConnector` have one option to specify:
+    1. `many`: use `string[]` as list of room ids to broadcast to
 
 #### 6.1 `OneToManyRoomConnector()`
 
@@ -185,6 +194,27 @@ const config: ManyToManyRoomConnectorConfig = {
   whitelist: [ async message => message.type() === Message.Type.Text ],
 }
 wechaty.use(ManyToManyRoomConnector(config))
+```
+
+#### 6.4 `SourceToTargetRoomConnector()`
+
+```ts
+import { SourceToTargetRoomConnector, SourceToTargetRoomConnectorConfig } from 'wechaty-plugin-contrib'
+const config: SourceToTargetRoomConnectorConfig = {
+  blacklist: [ async () => true ],
+  source: [
+    '5611663299@chatroom',
+    /source room topic/i,
+  ],
+  target: [
+    '20049383519@chatroom',
+    /target room topic/i,
+  ],
+
+  map: async message => message.talker().name() + '(source to target): ' + message.text(),
+  whitelist: [ async message => message.type() === Message.Type.Text ],
+}
+wechaty.use(SourceToTargetRoomConnector(config))
 ```
 
 ### 7 FriendshipAccepter
@@ -292,7 +322,9 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ## History
 
-### master
+### master v0.15
+
+1. Add `SourceToTargetRoomConnector` to connect a source room to a target room by forward messages to target room.
 
 ### v0.14 master
 

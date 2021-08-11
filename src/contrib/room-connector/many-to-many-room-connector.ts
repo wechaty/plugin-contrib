@@ -83,13 +83,12 @@ export function ManyToManyRoomConnector (
     const msgList = await mapMessage(message)
     if (msgList.length <= 0) { return }
 
-    for (const room of roomList) {
-      if (room.id === message.room()?.id) {
-        continue
-      }
+    const talkRoom = roomTalker(msgList)
 
-      const talkRoom = roomTalker(msgList)
-      await talkRoom(room)
+    for (const room of roomList) {
+      if (room.id !== message.room()?.id) {
+        await talkRoom(room)
+      }
     }
 
   }

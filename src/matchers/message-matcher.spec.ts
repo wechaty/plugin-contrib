@@ -14,50 +14,50 @@ test('messageMatcher() with string option', async t => {
   const TEXT_OK     = 'hello'
   const TEXT_NOT_OK = 'world'
 
-  const textOk = () => TEXT_OK
-  const roomOk = () => ({ id: TEXT_OK, topic: () => TEXT_OK })
-  const fromOk = () => ({ id: TEXT_OK, name: () => TEXT_OK })
+  const textOk   = () => TEXT_OK
+  const roomOk   = () => ({ id: TEXT_OK, topic: () => TEXT_OK })
+  const talkerOk = () => ({ id: TEXT_OK, name: () => TEXT_OK })
 
-  const textNotOk = () => TEXT_NOT_OK
-  const roomNotOk = () => ({ id: TEXT_NOT_OK, topic: () => TEXT_NOT_OK })
-  const fromNotOk = () => ({ id: TEXT_NOT_OK, name: () => TEXT_NOT_OK })
+  const textNotOk   = () => TEXT_NOT_OK
+  const roomNotOk   = () => ({ id: TEXT_NOT_OK, topic: () => TEXT_NOT_OK })
+  const talkerNotOk = () => ({ id: TEXT_NOT_OK, name: () => TEXT_NOT_OK })
 
   const messageFromOk = {
-    from: fromOk,
     id: TEXT_NOT_OK,
     mentionText: textNotOk,
     room: roomNotOk,
+    talker: talkerOk,
     text: textNotOk,
   } as any as Message
 
   const messageTextOk = {
-    from: fromNotOk,
     id: TEXT_NOT_OK,
     mentionText: textOk,
     room: roomNotOk,
+    talker: talkerNotOk,
     text: textOk,
   } as any as Message
 
   const messageTopicOk = {
-    from: fromNotOk,
     id: TEXT_NOT_OK,
     mentionText: textNotOk,
     room: roomOk,
+    talker: talkerNotOk,
     text: textNotOk,
   } as any as Message
 
   const messageIdOk = {
-    from: fromNotOk,
     id: TEXT_OK,
     room: roomOk,
+    talker: talkerNotOk,
     text: textNotOk,
   } as any as Message
 
   const messageNotOk = {
-    from: fromNotOk,
     id: TEXT_NOT_OK,
     mentionText: textNotOk,
     room: roomNotOk,
+    talker: talkerNotOk,
     text: textNotOk,
   } as any as Message
 
