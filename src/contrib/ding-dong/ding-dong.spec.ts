@@ -73,12 +73,12 @@ test('isMatchConfig {room: true}', async t => {
     const CONFIG = {
       contact : false,
       ding: /.*/,
-      room    : true,
+      room: true,
     } as DingDongConfigObject
     const isMatch = isMatchConfig(CONFIG)
 
-    const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
-    const bot = fixture.wechaty.wechaty.userSelf()
+    const room  = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
+    const bot   = fixture.wechaty.wechaty.userSelf()
 
     const roomMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
