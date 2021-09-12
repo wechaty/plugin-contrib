@@ -7,11 +7,14 @@ import {
   Wechaty,
   WechatyPlugin,
   Message,
-  log,
 }                   from 'wechaty'
 
-import * as matchers from '../../matchers/mod'
-import * as talkers  from '../../talkers/mod'
+import {
+  log,
+}                   from '../../config.js'
+
+import * as matchers from '../../matchers/mod.js'
+import * as talkers  from '../../talkers/mod.js'
 
 export interface DingDongConfigObject {
   /**

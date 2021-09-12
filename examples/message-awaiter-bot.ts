@@ -23,7 +23,7 @@ import {
   EventLogger,
   QRCodeTerminal,
   MessageAwaiter,
-} from '../src/mod'  // from 'wechaty-plugin-contrib'
+} from '../src/mod.js'  // from 'wechaty-plugin-contrib'
 
 const bot = new Wechaty({
   name: 'message-awaiter-bot',

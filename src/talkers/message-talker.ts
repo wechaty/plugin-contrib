@@ -5,7 +5,7 @@ import {
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-import * as mapper from '../mappers/message-mapper'
+import * as mapper from '../mappers/message-mapper.js'
 
 export type MessageTalkerOptions = mapper.MessageMapperOptions
 

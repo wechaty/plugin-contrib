@@ -1,9 +1,9 @@
-import { Sayable } from 'wechaty'
+import type { Sayable } from 'wechaty'
 
-import { log } from '../../config'
+import { log } from '../../config.js'
 
-import { EmojiOption }  from './options'
-import { getEmoji }     from './get-emoji'
+import type { EmojiOption }  from './options.js'
+import { getEmoji }     from './get-emoji.js'
 
 export function sayEmoji (
   event       : string,
@@ -17,7 +17,7 @@ export function sayEmoji (
       return
     }
 
-    const wechaty = talkerList[0].wechaty
+    const wechaty = talkerList[0]!.wechaty
 
     const emojiText = await getEmoji(event, wechaty, emojiOption)
     if (!emojiText) {
@@ -33,7 +33,7 @@ export function sayEmoji (
       try {
         await talker.say(emojiText)
       } catch (e) {
-        wechaty.emit('error', e)
+        wechaty.emit('error', e as Error)
       }
     }
 

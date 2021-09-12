@@ -1,9 +1,9 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
+import { test } from 'tstest'
 
-import { messageMatcher } from './message-matcher'
-import { Message } from 'wechaty'
+import type { Message } from 'wechaty'
+import { messageMatcher } from './message-matcher.js'
 
 test('messageMatcher() smoke testing', async t => {
   const matcher = messageMatcher(/test/i)

@@ -9,7 +9,7 @@ import {
   log,
 }                   from 'wechaty'
 
-import { generate } from 'qrcode-terminal'
+import qrTerminal from 'qrcode-terminal'
 
 export interface QRCodeTerminalConfig {
   small?: boolean,
@@ -27,7 +27,7 @@ export function QRCodeTerminal (
 
     wechaty.on('scan', function onScan (qrcode: string, status: ScanStatus) {
       if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
-        generate(qrcode, {
+        qrTerminal.generate(qrcode, {
           small: config.small,
         })
 

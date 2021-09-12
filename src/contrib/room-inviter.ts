@@ -15,15 +15,15 @@ import {
   RoomTalkerOptions,
   contactTalker,
   roomTalker,
-}                           from '../talkers/mod'
+}                           from '../talkers/mod.js'
 import {
   StringMatcherOptions,
   stringMatcher,
-}                           from '../matchers/mod'
+}                           from '../matchers/mod.js'
 import {
   RoomFinderOptions,
   roomFinder,
-}                           from '../finders/mod'
+}                           from '../finders/mod.js'
 
 export interface RoomInviterConfig {
   password : StringMatcherOptions,
@@ -60,8 +60,8 @@ export function RoomInviter (
       if (!(room.id in welcomeId))          { return }
 
       for (const contact of inviteeList) {
-        if (contact.id in welcomeId[room.id]) {
-          delete welcomeId[room.id][contact.id]
+        if (contact.id in welcomeId[room.id]!) {
+          delete welcomeId[room.id]![contact.id]
           /**
             * Huan(202008): Sleep 15 seconds before greeting:
             *   1. The group members need some time to sync with server before they can see the invitee has joined
@@ -129,7 +129,7 @@ async function selectRoomWithLeastMembers (roomList: Room[]): Promise<Room> {
 
   let info = ''
   for (let i = 0; i < roomList.length; i++) {
-    const topic = await roomList[i].topic()
+    const topic = await roomList[i]!.topic()
     const num   = roomMemberNumList[i]
 
     info += `${topic}(${num}),`
@@ -140,5 +140,5 @@ async function selectRoomWithLeastMembers (roomList: Room[]): Promise<Room> {
   const minNum = Math.min(...roomMemberNumList)
   const minIdx = roomMemberNumList.indexOf(minNum)
 
-  return roomList[minIdx]
+  return roomList[minIdx]!
 }

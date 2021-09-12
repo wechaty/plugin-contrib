@@ -1,9 +1,11 @@
 import {
   MessageMapperOptions,
   messageMapper,
-}                     from './message-mapper'
+}                     from './message-mapper.js'
 
-export {
+export type {
   MessageMapperOptions,
+}
+export {
   messageMapper,
 }

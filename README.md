@@ -249,7 +249,7 @@ const config: RoomInviterConfig = {
 wechaty.use(RoomInviter(config))
 ```
 
-### 9 EventHotHandler
+### ~~9 EventHotHandler~~ DEPRECATED after v0.15
 
 Hot reloading event handler module files.
 
@@ -325,6 +325,8 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 ### master v0.15
 
 1. Add `SourceToTargetRoomConnector` to connect a source room to a target room by forward messages to target room.
+1. Support ES Modules
+    1. Deprecated `EventHotHandler` due to ESM
 
 ### v0.14 master
 

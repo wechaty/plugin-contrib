@@ -1,9 +1,9 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
+import { test } from 'tstest'
+import type { Contact } from 'wechaty'
 
-import { contactMatcher } from './contact-matcher'
-import { Contact } from 'wechaty'
+import { contactMatcher } from './contact-matcher.js'
 
 test('contactMatcher() smoke testing', async t => {
   const matcher = contactMatcher(/test/i)

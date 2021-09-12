@@ -5,7 +5,7 @@ import {
 }               from 'wechaty'
 import Mustache from  'mustache'
 
-import * as types from '../types/mod'
+import type * as types from '../types/mod.js'
 
 type ContactTalkerFunction        = (contact: Contact, room?: Room) => types.SayableMessage | Promise<types.SayableMessage>
 type ContactTalkerOption          = types.SayableMessage | ContactTalkerFunction

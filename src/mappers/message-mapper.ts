@@ -3,9 +3,9 @@ import {
   log,
 }                 from 'wechaty'
 
-import {
+import type {
   SayableMessage,
-}                 from '../types/mod'
+}                 from '../types/mod.js'
 
 type MessageMapperFunction = (message: Message) =>  SayableMessage
                                                   | SayableMessage[]

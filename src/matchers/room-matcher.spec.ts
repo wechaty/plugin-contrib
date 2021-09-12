@@ -1,9 +1,10 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
+import { test } from 'tstest'
 
-import { roomMatcher } from './room-matcher'
-import { Room } from 'wechaty'
+import type { Room } from 'wechaty'
+
+import { roomMatcher } from './room-matcher.js'
 
 test('roomMatcher() smoke testing', async t => {
   const matcher = roomMatcher(/test/i)

@@ -1,11 +1,11 @@
-import {
+import type {
   Wechaty,
 }                   from 'wechaty'
 
-import {
+import type {
   RoomFinderOptions,
   ContactFinderOptions,
-}                           from '../../finders/mod'
+}                           from '../../finders/mod.js'
 
 type HeartbeatFunction  = (wechaty: Wechaty) => string | Promise<string>
 export type EmojiOption   = string | HeartbeatFunction

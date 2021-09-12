@@ -2,7 +2,7 @@
  * Author: Huan LI https://github.com/huan
  * Date: May 2020
  */
-import {
+import type {
   Wechaty,
   WechatyPlugin,
   Sayable,
@@ -10,21 +10,21 @@ import {
 
 import {
   log,
-}                 from '../../config'
+}                 from '../../config.js'
 
 import {
   roomFinder,
   contactFinder,
-}                           from '../../finders/mod'
+}                           from '../../finders/mod.js'
 
 import {
   HeartbeatConfig,
   buildConfig,
-}                        from './options'
-import { sayEmoji }       from './say-emoji'
+}                        from './options.js'
+import { sayEmoji }       from './say-emoji.js'
 
 function heart () {
-  let timer: undefined | NodeJS.Timer
+  let timer: undefined | ReturnType<typeof setInterval>
 
   const cleanTimer = () => {
     if (timer) {

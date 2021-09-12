@@ -13,7 +13,7 @@ import {
 import {
   MessageMatcherOptions,
   messageMatcher,
-}                           from '../matchers/mod'
+}                           from '../matchers/mod.js'
 
 export interface ChatOpsConfig {
   /**
