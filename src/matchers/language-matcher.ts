@@ -1,8 +1,8 @@
 import {
   log,
-}         from 'wechaty'
+}         from '../config.js'
 
-const languageMonitor = require('language-monitor')
+import languageMonitor from 'language-monitor'
 
 type LanguageCode = 'chinese'
                   | 'danish'

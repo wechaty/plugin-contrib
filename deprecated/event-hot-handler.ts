@@ -9,7 +9,7 @@ import {
   log,
 }                             from 'wechaty'
 
-import { WechatyEventName } from 'wechaty/dist/src/events/wechaty-events'
+import type { WechatyEventName } from 'wechaty/dist/src/events/wechaty-events'
 
 import {
   callerResolve,
@@ -84,13 +84,13 @@ async function addEventHandler (
         log.error('WechatyPluginContrib', 'EventHotHandler EventHotHandlerPlugin(%s) listener(%s) exception%s',
           wechaty, eventName, e,
         )
-        wechaty.emit('error', e)
+        wechaty.emit('error', e as Error)
       }
     })
   } catch (e) {
     log.error('WechatyPluginContrib', 'EventHotHandler EventHotHandlerPlugin() eventName(%s) hotImport(%s) rejection: %s',
       eventName, absoluteFilename, e,
     )
-    wechaty.emit('error', e)
+    wechaty.emit('error', e as Error)
   }
 }

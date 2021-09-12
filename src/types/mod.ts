@@ -1,4 +1,11 @@
-export {
+import {
   SayableMessage,
   toSayableMessage,
-}                     from './sayable-message'
+}                     from './sayable-message.js'
+
+export type {
+  SayableMessage,
+}
+export {
+  toSayableMessage,
+}

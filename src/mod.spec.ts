@@ -1,10 +1,10 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
+import { test } from 'tstest'
 
-import * as contrib from './mod'
+import * as contrib from './mod.js'
 
-test('Make sure the module export list is expected', async (t) => {
+test('Make sure the module export list is expected', async t => {
   t.ok(contrib.DingDong, 'should has #1 DingDong')
   t.ok(contrib.EventLogger, 'should has #2 EventLogger')
   t.ok(contrib.QRCodeTerminal, 'should has #3 QRCodeTerminal')
@@ -15,5 +15,5 @@ test('Make sure the module export list is expected', async (t) => {
   t.ok(contrib.ManyToManyRoomConnector, 'should has #6.3 ManyToManyRoomConnector')
   t.ok(contrib.FriendshipAccepter, 'should has #7 FriendshipAccepter')
   t.ok(contrib.RoomInviter, 'should has #8 RoomInviter')
-  t.ok(contrib.EventHotHandler, 'should has #9 EventHotHandler')
+  // t.ok(contrib.EventHotHandler, 'should has #9 EventHotHandler')
 })

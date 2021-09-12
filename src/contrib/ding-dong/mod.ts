@@ -1,4 +1,11 @@
-export {
+import {
   DingDong,
   DingDongConfig,
-}                     from './ding-dong'
+}                     from './ding-dong.js'
+
+export type {
+  DingDongConfig,
+}
+export {
+  DingDong,
+}

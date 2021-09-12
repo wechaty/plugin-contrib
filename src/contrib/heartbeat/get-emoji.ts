@@ -1,14 +1,14 @@
-import {
+import type {
   Wechaty,
 }           from 'wechaty'
 
 import {
   log,
-}                 from '../../config'
+}                 from '../../config.js'
 
-import {
+import type {
   EmojiOption,
-}               from './options'
+}               from './options.js'
 
 export async function getEmoji (
   event   : string,

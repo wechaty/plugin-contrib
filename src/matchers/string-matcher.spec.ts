@@ -1,8 +1,8 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
+import { test } from 'tstest'
 
-import { stringMatcher } from './string-matcher'
+import { stringMatcher } from './string-matcher.js'
 
 test('stringMatcher() smoke testing', async t => {
   const matcher = stringMatcher()

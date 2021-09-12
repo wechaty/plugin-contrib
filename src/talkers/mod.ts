@@ -1,15 +1,26 @@
 /**
  * Talkers
  */
-export {
+import {
   RoomTalkerOptions,
   roomTalker,
-}                        from './room-talker'
-export {
+}                        from './room-talker.js'
+import {
   ContactTalkerOptions,
   contactTalker,
-}                        from './contact-talker'
-export {
+}                        from './contact-talker.js'
+import {
   MessageTalkerOptions,
   messageTalker,
-}                        from './message-talker'
+}                        from './message-talker.js'
+
+export type {
+  ContactTalkerOptions,
+  MessageTalkerOptions,
+  RoomTalkerOptions,
+}
+export {
+  contactTalker,
+  messageTalker,
+  roomTalker,
+}

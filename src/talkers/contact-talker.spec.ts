@@ -1,14 +1,16 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
-import sinon from 'sinon'
+import {
+  test,
+  sinon,
+}           from 'tstest'
 
-import { Contact } from 'wechaty'
+import type { Contact } from 'wechaty'
 
 import {
   contactTalker,
   ContactTalkerOptions,
-}                             from './contact-talker'
+}                             from './contact-talker.js'
 
 test('contactTalker()', async t => {
   const spy1 = sinon.spy()
@@ -30,19 +32,19 @@ test('contactTalker()', async t => {
   } as any as Contact
 
   await contactTalker(OPTIONS_TEXT)(mockContact)
-  t.true(spy4.called, 'should called the contact.say')
-  t.equal(spy4.args[0][0], EXPECTED_TEXT, 'should say the expected text')
+  t.ok(spy4.called, 'should called the contact.say')
+  t.equal(spy4.args[0]![0], EXPECTED_TEXT, 'should say the expected text')
 
   await contactTalker(OPTIONS_FUNCTION)(mockContact)
-  t.true(spy1.called, 'should called the function')
-  t.equal(spy1.args[0][0], mockContact, 'should called the function with contact')
+  t.ok(spy1.called, 'should called the function')
+  t.equal(spy1.args[0]![0], mockContact, 'should called the function with contact')
 
   const talkContact = contactTalker(OPTIONS_FUNCTION_LIST)
   await talkContact(mockContact)
-  t.true(spy2.called, 'should called the functions 1')
-  t.true(spy3.called, 'should called the functions 2')
-  t.equal(spy2.args[0][0], mockContact, 'should called the functions 1 with contact')
-  t.equal(spy3.args[0][0], mockContact, 'should called the functions 2 with contact')
+  t.ok(spy2.called, 'should called the functions 1')
+  t.ok(spy3.called, 'should called the functions 2')
+  t.equal(spy2.args[0]![0], mockContact, 'should called the functions 1 with contact')
+  t.equal(spy3.args[0]![0], mockContact, 'should called the functions 2 with contact')
 })
 
 test('contactTalker() with mustache', async t => {
@@ -63,6 +65,6 @@ test('contactTalker() with mustache', async t => {
   const talkContact = contactTalker<typeof view>(OPTIONS_TEXT)
 
   await talkContact(mockContact, undefined, view)
-  t.true(spy.called, 'should called the contact.say')
-  t.equal(spy.args[0][0], EXPECTED_TEXT, 'should say the expected text')
+  t.ok(spy.called, 'should called the contact.say')
+  t.equal(spy.args[0]![0], EXPECTED_TEXT, 'should say the expected text')
 })

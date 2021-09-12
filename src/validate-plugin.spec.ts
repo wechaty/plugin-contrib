@@ -1,10 +1,10 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
+import { test } from 'tstest'
 
-import { validatePlugin } from './validate-plugin'
+import { validatePlugin } from './validate-plugin.js'
 
-test('validatePlugin() pass', async (t) => {
+test('validatePlugin() pass', async t => {
 
   function Test () {
     return function TestPlugin () {
@@ -14,7 +14,7 @@ test('validatePlugin() pass', async (t) => {
   t.doesNotThrow(() => validatePlugin(Test), 'should pass a valid plugin')
 })
 
-test('validatePlugin() fail', async (t) => {
+test('validatePlugin() fail', async t => {
   function Test () {
     return function TestXXX () {
     }

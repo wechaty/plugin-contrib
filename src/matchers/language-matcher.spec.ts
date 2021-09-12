@@ -1,12 +1,12 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
+import { test } from 'tstest'
 
 import {
   detectLanguage,
   includeLanguage,
   languageMatcher,
-}                     from './language-matcher'
+}                     from './language-matcher.js'
 
 test('detectLanguage()', async t => {
   const ENGLISH_TEXT = 'hello'

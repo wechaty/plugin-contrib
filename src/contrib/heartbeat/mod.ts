@@ -1,2 +1,2 @@
-export { Heartbeat }        from './heartbeat'
-export { HeartbeatConfig } from './options'
+export { Heartbeat }        from './heartbeat.js'
+export type { HeartbeatConfig } from './options.js'

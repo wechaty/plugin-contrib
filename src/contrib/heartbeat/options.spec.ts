@@ -1,13 +1,13 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
+import { test } from 'tstest'
 
 import {
   buildConfig,
   // HeartbeatConfig,
-}                             from './options'
+}                             from './options.js'
 
-test('buildConfig()', async (t) => {
+test('buildConfig()', async t => {
   const EXPECTED_CONFIG =  {
     contact: 'filehelper',
     emoji: {
@@ -20,7 +20,7 @@ test('buildConfig()', async (t) => {
   t.deepEqual(result, EXPECTED_CONFIG, 'should get default config')
 })
 
-test('buildConfig(config)', async (t) => {
+test('buildConfig(config)', async t => {
   const CONFIG = {
     emoji: {
       heartbeat : '[爱心]',
@@ -47,7 +47,7 @@ test('buildConfig(config)', async (t) => {
   t.deepEqual(result, EXPECTED_CONFIG, 'should get merged config')
 })
 
-test('buildConfig({ room: "id" })', async (t) => {
+test('buildConfig({ room: "id" })', async t => {
   const ROOM_ID = '43214123@chatroom'
 
   const CONFIG =  {

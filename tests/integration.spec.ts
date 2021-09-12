@@ -1,10 +1,10 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
 import {
   test,
 }             from 'tstest'
 
-import * as plugins             from '../src/mod'
+import * as plugins             from '../src/mod.js'
 
 import {
   Wechaty,
@@ -14,7 +14,7 @@ import {
   PuppetMock,
 }                 from 'wechaty-puppet-mock'
 
-test('integration testing', async (t) => {
+test('integration testing', async t => {
   const bot = Wechaty.instance({
     puppet: new PuppetMock(),
   }).use(plugins.DingDong())

@@ -1,9 +1,9 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env -S node --no-warnings --loader ts-node/esm
 
-import test  from 'tstest'
+import { test } from 'tstest'
 // import sinon from 'sinon'
 
-import {
+import type {
   // Wechaty,
   Message,
 }                   from 'wechaty'
@@ -14,7 +14,7 @@ import {
 import {
   isMatchConfig,
   DingDongConfigObject,
-}                             from './ding-dong'
+}                             from './ding-dong.js'
 
 test('isMatchConfig {mention: true}', async t => {
   for await (const fixture of createFixture()) {

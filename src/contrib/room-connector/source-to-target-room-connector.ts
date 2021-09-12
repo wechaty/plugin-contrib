@@ -15,18 +15,18 @@ import {
   messageMatcher,
   RoomMatcherOptions,
   roomMatcher,
-}                           from '../../matchers/mod'
+}                           from '../../matchers/mod.js'
 import {
   messageMapper,
   MessageMapperOptions,
-}                         from '../../mappers/mod'
+}                         from '../../mappers/mod.js'
 import {
   roomTalker,
-}                         from '../../talkers/mod'
+}                         from '../../talkers/mod.js'
 import {
   RoomFinderOptions,
   roomFinder,
-}                         from '../../finders/room-finder'
+}                         from '../../finders/room-finder.js'
 
 export interface SourceToTargetRoomConnectorConfig {
   /**
