@@ -65,11 +65,11 @@ jobs:
           cache: npm
           cache-dependency-path: package.json
 
+      - name: Install Dependencies
+        run: npm install
+
       - name: Generate Package JSON
         run: ./scripts/generate-package-json.sh
-
-      - name: Generate Version
-        run: ./scripts/generate-version.sh
 
       - name: Set Publish Config
         run: ./scripts/package-publish-config-tag.sh
