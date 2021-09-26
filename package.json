@@ -39,7 +39,7 @@
     "wechaty-puppet-mock": "^0.31.3"
   },
   "peerDependencies": {
-    "wechaty": "^0.68.1"
+    "wechaty": ">=0.68"
   },
   "scripts": {
     "build": "tsc && tsc -p tsconfig.cjs.json",
