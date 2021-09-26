@@ -13,7 +13,7 @@
   "engines": {
     "wechaty": ">=0.68",
     "wechaty-puppet": ">=0.43",
-    "node": ">=14"
+    "node": ">=16"
   },
   "directories": {
     "test": "tests"
@@ -35,12 +35,11 @@
     "shx": "^0.3.3",
     "tstest": "^0.7.2",
     "typescript": "^4.4.3",
-    "wechaty": "^0.68.1",
     "wechaty-mocker": "^0.9.1",
     "wechaty-puppet-mock": "^0.31.3"
   },
   "peerDependencies": {
-    "wechaty": "*"
+    "wechaty": "^0.68.1"
   },
   "scripts": {
     "build": "tsc && tsc -p tsconfig.cjs.json",
