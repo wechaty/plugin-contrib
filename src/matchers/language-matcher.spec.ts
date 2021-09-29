@@ -12,8 +12,8 @@ test('detectLanguage()', async t => {
   const ENGLISH_TEXT = 'hello'
 
   const resultList = detectLanguage(ENGLISH_TEXT)
-  t.true(Array.isArray(resultList), 'should return a array')
-  t.true(resultList.length > 0, 'should get a non-empty array')
+  t.ok(Array.isArray(resultList), 'should return a array')
+  t.ok(resultList.length > 0, 'should get a non-empty array')
 })
 
 test('includeLanguage()', async t => {
@@ -22,11 +22,11 @@ test('includeLanguage()', async t => {
 
   let resultList = detectLanguage(CHINESE_TEXT)
   // console.info(resultList)
-  t.true(includeLanguage(resultList, 'chinese'), 'should detect Chinese language')
+  t.ok(includeLanguage(resultList, 'chinese'), 'should detect Chinese language')
 
   resultList = detectLanguage(ENGLISH_TEXT)
   // console.info(resultList)
-  t.true(includeLanguage(resultList, 'english'), 'should detect English language')
+  t.ok(includeLanguage(resultList, 'english'), 'should detect English language')
 })
 
 test('languageMatcher()', async t => {
@@ -36,10 +36,10 @@ test('languageMatcher()', async t => {
   const matchLanguage = languageMatcher('chinese')
 
   let result = matchLanguage(CHINESE_TEXT)
-  t.true(result, 'should match Chinese language')
+  t.ok(result, 'should match Chinese language')
 
   result = matchLanguage(ENGLISH_TEXT)
-  t.false(result, 'should not match English language')
+  t.notOk(result, 'should not match English language')
 })
 
 test('languageMatcher() with array options', async t => {
@@ -49,8 +49,8 @@ test('languageMatcher() with array options', async t => {
   const matchLanguage = languageMatcher(['chinese', 'english'])
 
   let result = matchLanguage(CHINESE_TEXT)
-  t.true(result, 'should match Chinese language')
+  t.ok(result, 'should match Chinese language')
 
   result = matchLanguage(ENGLISH_TEXT)
-  t.true(result, 'should match English language')
+  t.ok(result, 'should match English language')
 })

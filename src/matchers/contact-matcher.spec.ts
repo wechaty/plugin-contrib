@@ -33,36 +33,36 @@ test('contactMatcher() with string option', async t => {
   } as any as Contact
 
   const falseMatcher = contactMatcher()
-  t.false(await falseMatcher(contactIdOk), 'should not match any contact without options')
-  t.false(await falseMatcher(contactNameOk), 'should not match any contact without options')
+  t.notOk(await falseMatcher(contactIdOk), 'should not match any contact without options')
+  t.notOk(await falseMatcher(contactNameOk), 'should not match any contact without options')
 
   const idMatcher = contactMatcher(TEXT_OK)
 
-  t.false(await idMatcher(contactNotOk), 'should not match unexpected contact by id')
+  t.notOk(await idMatcher(contactNotOk), 'should not match unexpected contact by id')
 
-  t.true(await idMatcher(contactIdOk), 'should match expected contact by id')
-  t.false(await idMatcher(contactNameOk), 'should not match contact by name')
+  t.ok(await idMatcher(contactIdOk), 'should match expected contact by id')
+  t.notOk(await idMatcher(contactNameOk), 'should not match contact by name')
 
   const idListMatcher = contactMatcher([TEXT_OK])
 
-  t.false(await idListMatcher(contactNotOk), 'should not match unexpected contact by id list')
+  t.notOk(await idListMatcher(contactNotOk), 'should not match unexpected contact by id list')
 
-  t.true(await idListMatcher(contactIdOk), 'should match expected contact by id list')
-  t.false(await idListMatcher(contactNameOk), 'should not match contact by name list')
+  t.ok(await idListMatcher(contactIdOk), 'should match expected contact by id list')
+  t.notOk(await idListMatcher(contactNameOk), 'should not match contact by name list')
 
   const regexpMatcher = contactMatcher(new RegExp(TEXT_OK))
 
-  t.false(await regexpMatcher(contactNotOk), 'should not match unexpected contact by regexp')
+  t.notOk(await regexpMatcher(contactNotOk), 'should not match unexpected contact by regexp')
 
-  t.false(await regexpMatcher(contactIdOk), 'should match contact id by regexp')
-  t.true(await regexpMatcher(contactNameOk), 'should match expected contact name by regexp')
+  t.notOk(await regexpMatcher(contactIdOk), 'should match contact id by regexp')
+  t.ok(await regexpMatcher(contactNameOk), 'should match expected contact name by regexp')
 
   const regexpListMatcher = contactMatcher([new RegExp(TEXT_OK)])
 
-  t.false(await regexpListMatcher(contactNotOk), 'should not match unexpected contact by regexp list')
+  t.notOk(await regexpListMatcher(contactNotOk), 'should not match unexpected contact by regexp list')
 
-  t.false(await regexpListMatcher(contactIdOk), 'should not match contact id by regexp list')
-  t.true(await regexpListMatcher(contactNameOk), 'should match expected contact name by regexp list')
+  t.notOk(await regexpListMatcher(contactIdOk), 'should not match contact id by regexp list')
+  t.ok(await regexpListMatcher(contactNameOk), 'should match expected contact name by regexp list')
 
   const roomFilter = (room: Contact) => [
     room.id,
@@ -71,15 +71,15 @@ test('contactMatcher() with string option', async t => {
 
   const functionMatcher = contactMatcher(roomFilter)
 
-  t.false(await functionMatcher(contactNotOk), 'should not match unexpected contact by function')
+  t.notOk(await functionMatcher(contactNotOk), 'should not match unexpected contact by function')
 
-  t.true(await functionMatcher(contactNameOk), 'should match expected name by function')
-  t.true(await functionMatcher(contactIdOk), 'should match expected id by function')
+  t.ok(await functionMatcher(contactNameOk), 'should match expected name by function')
+  t.ok(await functionMatcher(contactIdOk), 'should match expected id by function')
 
   const functionListMatcher = contactMatcher([roomFilter])
 
-  t.false(await functionListMatcher(contactNotOk), 'should not match unexpected contact by function list')
+  t.notOk(await functionListMatcher(contactNotOk), 'should not match unexpected contact by function list')
 
-  t.true(await functionListMatcher(contactNameOk), 'should match expected name by function list')
-  t.true(await functionListMatcher(contactIdOk), 'should match expected text by function list')
+  t.ok(await functionListMatcher(contactNameOk), 'should match expected name by function list')
+  t.ok(await functionListMatcher(contactIdOk), 'should match expected text by function list')
 })

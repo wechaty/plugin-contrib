@@ -62,41 +62,41 @@ test('messageMatcher() with string option', async t => {
   } as any as Message
 
   const falseMatcher = messageMatcher()
-  t.false(await falseMatcher(messageFromOk), 'should not match any message: from')
-  t.false(await falseMatcher(messageTopicOk), 'should not match any message: topic')
-  t.false(await falseMatcher(messageIdOk), 'should not match any message: text')
+  t.notOk(await falseMatcher(messageFromOk), 'should not match any message: from')
+  t.notOk(await falseMatcher(messageTopicOk), 'should not match any message: topic')
+  t.notOk(await falseMatcher(messageIdOk), 'should not match any message: text')
 
   const idMatcher = messageMatcher(TEXT_OK)
 
-  t.false(await idMatcher(messageNotOk), 'should not match unexpected message by id')
+  t.notOk(await idMatcher(messageNotOk), 'should not match unexpected message by id')
 
-  t.true(await idMatcher(messageFromOk), 'should match expected from by id')
-  t.true(await idMatcher(messageTopicOk), 'should match expected topic by id')
-  t.true(await idMatcher(messageIdOk), 'should match expected text by id')
+  t.ok(await idMatcher(messageFromOk), 'should match expected from by id')
+  t.ok(await idMatcher(messageTopicOk), 'should match expected topic by id')
+  t.ok(await idMatcher(messageIdOk), 'should match expected text by id')
 
   const idListMatcher = messageMatcher([TEXT_OK])
 
-  t.false(await idListMatcher(messageNotOk), 'should not match unexpected message by id list')
+  t.notOk(await idListMatcher(messageNotOk), 'should not match unexpected message by id list')
 
-  t.true(await idListMatcher(messageFromOk), 'should match expected from by id list')
-  t.true(await idListMatcher(messageTopicOk), 'should match expected topic by id list')
-  t.true(await idListMatcher(messageIdOk), 'should match expected text by id list')
+  t.ok(await idListMatcher(messageFromOk), 'should match expected from by id list')
+  t.ok(await idListMatcher(messageTopicOk), 'should match expected topic by id list')
+  t.ok(await idListMatcher(messageIdOk), 'should match expected text by id list')
 
   const regexpMatcher = messageMatcher(new RegExp(TEXT_OK))
 
-  t.false(await regexpMatcher(messageNotOk), 'should not match unexpected message by regexp')
+  t.notOk(await regexpMatcher(messageNotOk), 'should not match unexpected message by regexp')
 
-  t.true(await regexpMatcher(messageFromOk), 'should match expected from by regexp')
-  t.true(await regexpMatcher(messageTopicOk), 'should match expected topic by regexp')
-  t.true(await regexpMatcher(messageTextOk), 'should match expected text by regexp')
+  t.ok(await regexpMatcher(messageFromOk), 'should match expected from by regexp')
+  t.ok(await regexpMatcher(messageTopicOk), 'should match expected topic by regexp')
+  t.ok(await regexpMatcher(messageTextOk), 'should match expected text by regexp')
 
   const regexpListMatcher = messageMatcher([new RegExp(TEXT_OK)])
 
-  t.false(await regexpListMatcher(messageNotOk), 'should not match unexpected message by regexp')
+  t.notOk(await regexpListMatcher(messageNotOk), 'should not match unexpected message by regexp')
 
-  t.true(await regexpListMatcher(messageFromOk), 'should match expected from by regexp')
-  t.true(await regexpListMatcher(messageTopicOk), 'should match expected topic by regexp')
-  t.true(await regexpListMatcher(messageTextOk), 'should match expected text by regexp')
+  t.ok(await regexpListMatcher(messageFromOk), 'should match expected from by regexp')
+  t.ok(await regexpListMatcher(messageTopicOk), 'should match expected topic by regexp')
+  t.ok(await regexpListMatcher(messageTextOk), 'should match expected text by regexp')
 
   const messageFilter = (message: Message) => [
     message.text(),
@@ -106,18 +106,18 @@ test('messageMatcher() with string option', async t => {
 
   const functionMatcher = messageMatcher(messageFilter)
 
-  t.false(await functionMatcher(messageNotOk), 'should not match unexpected message by function')
+  t.notOk(await functionMatcher(messageNotOk), 'should not match unexpected message by function')
 
-  t.true(await functionMatcher(messageFromOk), 'should match expected from by function')
-  t.true(await functionMatcher(messageTopicOk), 'should match expected topic by function')
-  t.true(await functionMatcher(messageTextOk), 'should match expected text by function')
+  t.ok(await functionMatcher(messageFromOk), 'should match expected from by function')
+  t.ok(await functionMatcher(messageTopicOk), 'should match expected topic by function')
+  t.ok(await functionMatcher(messageTextOk), 'should match expected text by function')
 
   const functionListMatcher = messageMatcher([messageFilter])
 
-  t.false(await functionListMatcher(messageNotOk), 'should not match unexpected message by function list')
+  t.notOk(await functionListMatcher(messageNotOk), 'should not match unexpected message by function list')
 
-  t.true(await functionListMatcher(messageFromOk), 'should match expected from by function list')
-  t.true(await functionListMatcher(messageTopicOk), 'should match expected topic by function list')
-  t.true(await functionListMatcher(messageTextOk), 'should match expected text by function list')
+  t.ok(await functionListMatcher(messageFromOk), 'should match expected from by function list')
+  t.ok(await functionListMatcher(messageTopicOk), 'should match expected topic by function list')
+  t.ok(await functionListMatcher(messageTextOk), 'should match expected text by function list')
 
 })
