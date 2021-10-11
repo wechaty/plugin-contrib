@@ -7,8 +7,8 @@ import Mustache from  'mustache'
 
 import type * as types from '../types/mod.js'
 
-type ContactTalkerFunction        = (contact: Contact, room?: Room) => types.SayableMessage | Promise<types.SayableMessage>
-type ContactTalkerOption          = types.SayableMessage | ContactTalkerFunction
+type ContactTalkerFunction        = (contact: Contact, room?: Room) => types.TalkerMessage | Promise<types.TalkerMessage>
+type ContactTalkerOption          = types.TalkerMessage | ContactTalkerFunction
 export type ContactTalkerOptions  = ContactTalkerOption | ContactTalkerOption[]
 
 export function contactTalker<T = void> (options?: ContactTalkerOptions) {

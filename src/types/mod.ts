@@ -1,11 +1,11 @@
 import {
-  SayableMessage,
-  toSayableMessage,
-}                     from './sayable-message.js'
+  talkerMessageFrom,
+  TalkerMessage,
+}                     from './talker-message.js'
 
 export type {
-  SayableMessage,
+  TalkerMessage,
 }
 export {
-  toSayableMessage,
+  talkerMessageFrom,
 }

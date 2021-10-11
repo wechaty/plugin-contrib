@@ -4,16 +4,17 @@ import {
 }                 from 'wechaty'
 
 import type {
-  SayableMessage,
+  TalkerMessage,
 }                 from '../types/mod.js'
 
-type MessageMapperFunction = (message: Message) =>  SayableMessage
-                                                  | SayableMessage[]
+type MessageMapperFunction = (message: Message) =>  TalkerMessage
+                                                  | TalkerMessage[]
                                                   | Promise<
-                                                        SayableMessage
-                                                      | SayableMessage[]
+                                                        never
+                                                      | TalkerMessage
+                                                      | TalkerMessage[]
                                                     >
-type MessageMapperOption         = SayableMessage | MessageMapperFunction
+type MessageMapperOption        = TalkerMessage | MessageMapperFunction
 export type MessageMapperOptions = MessageMapperOption | MessageMapperOption[]
 
 function messageMapper (
@@ -25,7 +26,7 @@ function messageMapper (
       : JSON.stringify(mapperOptions),
   )
 
-  return async function mapMessage (message: Message): Promise<SayableMessage[]> {
+  return async function mapMessage (message: Message): Promise<TalkerMessage[]> {
     log.verbose('WechatyPluginContrib', 'mapMessage(%s)', message)
 
     return normalizeMappedMessageList(mapperOptions, message)
@@ -35,13 +36,13 @@ function messageMapper (
 async function normalizeMappedMessageList (
   options: MessageMapperOptions,
   message: Message,
-): Promise<SayableMessage[]> {
+): Promise<TalkerMessage[]> {
   log.verbose('WechatyPluginContrib', 'normalizeMappedMessageList(%s, %s)',
     JSON.stringify(options),
     message,
   )
 
-  const msgList = [] as SayableMessage[]
+  const msgList = [] as TalkerMessage[]
 
   let optionList
   if (Array.isArray(options)) {

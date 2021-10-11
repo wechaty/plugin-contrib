@@ -1,27 +1,18 @@
+import type {
+  SayableMessage,
+}                   from 'wechaty'
 import {
-  FileBox,
   Message,
-  Contact,
-  UrlLink,
-  MiniProgram,
   log,
-}                 from 'wechaty'
+}                   from 'wechaty'
 
 /**
  *  1. `void` & `undefined` means drop the message
  *  1. `Message` means forward the original message
  */
-export type SayableMessage =  void
-                            | undefined
-                            | Message
-                            | string
-                            | number
-                            | FileBox
-                            | Contact
-                            | UrlLink
-                            | MiniProgram
+type TalkerMessage = void | undefined | SayableMessage
 
-async function toSayableMessage (message: Message): Promise<SayableMessage> {
+async function talkerMessageFrom (message: Message): Promise<TalkerMessage> {
   const type = message.type()
   switch (type) {
     case Message.Type.Text:
@@ -40,11 +31,14 @@ async function toSayableMessage (message: Message): Promise<SayableMessage> {
       return message.toMiniProgram()
 
     default:
-      log.silly('Wechaty', 'toSayableMessage(%s) non-convertible type: %s', message, type)
+      log.silly('Wechaty', 'talkerMessageFrom(%s) non-convertible type: %s', message, type)
       return undefined
   }
 }
 
+export type {
+  TalkerMessage,
+}
 export {
-  toSayableMessage,
+  talkerMessageFrom,
 }

@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-contrib",
-  "version": "0.15.14",
+  "version": "0.16.0",
   "description": "Wechaty Plugin Ecosystem Contrib Package",
   "type": "module",
   "exports": {
@@ -14,9 +14,6 @@
     "wechaty": ">=0.68",
     "wechaty-puppet": ">=0.43",
     "node": ">=16"
-  },
-  "directories": {
-    "test": "tests"
   },
   "dependencies": {
     "language-monitor": "^1.0.3",
@@ -39,7 +36,7 @@
     "wechaty-puppet-mock": "^0.31.6"
   },
   "peerDependencies": {
-    "wechaty": ">=0.73.3"
+    "wechaty": ">=0.75.10"
   },
   "scripts": {
     "build": "tsc && tsc -p tsconfig.cjs.json",
