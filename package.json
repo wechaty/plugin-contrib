@@ -31,11 +31,9 @@
     "pkg-jq": "^0.2.11",
     "shx": "^0.3.3",
     "tstest": "^0.7.2",
+    "wechaty": "^0.77",
     "wechaty-mocker": "^0.9.1",
     "wechaty-puppet-mock": "^0.35"
-  },
-  "peerDependencies": {
-    "wechaty": ">=0.77"
   },
   "scripts": {
     "build": "tsc && tsc -p tsconfig.cjs.json",
