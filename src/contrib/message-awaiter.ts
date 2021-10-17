@@ -44,7 +44,7 @@ export function MessageAwaiter (): WechatyPlugin {
           const messageFrom = message.talker()
           const messageRoom = message.room()
           if (message.date() < waitTime) return
-          if (args.contact && !(messageFrom && await matchContact(messageFrom))) return
+          if (args.contact && !(await matchContact(messageFrom))) return
           if (args.room && !(messageRoom && await matchRoom(messageRoom))) return
           if (args.text && !await matchString(message.text())) return
           wechaty.off('message', callback)

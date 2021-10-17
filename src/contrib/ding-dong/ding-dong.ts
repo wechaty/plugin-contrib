@@ -93,7 +93,7 @@ function DingDong (config?: DingDongConfig): WechatyPlugin {
   log.verbose('DingDong', 'DingDong(%s)',
     typeof config === 'undefined' ? ''
       : typeof config === 'function' ? 'function'
-        : JSON.stringify(config)
+        : JSON.stringify(config),
   )
 
   const normalizedConfig: DingDongConfigObject = {

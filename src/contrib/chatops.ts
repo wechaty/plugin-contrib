@@ -87,7 +87,7 @@ export function ChatOps (config: ChatOpsConfig): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'ChatOps(%s)',
     typeof config === 'undefined' ? ''
       : typeof config === 'function' ? 'function'
-        : JSON.stringify(config)
+        : JSON.stringify(config),
   )
 
   const isMatch = isMatchConfig(config)

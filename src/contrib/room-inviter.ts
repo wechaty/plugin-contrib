@@ -124,7 +124,7 @@ async function selectRoomWithLeastMembers (roomList: Room[]): Promise<Room> {
 
   const roomMemberNumList = await Promise.all(roomList.map(
     room => room.memberAll()
-      .then(list => list.length)
+      .then(list => list.length),
   ))
 
   let info = ''

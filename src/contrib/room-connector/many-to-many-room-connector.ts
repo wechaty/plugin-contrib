@@ -67,7 +67,7 @@ export const isMatchConfig = (config: ManyToManyRoomConnectorConfig) => {
 }
 
 export function ManyToManyRoomConnector (
-  config: ManyToManyRoomConnectorConfig
+  config: ManyToManyRoomConnectorConfig,
 ): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'ManyToManyRoomConnector(%s)',
     JSON.stringify(config),
@@ -96,7 +96,7 @@ export function ManyToManyRoomConnector (
   return function ManyToManyRoomConnectorPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'ManyToManyRoomConnectorPlugin(%s) installing ...', wechaty)
 
-    let manyRoomList : Room[]
+    let manyRoomList : undefined | Room[]
 
     /**
      * We need to wait wechaty start before we can build our manyRoomList.
@@ -108,8 +108,9 @@ export function ManyToManyRoomConnector (
         manyRoomList = config.many.map(id => wechaty.Room.load(id))
       }
 
-      await matchAndForward(onceMsg, manyRoomList)
-      wechaty.on('message', message => matchAndForward(message, manyRoomList))
+      const theRoomList = manyRoomList
+      await matchAndForward(onceMsg, theRoomList)
+      wechaty.on('message', message => matchAndForward(message, theRoomList))
     })
   }
 

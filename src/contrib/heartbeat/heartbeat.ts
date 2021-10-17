@@ -40,7 +40,7 @@ function heart () {
   ) => {
     log.verbose('WechatyPluginContrib', 'Heartbeat heart()...')
 
-    const emojiHeartbeatOption = config.emoji?.heartbeat
+    const emojiHeartbeatOption = config.emoji.heartbeat
 
     if (!emojiHeartbeatOption) {
       log.silly('WechatyPluginContrib', 'Heartbeat heart() no emoji heartbeat option')
@@ -50,7 +50,11 @@ function heart () {
     cleanTimer()
 
     timer = setInterval(
-      sayEmoji('heartbeat', talkerList, emojiHeartbeatOption),
+      () => {
+        (
+          async () => sayEmoji('heartbeat', talkerList, emojiHeartbeatOption)
+        )().catch(console.error)
+      },
       config.intervalSeconds * 1000,
     )
     log.silly('WechatyPluginContrib', 'Heartbeat heart() new timer set')

@@ -33,7 +33,7 @@ bot.use(
   QRCodeTerminal(),
   DingDong(),
   EventLogger(),
-  MessageAwaiter()
+  MessageAwaiter(),
 )
 
 bot.on('message', async (msg) => {

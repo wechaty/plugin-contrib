@@ -18,8 +18,8 @@ export function roomMatcher (
 ): MatchRoomFunction {
   log.verbose('WechatyPluginContrib', 'roomMatcher(%s)',
     matcherOptions instanceof RegExp
-      ? matcherOptions?.toString()
-      : JSON.stringify(matcherOptions)
+      ? matcherOptions.toString()
+      : JSON.stringify(matcherOptions),
   )
 
   if (!matcherOptions) {

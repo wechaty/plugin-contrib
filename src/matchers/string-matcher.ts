@@ -9,7 +9,7 @@ export type StringMatcherOptions  = StringMatcherOption | StringMatcherOption[]
 type MatchStringFunction = (text: string) => Promise<boolean>
 
 export function stringMatcher (
-  options?: StringMatcherOptions
+  options?: StringMatcherOptions,
 ): MatchStringFunction {
   log.verbose('WechatyPluginContrib', 'stringMatcher(%s)', JSON.stringify(options))
 

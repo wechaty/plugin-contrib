@@ -71,7 +71,7 @@ export const isMatchConfig = (config: ManyToOneRoomConnectorConfig) => {
 }
 
 export function ManyToOneRoomConnector (
-  config: ManyToOneRoomConnectorConfig
+  config: ManyToOneRoomConnectorConfig,
 ): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'ManyToOneRoomConnector(%s)',
     JSON.stringify(config),
@@ -99,17 +99,21 @@ export function ManyToOneRoomConnector (
   return function ManyToOneRoomConnectorPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'ManyToOneRoomConnectorPlugin(%s) installing ...', wechaty)
 
-    let oneRoom : Room
+    let oneRoom: null | Room
 
     wechaty.once('message', async onceMsg => {
       log.verbose('WechatyPluginContrib', 'ManyToOneRoomConnectorPlugin(%s) once(message) installing ...', wechaty)
 
       if (!oneRoom) {
-        oneRoom = wechaty.Room.load(config.one)  // await loadRoom(wechaty, config.one)
+        oneRoom = await wechaty.Room.find({ id: config.one }) // await loadRoom(wechaty, config.one)
       }
 
-      matchAndForward(onceMsg, oneRoom)
-      wechaty.on('message', message => matchAndForward(message, oneRoom))
+      if (oneRoom) {
+        const theRoom = oneRoom
+
+        matchAndForward(onceMsg, theRoom)
+        wechaty.on('message', message => matchAndForward(message, theRoom))
+      }
     })
   }
 

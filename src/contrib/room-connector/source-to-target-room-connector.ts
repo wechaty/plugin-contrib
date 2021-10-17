@@ -78,7 +78,7 @@ export const isMatchConfig = (config: SourceToTargetRoomConnectorConfig) => {
 }
 
 export function SourceToTargetRoomConnector (
-  config: SourceToTargetRoomConnectorConfig
+  config: SourceToTargetRoomConnectorConfig,
 ): WechatyPlugin {
   log.verbose('WechatyPluginContrib', 'SourceToTargetRoomConnector(%s)',
     JSON.stringify(config),
