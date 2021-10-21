@@ -272,30 +272,31 @@ import { RoomInvitationAccepter } from 'wechaty-plugin-contrib'
 wechaty.use(RoomInvitationAccepter())
 ```
 
-### 11 MessageAwaiter
+### 11 messagePrompter
 
-- Description: Wait for a particular message using `await` syntax (`await bot.waitForMessage(...)`).
-- Author: @ssine
+- Description: Wait for a particular message using `await` syntax (`await messagePrompter(message)(...)`).
+- Author: @ssine (refactored by @huan)
 
 ```ts
-import { MessageAwaiter } from 'wechaty-plugin-contrib'
-wechaty.use(MessageAwaiter())
+import { messageAwaiter } from 'wechaty-plugin-contrib'
 
 wechaty.on('message' async (message) => {
-  if (message.text() === 'whatever triggers the dialog') {
+  const prompter = messagePrompter(message)
+
+  const reply = prompter('Hello')
+  if (reply) {
     await message.say('hint message')
-
-    // wait for the reply from the same sender
-    let reply = await wechaty.waitForMessage({ contact: msg.talker().id, room: msg.room()?.id })
-
     // do anything you want...
   }
 })
 ```
 
-Other arguments include `regex` which is tested on the message and `timeoutSecond` which automatically rejects the dialog after specified seconds.
+Other arguments ~~include `regex` which is tested on the message and~~ `timeoutSecond` which automatically rejects the dialog after specified seconds.
 
-Learn more from [New Plugin: Message Awaiter #13](https://github.com/wechaty/wechaty-plugin-contrib/issues/13)
+Learn more from:
+
+- [New Plugin: Message Awaiter #13](https://github.com/wechaty/wechaty-plugin-contrib/issues/13)
+- [Refactor the MessageAwaiter plugin #60](https://github.com/wechaty/plugin-contrib/issues/60)
 
 ## Wechaty Plugin Directory
 
@@ -323,11 +324,12 @@ We are listing those powerful Wechaty Plugins outside the contrib as in the foll
 
 ## History
 
-### master v0.15
+### master v1.0
 
 1. Add `SourceToTargetRoomConnector` to connect a source room to a target room by forward messages to target room.
 1. Support ES Modules
     1. Deprecated `EventHotHandler` due to ESM
+1. Change `MessageAwaiter` plugin to `messagePrompter` helper function. ([#60](https://github.com/wechaty/plugin-contrib/issues/60))
 
 ### v0.14 master
 

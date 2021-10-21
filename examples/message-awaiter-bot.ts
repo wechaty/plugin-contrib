@@ -22,7 +22,7 @@ import {
   DingDong,
   EventLogger,
   QRCodeTerminal,
-  MessageAwaiter,
+  messagePrompter,
 } from '../src/mod.js'  // from 'wechaty-plugin-contrib'
 
 const bot = new Wechaty({
@@ -33,27 +33,36 @@ bot.use(
   QRCodeTerminal(),
   DingDong(),
   EventLogger(),
-  MessageAwaiter(),
 )
 
 bot.on('message', async (msg) => {
-  if (msg.text() === 'repeat me') {
+  const prompter = messagePrompter(msg)
 
-    await msg.say('what to repeat?')
-    const repeatMsg = await bot.waitForMessage({ contact: msg.talker().id, room: msg.room()?.id })
-    await repeatMsg.say(repeatMsg.text())
+  if (msg.text() === 'repeat me') {
+    const repeatMsg = await prompter('What do you want to repeat?')
+    if (repeatMsg) {
+      await repeatMsg.say(repeatMsg.text())
+    } else {
+      msg.say('timeout')
+    }
 
   } else if (msg.text() === 'test') {
 
-    await msg.say('please reply a message with digits in a minute')
+    const repeatMsg = await prompter('please reply a message with digits in a minute')
+    /**
+     * Huan(202110): Issue #60 refactoring
+     *  @see https://github.com/wechaty/plugin-contrib/issues/60
+     */
     try {
-      const repeatMsg = await bot.waitForMessage({
-        contact: msg.talker().id,
-        room: msg.room()?.id,
-        text: /\d/,
-        timeoutSecond: 60,
-      })
-      await repeatMsg.say(repeatMsg.text())
+      // const repeatMsg = await bot.waitForMessage({
+      //   contact: msg.talker().id,
+      //   room: msg.room()?.id,
+      //   text: /\d/,
+      //   timeoutSecond: 60,
+      // })
+      if (repeatMsg) {
+        await repeatMsg.say(repeatMsg.text())
+      }
     } catch (err) {
       await msg.say(String(err))
     }

@@ -78,7 +78,7 @@ test('isMatchConfig {room: true}', async t => {
     const isMatch = isMatchConfig(CONFIG)
 
     const room  = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
-    const bot   = fixture.wechaty.wechaty.userSelf()
+    const bot   = fixture.wechaty.wechaty.currentUser()
 
     const roomMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
@@ -105,7 +105,7 @@ test('isMatchConfig {room: false}', async t => {
     const isMatch = isMatchConfig(CONFIG)
 
     const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
-    const bot = fixture.wechaty.wechaty.userSelf()
+    const bot = fixture.wechaty.wechaty.currentUser()
 
     const roomMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
@@ -134,7 +134,7 @@ test('isMatchConfig {dm: true}', async t => {
     const isMatch = isMatchConfig(CONFIG)
 
     const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
-    const bot = fixture.wechaty.wechaty.userSelf()
+    const bot = fixture.wechaty.wechaty.currentUser()
 
     const roomMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
@@ -163,7 +163,7 @@ test('isMatchConfig {dm: false}', async t => {
     const isMatch = isMatchConfig(CONFIG)
 
     const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
-    const bot = fixture.wechaty.wechaty.userSelf()
+    const bot = fixture.wechaty.wechaty.currentUser()
 
     const roomMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
@@ -191,7 +191,7 @@ test('isMatchConfig {self: false}', async t => {
     const isMatch = isMatchConfig(CONFIG)
 
     const room = fixture.wechaty.wechaty.Room.load(fixture.mocker.room.id)
-    const bot = fixture.wechaty.wechaty.userSelf()
+    const bot = fixture.wechaty.wechaty.currentUser()
 
     const selfMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)

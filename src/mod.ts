@@ -52,8 +52,8 @@ import {
   RoomInvitationAccepter,
 }                             from './contrib/room-invitation-accepter.js'
 import {
-  MessageAwaiter,
-}                             from './contrib/message-awaiter.js'
+  messagePrompter,
+}                             from './contrib/message-prompter.js'
 
 export type {
   ChatOpsConfig,
@@ -76,7 +76,7 @@ export {
   Heartbeat,
   ManyToManyRoomConnector,
   ManyToOneRoomConnector,
-  MessageAwaiter,
+  messagePrompter,
   OneToManyRoomConnector,
   QRCodeTerminal,
   RoomInvitationAccepter,

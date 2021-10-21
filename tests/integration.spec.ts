@@ -31,6 +31,10 @@ test('plugin name', async t => {
       continue  // our helper functions
     }
 
+    if (plugin.name === 'messagePrompter') {
+      continue  // helper function
+    }
+
     t.doesNotThrow(() => plugins.validatePlugin(plugin), 'plugin ' + plugin.name + ' should be valid')
   }
 })
