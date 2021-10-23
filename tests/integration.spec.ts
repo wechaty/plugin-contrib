@@ -7,7 +7,7 @@ import {
 import * as plugins             from '../src/mod.js'
 
 import {
-  Wechaty,
+  WechatyBuilder,
 }                               from 'wechaty'
 
 import {
@@ -15,9 +15,11 @@ import {
 }                 from 'wechaty-puppet-mock'
 
 test('integration testing', async t => {
-  const bot = Wechaty.instance({
+  const bot = new WechatyBuilder().options({
     puppet: new PuppetMock(),
-  }).use(plugins.DingDong())
+  }).build()
+
+  bot.use(plugins.DingDong())
   t.ok(bot, 'should get a bot')
 })
 

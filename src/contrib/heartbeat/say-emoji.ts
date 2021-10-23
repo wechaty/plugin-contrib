@@ -33,7 +33,7 @@ export function sayEmoji (
       try {
         await talker.say(emojiText)
       } catch (e) {
-        wechaty.emit('error', e as Error)
+        wechaty.emitError(e)
       }
     }
 

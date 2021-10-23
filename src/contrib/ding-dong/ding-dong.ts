@@ -7,6 +7,7 @@ import {
   Wechaty,
   WechatyPlugin,
   Message,
+  type,
 }                   from 'wechaty'
 
 import {
@@ -108,7 +109,7 @@ function DingDong (config?: DingDongConfig): WechatyPlugin {
     log.verbose('DingDong', 'installing on %s ...', wechaty)
 
     wechaty.on('message', async message => {
-      if (message.type() !== Message.Type.Text) {
+      if (message.type() !== type.Message.Text) {
         return
       }
 

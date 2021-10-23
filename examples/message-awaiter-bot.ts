@@ -16,7 +16,7 @@
  *   limitations under the License.
  *
  */
-import { Wechaty } from 'wechaty'
+import { WechatyBuilder } from 'wechaty'
 
 import {
   DingDong,
@@ -25,9 +25,9 @@ import {
   messagePrompter,
 } from '../src/mod.js'  // from 'wechaty-plugin-contrib'
 
-const bot = new Wechaty({
+const bot = new WechatyBuilder().options({
   name: 'message-awaiter-bot',
-})
+}).build()
 
 bot.use(
   QRCodeTerminal(),
@@ -43,7 +43,7 @@ bot.on('message', async (msg) => {
     if (repeatMsg) {
       await repeatMsg.say(repeatMsg.text())
     } else {
-      msg.say('timeout')
+      await msg.say('timeout')
     }
 
   } else if (msg.text() === 'test') {

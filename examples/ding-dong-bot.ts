@@ -16,7 +16,7 @@
  *   limitations under the License.
  *
  */
-import { Wechaty } from 'wechaty'
+import { WechatyBuilder } from 'wechaty'
 
 import {
   DingDong,
@@ -24,9 +24,9 @@ import {
   QRCodeTerminal,
 }                   from '../src/mod.js'  // from 'wechaty-plugin-contrib'
 
-const bot = new Wechaty({
+const bot = new WechatyBuilder().options({
   name : 'ding-dong-bot',
-})
+}).build()
 
 bot.use(
   QRCodeTerminal(),

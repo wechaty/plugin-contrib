@@ -80,10 +80,9 @@ export function RoomInviter (
       if (message.type() !== wechaty.Message.Type.Text)   { return }
       if (!await isMatchPassword(message.text()))          { return }
 
-      const contact = message.talker()
-      if (!contact) { return }
+      const talker = message.talker()
 
-      await showRule(contact)
+      await showRule(talker)
       await wechaty.sleep(1000)
 
       const roomList = await getRoomList(wechaty)
@@ -94,11 +93,11 @@ export function RoomInviter (
 
       const targetRoom = await selectRoomWithLeastMembers(roomList)
 
-      log.verbose('WechatyPluginContrib', 'RoomInviterPlugin inviting %s to %s', contact, targetRoom)
+      log.verbose('WechatyPluginContrib', 'RoomInviterPlugin inviting %s to %s', talker, targetRoom)
 
-      if (await targetRoom.has(contact)) {
-        log.verbose('WechatyPluginContrib', 'RoomInviterPlugin %s has already in %s', contact, targetRoom)
-        await warnRepeat(contact, targetRoom)
+      if (await targetRoom.has(talker)) {
+        log.verbose('WechatyPluginContrib', 'RoomInviterPlugin %s has already in %s', talker, targetRoom)
+        await warnRepeat(talker, targetRoom)
       }
 
       /**
@@ -106,9 +105,9 @@ export function RoomInviter (
         */
       welcomeId[targetRoom.id] = {
         ...welcomeId[targetRoom.id],
-        [contact.id]: true,
+        [talker.id]: true,
       }
-      await targetRoom.add(contact)
+      await targetRoom.add(talker)
       await wechaty.sleep(1000)
     })
   }

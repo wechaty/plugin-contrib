@@ -99,7 +99,7 @@ export function ManyToOneRoomConnector (
   return function ManyToOneRoomConnectorPlugin (wechaty: Wechaty) {
     log.verbose('WechatyPluginContrib', 'ManyToOneRoomConnectorPlugin(%s) installing ...', wechaty)
 
-    let oneRoom: null | Room
+    let oneRoom: undefined | Room
 
     wechaty.once('message', async onceMsg => {
       log.verbose('WechatyPluginContrib', 'ManyToOneRoomConnectorPlugin(%s) once(message) installing ...', wechaty)
