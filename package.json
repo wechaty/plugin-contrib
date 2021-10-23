@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-contrib",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Wechaty Plugin Ecosystem Contrib Package",
   "type": "module",
   "exports": {
