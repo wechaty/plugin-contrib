@@ -1,9 +1,9 @@
 import type {
   SayableMessage,
+  Message,
 }                   from 'wechaty'
 import {
   type,
-  Message,
   log,
 }                   from 'wechaty'
 
