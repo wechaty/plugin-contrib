@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-contrib",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Wechaty Plugin Ecosystem Contrib Package",
   "type": "module",
   "exports": {
@@ -11,7 +11,7 @@
   },
   "typings": "./dist/esm/src/mod.d.ts",
   "engines": {
-    "wechaty": ">=0.77",
+    "wechaty": ">=0.78",
     "node": ">=16",
     "npm": ">=7"
   },
@@ -31,7 +31,7 @@
     "pkg-jq": "^0.2.11",
     "shx": "^0.3.3",
     "tstest": "^0.7.2",
-    "wechaty": "^0.77.20",
+    "wechaty": "^0.78.8",
     "wechaty-mocker": "^1",
     "wechaty-puppet-mock": "^0.35.7"
   },
