@@ -10,14 +10,10 @@ import {
   WechatyBuilder,
 }                               from 'wechaty'
 
-import {
-  PuppetMock,
-}                 from 'wechaty-puppet-mock'
-
 test('integration testing', async t => {
-  const bot = new WechatyBuilder().options({
-    puppet: new PuppetMock(),
-  }).build()
+  const bot = WechatyBuilder.build({
+    puppet: 'wechaty-puppet-mock',
+  })
 
   bot.use(plugins.DingDong())
   t.ok(bot, 'should get a bot')
