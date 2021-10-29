@@ -11,7 +11,7 @@
   },
   "typings": "./dist/esm/src/mod.d.ts",
   "engines": {
-    "wechaty": ">=0.78",
+    "wechaty": ">=1.0",
     "node": ">=16",
     "npm": ">=7"
   },
@@ -21,14 +21,14 @@
     "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
-    "@chatie/eslint-config": "^1.0.2",
+    "@chatie/eslint-config": "^1.0.4",
     "@chatie/git-scripts": "^0.6.2",
     "@chatie/semver": "^0.4.7",
     "@chatie/tsconfig": "^1.0.2",
     "@types/mustache": "^4.1.2",
-    "wechaty": "^0.78.8",
+    "wechaty": "^1",
     "wechaty-mocker": "^1",
-    "wechaty-puppet-mock": "^0.36.1"
+    "wechaty-puppet-mock": "^1"
   },
   "scripts": {
     "build": "tsc && tsc -p tsconfig.cjs.json",
