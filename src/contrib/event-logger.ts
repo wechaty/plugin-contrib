@@ -10,7 +10,7 @@ import {
 
 import {
   PUPPET_EVENT_DICT,
-}                     from 'wechaty-puppet'
+}                     from 'wechaty-puppet/types'
 
 type EventType = keyof typeof PUPPET_EVENT_DICT
 
