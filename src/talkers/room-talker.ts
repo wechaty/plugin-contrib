@@ -69,10 +69,7 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
           }
           await room.say(msg, ...contactList)
         } else {
-          /**
-           *  FIXME(huan): https://github.com/microsoft/TypeScript/issues/14107
-           */
-          await room.say(msg as any)
+          await room.say(msg)
         }
 
         await room.wechaty.sleep(1000)
