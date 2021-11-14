@@ -33,10 +33,9 @@ export function QRCodeTerminal (
 
         /**
          * Wechaty QR Code Image Generator:
-         *  https://github.com/wechaty/qrcode
          */
         const qrcodeImageUrl = [
-          'https://wechaty.github.io/qrcode/',
+          'https://wechaty.js.org/qrcode/',
           encodeURIComponent(qrcode),
         ].join('')
 
