@@ -32,6 +32,9 @@ export function EventLogger (
 
       wechaty.on(eventName as any, (...args: any[]) => {
         log.info('WechatyPluginContrib', 'EventLogger %s: %s', eventName, String(args))
+        if (eventName === 'error') {
+          console.error((args[0] as Error).stack)
+        }
       })
 
     }
