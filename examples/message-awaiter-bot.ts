@@ -25,9 +25,9 @@ import {
   messagePrompter,
 } from '../src/mod.js'  // from 'wechaty-plugin-contrib'
 
-const bot = new WechatyBuilder().options({
+const bot = WechatyBuilder.build({
   name: 'message-awaiter-bot',
-}).build()
+})
 
 bot.use(
   QRCodeTerminal(),
@@ -35,7 +35,7 @@ bot.use(
   EventLogger(),
 )
 
-bot.on('message', async (msg) => {
+bot.on('message', async msg => {
   const prompter = messagePrompter(msg)
 
   if (msg.text() === 'repeat me') {

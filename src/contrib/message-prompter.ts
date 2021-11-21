@@ -7,7 +7,7 @@
  *    @see https://github.com/wechaty/plugin-contrib/issues/60
  */
 import type {
-  SayableMessage,
+  Sayable,
   Message,
 }                   from 'wechaty'
 
@@ -23,7 +23,7 @@ const messagePrompter = (startMessage: Message) => {
   const startTime = new Date()
 
   return async (
-    sayable : SayableMessage,
+    sayable : Sayable,
     timeoutSeconds = 60,
   ): Promise<undefined | Message> => {
     if (timeoutSeconds <= 0) {

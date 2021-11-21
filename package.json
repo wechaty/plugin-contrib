@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-contrib",
-  "version": "1.0.18",
+  "version": "1.10.0",
   "description": "Wechaty Plugin Ecosystem Contrib Package",
   "type": "module",
   "exports": {
@@ -11,7 +11,6 @@
   },
   "typings": "./dist/esm/src/mod.d.ts",
   "engines": {
-    "wechaty": ">=1.0",
     "node": ">=16",
     "npm": ">=7"
   },
@@ -24,9 +23,9 @@
     "@chatie/eslint-config": "^1.0.4",
     "@chatie/git-scripts": "^0.6.2",
     "@chatie/semver": "^0.4.7",
-    "@chatie/tsconfig": "^1.0.3",
+    "@chatie/tsconfig": "^4.5.3",
     "@types/mustache": "^4.1.2",
-    "wechaty": "^1",
+    "wechaty": "^1.10.3",
     "wechaty-mocker": "^1",
     "wechaty-puppet-mock": "^1"
   },
@@ -47,7 +46,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wechaty/wechaty-plugin-contrib.git"
+    "url": "git+https://github.com/wechaty/plugin-contrib.git"
   },
   "keywords": [
     "wechaty",
@@ -57,9 +56,9 @@
   "author": "Huan LI <zixia@zixia.net> (李卓桓)",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/wechaty/wechaty-plugin-contrib/issues"
+    "url": "https://github.com/wechaty/plugin-contrib/issues"
   },
-  "homepage": "https://github.com/wechaty/wechaty-plugin-contrib#readme",
+  "homepage": "https://github.com/wechaty/plugin-contrib#readme",
   "git": {
     "scripts": {
       "pre-push": "npx git-scripts-pre-push"

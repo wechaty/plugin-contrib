@@ -1,5 +1,5 @@
 import type {
-  SayableMessage,
+  Sayable,
   Message,
 }                   from 'wechaty'
 import {
@@ -11,7 +11,7 @@ import {
  *  1. `void` & `undefined` means drop the message
  *  1. `Message` means forward the original message
  */
-type TalkerMessage = void | undefined | SayableMessage
+type TalkerMessage = void | undefined | Sayable
 
 async function talkerMessageFrom (message: Message): Promise<TalkerMessage> {
   const msgType = message.type()

@@ -28,9 +28,10 @@ export function roomFinder (options?: RoomFinderOptions): RoomFinderFunction {
 
     for (const option of optionList) {
       if (typeof option === 'string') {
-        const room = wechaty.Room.load(option)
-        await room.ready()
-        allRoomList.push(room)
+        const room = await wechaty.Room.find({ id: option })
+        if (room) {
+          allRoomList.push(room)
+        }
       } else if (option instanceof RegExp) {
         allRoomList.push(...await wechaty.Room.findAll({ topic: option }))
       } else if (option instanceof Function) {

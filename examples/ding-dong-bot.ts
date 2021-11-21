@@ -24,9 +24,9 @@ import {
   QRCodeTerminal,
 }                   from '../src/mod.js'  // from 'wechaty-plugin-contrib'
 
-const bot = new WechatyBuilder().options({
+const bot = WechatyBuilder.build({
   name : 'ding-dong-bot',
-}).build()
+})
 
 bot.use(
   QRCodeTerminal(),

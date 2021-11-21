@@ -111,7 +111,11 @@ export function OneToManyRoomConnector (
       log.verbose('WechatyPluginContrib', 'OneToManyRoomConnectorPlugin(%s) once(message) installing ...', wechaty)
 
       if (manyRoomList.length <= 0) {
-        manyRoomList = config.many.map(id => wechaty.Room.load(id))  // await loadRoom(wechaty, config.many)
+        manyRoomList = (await Promise.all(
+          config.many.map(
+            id => wechaty.Room.find({ id }),
+          ),
+        )).filter(Boolean) as Room[]
       }
 
       await matchAndForward(onceMsg, manyRoomList)

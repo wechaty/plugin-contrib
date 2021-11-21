@@ -5,7 +5,7 @@
 import type {
   Wechaty,
   WechatyPlugin,
-  Sayable,
+  SayableSayer,
 }                   from 'wechaty'
 
 import {
@@ -35,7 +35,7 @@ function heart () {
   }
 
   return (
-    talkerList : Sayable[],
+    talkerList : SayableSayer[],
     config    : HeartbeatConfig,
   ) => {
     log.verbose('WechatyPluginContrib', 'Heartbeat heart()...')
@@ -79,7 +79,7 @@ export function Heartbeat (
   return function HeartbeatPlugin (wechaty: Wechaty): void {
     log.verbose('WechatyPluginContrib', 'Heartbeat installing on %s ...', wechaty)
 
-    let talkerList: Sayable[] = []
+    let talkerList: SayableSayer[] = []
 
     wechaty.on('login', async () => {
       log.verbose('WechatyPluginContrib', 'Heartbeat wechaty.on(login)')

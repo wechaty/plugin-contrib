@@ -100,11 +100,10 @@ export function ChatOps (config: ChatOpsConfig): WechatyPlugin {
     wechaty.on('message', async message => {
 
       if (!chatopsRoom) {
-        chatopsRoom = wechaty.Room.load(config.room)
-        try {
-          await chatopsRoom.ready()
-        } catch (e) {
-          log.error('WechatyPluginContrib', 'ChatOps() ChatOpsPlugin(%s) chatopsRoom.ready() rejection: %s', wechaty, e)
+        chatopsRoom = await wechaty.Room.find({ id: config.room })
+        if (!chatopsRoom) {
+          log.error('WechatyPluginContrib', 'ChatOps() ChatOpsPlugin(%s) chatopsRoom not found for id: %s', config.room)
+          return
         }
       }
 

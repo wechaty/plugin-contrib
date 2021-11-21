@@ -1,4 +1,4 @@
-import type { Sayable } from 'wechaty'
+import type { SayableSayer } from 'wechaty'
 
 import { log } from '../../config.js'
 
@@ -7,7 +7,7 @@ import { getEmoji }     from './get-emoji.js'
 
 export function sayEmoji (
   event       : string,
-  talkerList  : Sayable[],
+  talkerList  : SayableSayer[],
   emojiOption : EmojiOption,
 ) {
   return async () => {
@@ -25,7 +25,7 @@ export function sayEmoji (
     }
 
     for (const talker of talkerList) {
-      if (!talker.wechaty.logonoff()) {
+      if (!talker.wechaty.isLoggedIn) {
         log.verbose('WechatyPluginContrib', 'Heartbeat sayEmoji %s is logoff', talker)
         continue
       }
