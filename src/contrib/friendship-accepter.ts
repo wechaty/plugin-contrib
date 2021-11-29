@@ -6,7 +6,7 @@ import {
   Wechaty,
   WechatyPlugin,
   log,
-  type,
+  types,
 }                   from 'wechaty'
 
 import {
@@ -42,7 +42,7 @@ export function FriendshipAccepter (
       const friendshipType = friendship.type()
 
       switch (friendshipType) {
-        case type.Friendship.Receive:
+        case types.Friendship.Receive:
           {
             const hello = friendship.hello()
             if (await isMatchKeyword(hello)) {
@@ -51,14 +51,14 @@ export function FriendshipAccepter (
           }
           break
 
-        case type.Friendship.Confirm:
+        case types.Friendship.Confirm:
           {
             const contact = friendship.contact()
             await doGreeting(contact)
           }
           break
 
-        case type.Friendship.Verify:
+        case types.Friendship.Verify:
           // This is for when we send a message to others, but they did not accept us as a friend.
           break
 

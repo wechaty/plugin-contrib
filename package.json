@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-contrib",
-  "version": "1.10.1",
+  "version": "1.11.0",
   "description": "Wechaty Plugin Ecosystem Contrib Package",
   "type": "module",
   "exports": {
@@ -23,11 +23,11 @@
     "@chatie/eslint-config": "^1.0.4",
     "@chatie/git-scripts": "^0.6.2",
     "@chatie/semver": "^0.4.7",
-    "@chatie/tsconfig": "^4.5.3",
+    "@chatie/tsconfig": "^4.6.2",
     "@types/mustache": "^4.1.2",
-    "wechaty": "^1.10.3",
-    "wechaty-mocker": "^1",
-    "wechaty-puppet-mock": "^1"
+    "wechaty": "^1.11.22",
+    "wechaty-mocker": "^1.10.2",
+    "wechaty-puppet-mock": "^1.11.2"
   },
   "scripts": {
     "build": "tsc && tsc -p tsconfig.cjs.json",

@@ -3,7 +3,7 @@ import type {
   Message,
 }                   from 'wechaty'
 import {
-  type,
+  types,
   log,
 }                   from 'wechaty'
 
@@ -16,23 +16,23 @@ type TalkerMessage = void | undefined | Sayable
 async function talkerMessageFrom (message: Message): Promise<TalkerMessage> {
   const msgType = message.type()
   switch (msgType) {
-    case type.Message.Text:
+    case types.Message.Text:
       return message.text()
-    case type.Message.Image:
-    case type.Message.Attachment:
-    case type.Message.Audio:
-    case type.Message.Video:
-    case type.Message.Emoticon:
+    case types.Message.Image:
+    case types.Message.Attachment:
+    case types.Message.Audio:
+    case types.Message.Video:
+    case types.Message.Emoticon:
       return message.toFileBox()
-    case type.Message.Contact:
+    case types.Message.Contact:
       return message.toContact()
-    case type.Message.Url:
+    case types.Message.Url:
       return message.toUrlLink()
-    case type.Message.MiniProgram:
+    case types.Message.MiniProgram:
       return message.toMiniProgram()
 
     default:
-      log.silly('Wechaty', 'talkerMessageFrom(%s) non-convertible type: %s', message, type)
+      log.silly('Wechaty', 'talkerMessageFrom(%s) non-convertible type: %s', message, msgType)
       return undefined
   }
 }
