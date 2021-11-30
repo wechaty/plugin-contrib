@@ -29,6 +29,8 @@ This package is for publishing the Wechaty Plugins that are very common used by 
 
 ## Plugins Contrib
 
+- [Paka Docs](https://paka.dev/npm/wechaty-plugin-contrib)
+
 You are welcome to send your plugin to our contrib by creating a Pull Request!
 
 | # | Plugin | Author | Feature |
