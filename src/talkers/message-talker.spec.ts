@@ -20,7 +20,7 @@ test('messageTalker()', async t => {
   const EXPECTED_TEXT = 'text'
 
   const OPTIONS_TEXT: MessageTalkerOptions = EXPECTED_TEXT
-  const OPTIONS_FUNCTION_LIST: MessageTalkerOptions = [spy2, spy3]
+  const OPTIONS_FUNCTION_LIST: MessageTalkerOptions = [ spy2, spy3 ]
 
   const mockMessage = {
     say: spy4,

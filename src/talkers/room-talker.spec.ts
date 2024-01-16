@@ -21,7 +21,7 @@ test('roomTalker()', async t => {
   const EXPECTED_TEXT = 'text'
 
   const OPTIONS_TEXT: RoomTalkerOptions = EXPECTED_TEXT
-  const OPTIONS_FUNCTION_LIST: RoomTalkerOptions = [spy2, spy3]
+  const OPTIONS_FUNCTION_LIST: RoomTalkerOptions = [ spy2, spy3 ]
 
   const mockContact = {} as any as Contact
   const mockRoom = {
@@ -84,7 +84,7 @@ test('roomTalker() with room list', async t => {
   const EXPECTED_TEXT = 'text'
 
   const OPTIONS_TEXT: RoomTalkerOptions = EXPECTED_TEXT
-  const OPTIONS_FUNCTION_LIST: RoomTalkerOptions = [spy2, spy3]
+  const OPTIONS_FUNCTION_LIST: RoomTalkerOptions = [ spy2, spy3 ]
 
   const mockContact1 = {} as any as Contact
   const mockContact2 = {} as any as Contact
@@ -105,7 +105,7 @@ test('roomTalker() with room list', async t => {
 
   let talkRoom = roomTalker(OPTIONS_TEXT)
   spy4.resetHistory()
-  await talkRoom([mockRoom1, mockRoom2], [mockContact1, mockContact2])
+  await talkRoom([ mockRoom1, mockRoom2 ], [ mockContact1, mockContact2 ])
   t.ok(spy4.calledOnce, 'should called the room1.say once')
   t.equal(spy4.args[0]![0], EXPECTED_TEXT, 'should say the expected text')
   t.equal(spy4.args[0]![1], mockContact1, 'should pass contact1 to say')
@@ -118,7 +118,7 @@ test('roomTalker() with room list', async t => {
   talkRoom = roomTalker(OPTIONS_FUNCTION_LIST)
   spy2.resetHistory()
   spy3.resetHistory()
-  await talkRoom([mockRoom1, mockRoom2], [mockContact1, mockContact2])
+  await talkRoom([ mockRoom1, mockRoom2 ], [ mockContact1, mockContact2 ])
   t.ok(spy2.called, 'should called the functions 1')
   t.equal(spy2.args[0]![0], mockRoom1, 'should called the functions 1/1 with mockRoom1')
   t.equal(spy2.args[0]![1], mockContact1, 'should called the functions 1/2 with mockContact1')

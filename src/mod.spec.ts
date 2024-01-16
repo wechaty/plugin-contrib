@@ -16,4 +16,5 @@ test('Make sure the module export list is expected', async t => {
   t.ok(contrib.FriendshipAccepter, 'should has #7 FriendshipAccepter')
   t.ok(contrib.RoomInviter, 'should has #8 RoomInviter')
   // t.ok(contrib.EventHotHandler, 'should has #9 EventHotHandler')
+  // t.ok(contrib.MqttGateway, 'should has #10 MqttGateway')
 })
