@@ -700,6 +700,9 @@ class MqttProxy {
         this.mqttClient.publish(topic, message, (error) => {
           if (error) {
             console.error(`Failed to publish message: ${error}`)
+          } else {
+            log.info('MQTT消息发布topic:' + topic)
+            log.info('MQTT消息发布message:' + message)
           }
         })
       } else {

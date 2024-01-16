@@ -1,4 +1,6 @@
-export function getCurrentTime (timestamp?: number) {
+import { v4 } from 'uuid'
+
+export function getCurrentTime(timestamp?: number) {
   const now = timestamp ? new Date(timestamp) : new Date()
   const year = now.getFullYear()
   const month = now.getMonth() + 1
@@ -61,10 +63,47 @@ export type commandName =
   'friendshipSearch'
 
 export type CommandInfo = {
-    reqId: string,
-    method: string,
-    version: string,
-    timestamp: number,
-    name: commandName,
-    params: any,
+  reqId: string,
+  method: string,
+  version: string,
+  timestamp: number,
+  name: commandName,
+  params: any,
+}
+
+export const getCommandTemplate = () => {
+  const commandInfo: CommandInfo = {
+    reqId: v4(),
+    method: 'response',
+    version: '1.0',
+    timestamp: new Date().getTime(),
+    name: 'wechatyLogonoff',
+    params: {},
   }
+  return commandInfo
+}
+
+export type ResponseInfo = {
+  reqId: string,
+  method: string,
+  version: string,
+  timestamp: number,
+  name: commandName,
+  code: number,
+  message: string
+  params: any,
+}
+
+export const getResponseTemplate = () => {
+  const responseInfo: ResponseInfo = {
+    reqId: v4(),
+    method: 'response',
+    version: '1.0',
+    timestamp: new Date().getTime(),
+    name: 'wechatyLogonoff',
+    code: 200,
+    message: 'success',
+    params: {},
+  }
+  return responseInfo
+}

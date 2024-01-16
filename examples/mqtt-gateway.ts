@@ -27,6 +27,7 @@ import {
 
 const bot = WechatyBuilder.build({
   name : 'ding-dong-bot',
+  puppet: 'wechaty-puppet-xp',
 })
 const config: MqttGatewayConfig = {
   events: [
@@ -44,16 +45,23 @@ const config: MqttGatewayConfig = {
     'room-leave', 'room-topic',
     'scan',
   ],
+  // mqtt: {
+  //   clientId: 'wechaty-mqtt-gateway',
+  //   host: 'broker.emqx.io',
+  //   password: '',
+  //   port: 1883,
+  //   username: '',
+  // },
   mqtt: {
     clientId: 'wechaty-mqtt-gateway',
-    host: 'broker.emqx.io',
-    password: '',
+    host: 'atfenbu.iot.gz.baidubce.com',
+    password: 'nVdvJODJdIkYCsLf',
     port: 1883,
-    username: '',
+    username: 'atfenbu/admin',
   },
   options:{
     secrectKey: '',
-    simple: true,
+    simple: false,
   },
   token: '',
 }

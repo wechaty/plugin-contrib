@@ -1,9 +1,37 @@
 /* eslint-disable sort-keys */
 import { Wechaty, log, Contact, Room } from 'wechaty'
 import type MqttProxy from '../mqtt-proxy'
-import type { CommandInfo } from '../utils.js'
-import moment from 'moment'
+import { CommandInfo, getResponseTemplate, ResponseInfo } from '../utils.js'
 import { v4 } from 'uuid'
+import moment from 'moment'
+
+function propertyMessage(name: string, info: any) {
+  let message: any = {
+    reqId: v4(),
+    method: 'thing.property.post',
+    version: '1.0',
+    timestamp: new Date().getTime(),
+    properties: {
+    },
+  }
+  message.properties[name] = info
+  message = JSON.stringify(message)
+  return message
+}
+
+function eventMessage (name: string, info: any) {
+  let message: any = {
+    reqId: v4(),
+    method: 'thing.event.post',
+    version: '1.0',
+    timestamp: new Date().getTime(),
+    events: {
+    },
+  }
+  message.events[name] = info
+  message = JSON.stringify(message)
+  return message
+}
 
 async function formatSentMessage (userSelf: Contact, text: string, talker: Contact | undefined, room: Room | undefined) {
   // console.debug('发送的消息：', text)
@@ -79,6 +107,10 @@ export const handleRoom = async (bot:Wechaty, mqttProxy:MqttProxy, commandInfo:C
   log.info('handleRoom', bot, mqttProxy, commandInfo)
   const { reqId, name, params } = commandInfo
   log.info('handleRoom', reqId, name, params)
+  const payload: ResponseInfo = getResponseTemplate()
+  payload.name = name
+  payload.reqId = reqId
+  const responseTopic = mqttProxy.responseApi + `/${reqId}`
   switch (name) {
     case 'roomCreate': { // 创建群
       // const res = createRoom(params, bot)
@@ -197,20 +229,48 @@ export const handleRoom = async (bot:Wechaty, mqttProxy:MqttProxy, commandInfo:C
     case 'roomFindAll': { // 获取群列表
       // const res = await getAllRoom(mqttProxy, bot)
       // return res
-      getAllRoom(mqttProxy, bot).then(res => {
-        log.info('roomFindAll res:', res)
-        return res
-
-      }).catch(err => {
+      try{
+        const roomList = await bot.Room.findAll()
+        payload.params = roomList
+        await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+      } catch (err) {
         log.error('roomFindAll err:', err)
-      })
+        payload.params = []
+        payload.message = '获取群列表失败'
+        await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+      }
       break
     }
     case 'roomFind': { // 获取群信息
-      log.info('cmd name:' + name)
+      if(!params.id&&!params.topic){
+
+      }else if(params.id){ 
+        try{
+          const room = await bot.Room.find({ id: params.id })
+          payload.params = room
+          await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+        } catch (err) {
+          log.error('roomFind err:', err)
+          payload.params = {}
+          payload.message = '获取群信息失败'
+          await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+        }
+      } else {
+        try{
+          const room = await bot.Room.find({ topic: params.topic })
+          payload.params = room
+          await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+        } catch (err) {
+          log.error('roomFind err:', err)
+          payload.params = {}
+          payload.message = '获取群信息失败'
+          await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+        }
+      }
       break
     }
     case 'roomSay':
+    case 'roomSayAt':
     case 'roomTopicgGet':
     case 'roomAliasGet':
     case 'roomHas':

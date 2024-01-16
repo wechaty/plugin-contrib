@@ -1,11 +1,15 @@
 import { Wechaty, log } from 'wechaty'
 import type MqttProxy from '../mqtt-proxy'
-import type { CommandInfo } from '../utils.js'
+import { type CommandInfo, type ResponseInfo, getResponseTemplate } from '../utils.js'
 
-export const handleWechaty = async (bot:Wechaty, mqttProxy:MqttProxy, commandInfo:CommandInfo) => {
+export const handleWechaty = async (bot: Wechaty, mqttProxy: MqttProxy, commandInfo: CommandInfo) => {
   log.info('handleWechaty', bot, mqttProxy, commandInfo)
   const { reqId, name, params } = commandInfo
   log.info('handleWechaty', reqId, name, params)
+  const payload: ResponseInfo = getResponseTemplate()
+  payload.name = name
+  payload.reqId = reqId
+  const responseTopic = mqttProxy.responseApi + `/${reqId}`
   switch (name) {
     case 'wechatyStart': { // 启动
       log.info('cmd name:' + name)
@@ -35,14 +39,25 @@ export const handleWechaty = async (bot:Wechaty, mqttProxy:MqttProxy, commandInf
       break
     }
     case 'wechatyLogonoff': { // 获取登录状态
-      log.info('cmd name:' + name)
+
+      try {
+        const logonoff = bot.isLoggedIn
+        // log.info('logonoff:', logonoff)
+        payload.params = { logonoff }
+        await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+      } catch (err) {
+        log.error('获取登录状态失败：', err)
+      }
+
       break
     }
     case 'wechatyUserSelf': { // 获取当前登录用户信息
-      log.info('cmd name:' + name)
       try {
-        const userSelf = await bot.currentUser
+        const userSelf = bot.currentUser
         log.info('userSelf:', userSelf)
+        payload.params = userSelf
+        log.info('payload:', JSON.stringify(payload))
+        await mqttProxy.publish(responseTopic, JSON.stringify(payload))
       } catch (err) {
         log.error('获取用户失败：', err)
       }

@@ -52,7 +52,7 @@ const getEventPayload = (event:{
   }) => {
   const eventInfo:EventInfo = {
     reqId:v4(),
-    method:'publishEvent',
+    method:'event',
     version:'1.0',
     timestamp:new Date().getTime(),
     name:event.eventName,
