@@ -1,6 +1,6 @@
 {
   "name": "wechaty-plugin-contrib",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "description": "Wechaty Plugin Ecosystem Contrib Package",
   "type": "module",
   "exports": {
@@ -68,6 +68,11 @@
     "url": "https://github.com/wechaty/plugin-contrib/issues"
   },
   "homepage": "https://github.com/wechaty/plugin-contrib#readme",
+  "git": {
+    "scripts": {
+      "pre-push": "npx git-scripts-pre-push"
+    }
+  },
   "files": [
     "bin/",
     "dist/",
