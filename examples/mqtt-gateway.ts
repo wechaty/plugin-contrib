@@ -45,19 +45,12 @@ const config: MqttGatewayConfig = {
     'room-leave', 'room-topic',
     'scan',
   ],
-  // mqtt: {
-  //   clientId: 'wechaty-mqtt-gateway',
-  //   host: 'broker.emqx.io',
-  //   password: '',
-  //   port: 1883,
-  //   username: '',
-  // },
   mqtt: {
     clientId: 'wechaty-mqtt-gateway',
-    host: 'atfenbu.iot.gz.baidubce.com',
-    password: 'nVdvJODJdIkYCsLf',
+    host: 'broker.emqx.io',
+    password: '',
     port: 1883,
-    username: 'atfenbu/admin',
+    username: '',
   },
   options:{
     secrectKey: '',
