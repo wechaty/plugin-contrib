@@ -43,7 +43,6 @@
     "lint": "npm-run-all lint:es lint:ts lint:md",
     "lint:md": "markdownlint README.md",
     "lint:ts": "tsc --isolatedModules --noEmit",
-    "lint:fix": "npm-run-all lint:es lint:ts lint:md",
     "example": "cross-env NODE_OPTIONS=\"--no-warnings --loader=ts-node/esm\" node examples/ding-dong-bot.ts",
     "start": "npm run example",
     "start:mg": "cross-env NODE_OPTIONS=\"--no-warnings --loader=ts-node/esm\" node examples/mqtt-gateway.ts",
