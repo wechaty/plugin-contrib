@@ -27,7 +27,7 @@ export function roomMatcher (
   }
 
   if (!Array.isArray(matcherOptions)) {
-    matcherOptions = [matcherOptions]
+    matcherOptions = [ matcherOptions ]
   }
 
   const matcherOptionList = matcherOptions

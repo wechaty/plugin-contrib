@@ -68,7 +68,7 @@ function languageMatcher (
   if (Array.isArray(options)) {
     codeList = options
   } else {
-    codeList = [options]
+    codeList = [ options ]
   }
 
   return function matchLanguage (text: string) {

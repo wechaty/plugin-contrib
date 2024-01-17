@@ -16,7 +16,7 @@ export function roomFinder (options?: RoomFinderOptions): RoomFinderFunction {
   }
 
   if (!Array.isArray(options)) {
-    options = [options]
+    options = [ options ]
   }
 
   const optionList = options
@@ -41,7 +41,7 @@ export function roomFinder (options?: RoomFinderOptions): RoomFinderFunction {
       }
     }
 
-    const dedupedRoomList = [...new Set(allRoomList.filter(Boolean))]
+    const dedupedRoomList = [ ...new Set(allRoomList.filter(Boolean)) ]
     return dedupedRoomList
   }
 }
