@@ -36,6 +36,13 @@ import {
   EventLogger,
   EventLoggerConfig,
 }                             from './contrib/event-logger.js'
+
+import {
+  MqttGateway,
+  MqttGatewayConfig,
+  getKeyByBasicString,
+}                             from './contrib/mqtt-gateway/mod.js'
+
 import {
   ChatOps,
   ChatOpsConfig,
@@ -63,6 +70,7 @@ export type {
   HeartbeatConfig,
   ManyToManyRoomConnectorConfig,
   ManyToOneRoomConnectorConfig,
+  MqttGatewayConfig,
   OneToManyRoomConnectorConfig,
   QRCodeTerminalConfig,
   RoomInviterConfig,
@@ -76,6 +84,8 @@ export {
   Heartbeat,
   ManyToManyRoomConnector,
   ManyToOneRoomConnector,
+  MqttGateway,
+  getKeyByBasicString,
   messagePrompter,
   OneToManyRoomConnector,
   QRCodeTerminal,
