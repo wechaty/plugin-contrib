@@ -43,7 +43,7 @@ test('contactMatcher() with string option', async t => {
   t.ok(await idMatcher(contactIdOk), 'should match expected contact by id')
   t.notOk(await idMatcher(contactNameOk), 'should not match contact by name')
 
-  const idListMatcher = contactMatcher([TEXT_OK])
+  const idListMatcher = contactMatcher([ TEXT_OK ])
 
   t.notOk(await idListMatcher(contactNotOk), 'should not match unexpected contact by id list')
 
@@ -57,7 +57,7 @@ test('contactMatcher() with string option', async t => {
   t.notOk(await regexpMatcher(contactIdOk), 'should match contact id by regexp')
   t.ok(await regexpMatcher(contactNameOk), 'should match expected contact name by regexp')
 
-  const regexpListMatcher = contactMatcher([new RegExp(TEXT_OK)])
+  const regexpListMatcher = contactMatcher([ new RegExp(TEXT_OK) ])
 
   t.notOk(await regexpListMatcher(contactNotOk), 'should not match unexpected contact by regexp list')
 
@@ -76,7 +76,7 @@ test('contactMatcher() with string option', async t => {
   t.ok(await functionMatcher(contactNameOk), 'should match expected name by function')
   t.ok(await functionMatcher(contactIdOk), 'should match expected id by function')
 
-  const functionListMatcher = contactMatcher([roomFilter])
+  const functionListMatcher = contactMatcher([ roomFilter ])
 
   t.notOk(await functionListMatcher(contactNotOk), 'should not match unexpected contact by function list')
 

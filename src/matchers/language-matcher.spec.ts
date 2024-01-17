@@ -46,7 +46,7 @@ test('languageMatcher() with array options', async t => {
   const CHINESE_TEXT = '你好'
   const ENGLISH_TEXT = 'hello'
 
-  const matchLanguage = languageMatcher(['chinese', 'english'])
+  const matchLanguage = languageMatcher([ 'chinese', 'english' ])
 
   let result = matchLanguage(CHINESE_TEXT)
   t.ok(result, 'should match Chinese language')

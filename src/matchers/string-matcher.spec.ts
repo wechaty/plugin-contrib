@@ -21,7 +21,7 @@ test('stringMatcher()', async t => {
   t.ok(await textMatcher(TEXT_OK), 'should match expected TEXT')
   t.notOk(await textMatcher(TEXT_NOT_OK), 'should not match unexpected string')
 
-  const textListMatcher = stringMatcher([TEXT_OK])
+  const textListMatcher = stringMatcher([ TEXT_OK ])
   t.ok(await textListMatcher(TEXT_OK), 'should match expected TEXT by list')
   t.notOk(await textListMatcher(TEXT_NOT_OK), 'should not match unexpected string by list')
 
@@ -29,7 +29,7 @@ test('stringMatcher()', async t => {
   t.notOk(await regexpMatcher(TEXT_NOT_OK), 'should not match unexpected string by regexp')
   t.ok(await regexpMatcher(TEXT_OK), 'should match expected from by regexp')
 
-  const regexpListMatcher = stringMatcher([new RegExp(TEXT_OK)])
+  const regexpListMatcher = stringMatcher([ new RegExp(TEXT_OK) ])
   t.notOk(await regexpListMatcher(TEXT_NOT_OK), 'should not match unexpected string by regexp list')
   t.ok(await regexpListMatcher(TEXT_OK), 'should match expected from by regexp list')
 
@@ -39,7 +39,7 @@ test('stringMatcher()', async t => {
   t.notOk(await functionMatcher(TEXT_NOT_OK), 'should not match unexpected string by function')
   t.ok(await functionMatcher(TEXT_OK), 'should match expected from by function')
 
-  const functionListMatcher = stringMatcher([stringFilter])
+  const functionListMatcher = stringMatcher([ stringFilter ])
   t.notOk(await functionListMatcher(TEXT_NOT_OK), 'should not match unexpected string by function list')
   t.ok(await functionListMatcher(TEXT_OK), 'should match expected from by function list')
 })
