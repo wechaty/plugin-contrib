@@ -48,7 +48,7 @@ async function normalizeMappedMessageList (
   if (Array.isArray(options)) {
     optionList = options
   } else {
-    optionList = [options]
+    optionList = [ options ]
   }
 
   for (const option of optionList) {

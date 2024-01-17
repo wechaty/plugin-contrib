@@ -20,7 +20,7 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
   }
 
   if (!Array.isArray(options)) {
-    options = [options]
+    options = [ options ]
   }
 
   const optionList = options
@@ -39,12 +39,12 @@ export function roomTalker<T = void> (options?: RoomTalkerOptions) {
     )
 
     if (!Array.isArray(rooms)) {
-      rooms = [rooms]
+      rooms = [ rooms ]
     }
     if (typeof contacts === 'undefined') {
       contacts = []
     } else if (!Array.isArray(contacts)) {
-      contacts = [contacts]
+      contacts = [ contacts ]
     }
 
     for (const room of rooms) {

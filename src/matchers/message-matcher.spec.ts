@@ -74,7 +74,7 @@ test('messageMatcher() with string option', async t => {
   t.ok(await idMatcher(messageTopicOk), 'should match expected topic by id')
   t.ok(await idMatcher(messageIdOk), 'should match expected text by id')
 
-  const idListMatcher = messageMatcher([TEXT_OK])
+  const idListMatcher = messageMatcher([ TEXT_OK ])
 
   t.notOk(await idListMatcher(messageNotOk), 'should not match unexpected message by id list')
 
@@ -90,7 +90,7 @@ test('messageMatcher() with string option', async t => {
   t.ok(await regexpMatcher(messageTopicOk), 'should match expected topic by regexp')
   t.ok(await regexpMatcher(messageTextOk), 'should match expected text by regexp')
 
-  const regexpListMatcher = messageMatcher([new RegExp(TEXT_OK)])
+  const regexpListMatcher = messageMatcher([ new RegExp(TEXT_OK) ])
 
   t.notOk(await regexpListMatcher(messageNotOk), 'should not match unexpected message by regexp')
 
@@ -112,7 +112,7 @@ test('messageMatcher() with string option', async t => {
   t.ok(await functionMatcher(messageTopicOk), 'should match expected topic by function')
   t.ok(await functionMatcher(messageTextOk), 'should match expected text by function')
 
-  const functionListMatcher = messageMatcher([messageFilter])
+  const functionListMatcher = messageMatcher([ messageFilter ])
 
   t.notOk(await functionListMatcher(messageNotOk), 'should not match unexpected message by function list')
 

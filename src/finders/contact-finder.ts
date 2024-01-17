@@ -16,7 +16,7 @@ export function contactFinder (options?: ContactFinderOptions): ContactFinderFun
   }
 
   if (!Array.isArray(options)) {
-    options = [options]
+    options = [ options ]
   }
 
   const optionList = options
@@ -42,7 +42,7 @@ export function contactFinder (options?: ContactFinderOptions): ContactFinderFun
       }
     }
 
-    const dedupedContactList = [...new Set(allContactList.filter(Boolean))]
+    const dedupedContactList = [ ...new Set(allContactList.filter(Boolean)) ]
     return dedupedContactList
   }
 }

@@ -22,7 +22,7 @@ test('contactTalker()', async t => {
 
   const OPTIONS_TEXT: ContactTalkerOptions = EXPECTED_TEXT
   const OPTIONS_FUNCTION: ContactTalkerOptions = spy1
-  const OPTIONS_FUNCTION_LIST: ContactTalkerOptions = [spy2, spy3]
+  const OPTIONS_FUNCTION_LIST: ContactTalkerOptions = [ spy2, spy3 ]
 
   const mockContact = {
     say: spy4,

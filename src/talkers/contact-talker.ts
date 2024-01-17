@@ -19,7 +19,7 @@ export function contactTalker<T = void> (options?: ContactTalkerOptions) {
   }
 
   if (!Array.isArray(options)) {
-    options = [options]
+    options = [ options ]
   }
 
   const optionList = options

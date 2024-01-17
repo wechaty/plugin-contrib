@@ -28,7 +28,7 @@ test('isMatchConfig {mention: true}', async t => {
 
     const mentionMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.mocker.player.say('ding', [fixture.mocker.bot]).to(fixture.mocker.room)
+      fixture.mocker.player.say('ding', [ fixture.mocker.bot ]).to(fixture.mocker.room)
     })
     let result: boolean = await isMatch(mentionMessage)
     t.equal(result, true, 'should match for room mention self message')
@@ -54,7 +54,7 @@ test('isMatchConfig {mention: false}', async t => {
 
     const mentionMessage = await new Promise<Message>(resolve => {
       room.once('message', resolve)
-      fixture.mocker.player.say('ding', [fixture.mocker.bot]).to(fixture.mocker.room)
+      fixture.mocker.player.say('ding', [ fixture.mocker.bot ]).to(fixture.mocker.room)
     })
     let result: boolean = await isMatch(mentionMessage)
     t.equal(result, true, 'should match for room mention self message')
