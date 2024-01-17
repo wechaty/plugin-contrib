@@ -1,6 +1,7 @@
+/* eslint-disable sort-keys */
 import { v4 } from 'uuid'
 
-export function getCurrentTime(timestamp?: number) {
+export function getCurrentTime (timestamp?: number) {
   const now = timestamp ? new Date(timestamp) : new Date()
   const year = now.getFullYear()
   const month = now.getMonth() + 1

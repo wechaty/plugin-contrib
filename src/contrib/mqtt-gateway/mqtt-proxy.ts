@@ -532,7 +532,7 @@ function eventMessage (name: string, info: any) {
 const handleCommand = async (bot: Wechaty, mqttProxy: MqttProxy, commandInfo: CommandInfo) => {
   log.info('handleCommand commandInfo:', JSON.stringify(commandInfo))
 
-  const { reqId, name, params } = commandInfo
+  const { name, params } = commandInfo
 
   // 全局方法
   if (name === 'send') { // 发送消息
@@ -567,19 +567,27 @@ const handleCommand = async (bot: Wechaty, mqttProxy: MqttProxy, commandInfo: Co
   }
   // message方法
   if (name.startsWith('message')) {
-    handleMessage(bot, mqttProxy, commandInfo)
+    handleMessage(bot, mqttProxy, commandInfo).catch((err) => {
+      log.error('handleMessage err:', err)
+    })
   }
   // room方法
   if (name.startsWith('room')) {
-    await handleRoom(bot, mqttProxy, commandInfo)
+    await handleRoom(bot, mqttProxy, commandInfo).catch((err) => {
+      log.error('handleRoom err:', err)
+    })
   }
   // contact方法
   if (name.startsWith('contact')) {
-    handleContact(bot, mqttProxy, commandInfo)
+    handleContact(bot, mqttProxy, commandInfo).catch((err) => {
+      log.error('handleContact err:', err)
+    })
   }
   // friendship方法
   if (name.startsWith('friendship')) {
-    handleCommandFriendship(bot, mqttProxy, commandInfo)
+    handleCommandFriendship(bot, mqttProxy, commandInfo).catch((err) => {
+      log.error('handleCommandFriendship err:', err)
+    })
   }
 
   return null

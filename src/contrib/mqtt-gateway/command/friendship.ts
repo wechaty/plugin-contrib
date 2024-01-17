@@ -2,7 +2,7 @@ import { Wechaty, log } from 'wechaty'
 import type MqttProxy from '../mqtt-proxy'
 import type { CommandInfo } from '../utils.js'
 
-export const handleCommandFriendship = (bot:Wechaty, mqttProxy:MqttProxy, commandInfo:CommandInfo) => {
+export const handleCommandFriendship = async (bot:Wechaty, mqttProxy:MqttProxy, commandInfo:CommandInfo) => {
   log.info('handleCommandFriendship', bot, mqttProxy, commandInfo)
   const { reqId, name, params } = commandInfo
   log.info('handleCommandFriendship', reqId, name, params)

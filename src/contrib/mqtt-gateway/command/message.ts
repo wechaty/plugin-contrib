@@ -19,10 +19,10 @@ export const handleMessage = async (bot:Wechaty, mqttProxy:MqttProxy, commandInf
         const messageSay = await bot.Message.find({ id })
         if (messageSay) {
           try {
-              const message: Message | void = await messageSay.say(params.messagePayload)
-              payload.params = message || {id}
-              await mqttProxy.publish(responseTopic, JSON.stringify(payload))
-            
+            const message: Message | void = await messageSay.say(params.messagePayload)
+            payload.params = message || { id }
+            await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+
           } catch (err) {
             payload.params = {}
             payload.message = '发送失败'
@@ -33,14 +33,14 @@ export const handleMessage = async (bot:Wechaty, mqttProxy:MqttProxy, commandInf
           payload.message = '消息不存在'
           await mqttProxy.publish(responseTopic, JSON.stringify(payload))
         }
-        
+
       } else {
         payload.params = {}
         payload.message = '参数错误'
         await mqttProxy.publish(responseTopic, JSON.stringify(payload))
       }
       break
-  }
+    }
 
     case 'messageToRecalled':
       log.info('cmd name:' + name)

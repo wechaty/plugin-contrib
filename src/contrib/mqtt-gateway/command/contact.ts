@@ -2,39 +2,24 @@
 import { Wechaty, log, Contact, Message } from 'wechaty'
 import type MqttProxy from '../mqtt-proxy'
 import { CommandInfo, getResponseTemplate, ResponseInfo } from '../utils.js'
-import { v4 } from 'uuid'
 
-function propertyMessage(name: string, info: any) {
-  let message: any = {
-    reqId: v4(),
-    method: 'thing.property.post',
-    version: '1.0',
-    timestamp: new Date().getTime(),
-    properties: {
-    },
-  }
-  message.properties[name] = info
-  message = JSON.stringify(message)
-  return message
-}
-
-async function getAllContact(bot: Wechaty) {
+async function getAllContact (bot: Wechaty) {
   const contactList: Contact[] = await bot.Contact.findAll()
-  let friends = []
+  const friends = []
   for (const i in contactList) {
     const contact = contactList[i]
-    let avatar = ''
-    let alias = ''
+    // const avatar = ''
+    // let alias = ''
     // try {
     //   avatar = JSON.parse(JSON.stringify(await contact?.avatar())).url
     // } catch (err) {
     //   log.error('获取头像失败：', err)
     // }
-    try {
-      alias = await contact?.alias() || ''
-    } catch (err) {
-      log.error('获取备注失败：', err)
-    }
+    // try {
+    //   alias = await contact?.alias() || ''
+    // } catch (err) {
+    //   log.error('获取备注失败：', err)
+    // }
     // const contactInfo = {
     //   alias,
     //   avatar,
