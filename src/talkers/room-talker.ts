@@ -3,13 +3,13 @@ import {
   log,
   Room,
   Contact,
-}                 from 'wechaty'
-import Mustache   from  'mustache'
+} from 'wechaty'
+import Mustache from 'mustache'
 
 import type * as types from '../types/mod.js'
 
-type RoomTalkerFunction       = (room: Room, contact?: Contact) => types.TalkerMessage | Promise<types.TalkerMessage>
-type RoomTalkerOption         = types.TalkerMessage | RoomTalkerFunction
+type RoomTalkerFunction = (room: Room, contact?: Contact) => types.TalkerMessage | Promise<types.TalkerMessage>
+type RoomTalkerOption = types.TalkerMessage | RoomTalkerFunction
 export type RoomTalkerOptions = RoomTalkerOption | RoomTalkerOption[]
 
 export function roomTalker<T = void> (options?: RoomTalkerOptions) {
