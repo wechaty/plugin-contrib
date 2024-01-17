@@ -1,7 +1,6 @@
 /* eslint-disable sort-keys */
 /**
- * Author: Huan LI https://github.com/huan
- * Date: Apr 2020
+ * Author: LU CHAO https://github.com/atorber
  */
 import {
   Wechaty,
