@@ -1,5 +1,5 @@
 /* eslint-disable sort-keys */
-import { Wechaty, log, Contact, Room } from 'wechaty'
+import { Wechaty, log, Contact, Room, Message } from 'wechaty'
 import type MqttProxy from '../mqtt-proxy'
 import { CommandInfo, getResponseTemplate, ResponseInfo } from '../utils.js'
 import { v4 } from 'uuid'
@@ -165,65 +165,83 @@ export const handleRoom = async (bot:Wechaty, mqttProxy:MqttProxy, commandInfo:C
       break
     }
     case 'roomMemberAllGet': { // 获取群成员列表
-      log.info('cmd name:' + name)
-      const resData = {
-        reqId,
-        method: 'thing.command.invoke',
-        version: '1.0',
-        timestamp: 1610430718000,
-        code: 200,
-        description: '获取机器人信息失败',
-        params: {
-          data: {} as any,
-          messsage: null as any,
-        },
+      if (!params.id && !params.topic) {
+        payload.params = []
+        payload.message = '群id不能为空'
+        await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+        return
       }
-      try {
-        const roomid = params.roomid
-        const room = await bot.Room.find({ id: roomid })
-        const members = await room?.memberAll()
-        if (members) {
-          const newMembers = await Promise.all(
-            members.map(async (member: Contact) => ({
-              avatar: await getAvatarUrl(member) || 'https://im.gzydong.club/public/media/image/avatar/20230516/c5039ad4f29de2fd2c7f5a1789e155f5_200x200.png', // 设置群组头像
-              id: member.id,
-              user_id: member.id,
-              nickname: member.name(),
-              gender: member.gender(),
-              motto: '',
-              leader: room?.owner()?.id === member.id ? 2 : 0,
-              is_mute: 0,
-              user_card: '',
-            })),
-          )
-          log.info('memberAllGet res:', JSON.stringify(newMembers))
-          resData.reqId = reqId
-          resData.params.data = newMembers
-          resData.description = '获取群成员列表成功'
-          if (mqttProxy.responseApi) {
-            mqttProxy.publish(mqttProxy.responseApi + `/${reqId}`, JSON.stringify(resData))
-            log.info('发送MQTT消息:', resData.reqId, resData.description)
+      if (params.id) {
+        try {
+          const roomid = params.id
+          const room = await bot.Room.find({ id: roomid })
+          const members = await room?.memberAll()
+          if (members) {
+            const len = members.length
+            const bacthNum = params.size || 100
+            const count = Math.ceil(len / bacthNum)
+            for (let i = 0; i < count; i++) {
+              const start = i * bacthNum
+              const end = (i + 1) * bacthNum
+              const arr = members.slice(start, end)
+              payload.params = {
+                page: i + 1,
+                size: bacthNum,
+                total: len,
+                items: arr,
+              }
+              log.info('page:', i + 1, 'size:', bacthNum, 'count:', len, 'items:', arr)
+              await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+              // 延时0.3s
+              await new Promise((resolve) => setTimeout(resolve, 300))
+            }
+          } else {
+            payload.params = []
+            await mqttProxy.publish(responseTopic, JSON.stringify(payload))
           }
-        } else {
-          resData.reqId = reqId
-          resData.params.data = []
-          resData.description = '获取群成员列表成功'
-          if (mqttProxy.responseApi) {
-            mqttProxy.publish(mqttProxy.responseApi + `/${reqId}`, JSON.stringify(resData))
-            log.info('发送MQTT消息:', resData.reqId, resData.description)
-          }
+  
+        } catch (err) {
+          log.error('memberAllGet err:', err)
+          payload.params = []
+          payload.message = '获取群成员列表失败'
+          await mqttProxy.publish(responseTopic, JSON.stringify(payload))
         }
+      } else {
+        try {
+          const topic = params.topic
+          const room = await bot.Room.find({ topic })
+          const members = await room?.memberAll()
+          if (members) {
+            const len = members.length
+            const bacthNum = params.size || 100
+            const count = Math.ceil(len / bacthNum)
+            for (let i = 0; i < count; i++) {
+              const start = i * bacthNum
+              const end = (i + 1) * bacthNum
+              const arr = members.slice(start, end)
+              payload.params = {
+                page: i + 1,
+                size: bacthNum,
+                total: len,
+                items: arr,
+              }
+              log.info('page:', i + 1, 'size:', bacthNum, 'count:', len, 'items:', arr)
+              await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+              // 延时0.3s
+              await new Promise((resolve) => setTimeout(resolve, 300))
+            }
+          } else {
+            payload.params = []
+            await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+          }
+        } catch (err) {
+          log.error('memberAllGet err:', err)
+          payload.params = []
+          payload.message = '获取群成员列表失败'
+          await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+        }
+      }
 
-      } catch (err) {
-        log.error('memberAllGet err:', err)
-        resData.reqId = reqId
-        resData.params.messsage = err
-        resData.description = '获取群成员列表失败'
-        if (mqttProxy.responseApi) {
-          mqttProxy.publish(mqttProxy.responseApi + `/${reqId}`, JSON.stringify(resData))
-          log.info('发送MQTT消息:', resData.reqId, resData.description)
-        }
-      }
       break
     }
     case 'roomFindAll': { // 获取群列表
@@ -269,8 +287,63 @@ export const handleRoom = async (bot:Wechaty, mqttProxy:MqttProxy, commandInfo:C
       }
       break
     }
-    case 'roomSay':
-    case 'roomSayAt':
+    case 'roomSay':{
+      if (params.rooms && params.rooms.length > 0 && params.messageType && params.messagePayload) {
+        for (let i = 0; i < params.rooms.length; i++) {
+          const roomid = params.rooms[i]
+          try {
+            const room = await bot.Room.find({ id: roomid })
+            if (room) {
+              const message: Message | void = await room.say(params.messagePayload)
+              payload.params = message || {id:roomid}
+              await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+              // 延迟0.5s
+              await new Promise((resolve) => setTimeout(resolve, 500))
+            }
+          } catch (err) {
+            log.error('获取联系人失败：', err)
+          }
+        }
+      } else {
+        payload.params = {}
+        payload.message = '参数错误'
+        await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+      }
+      break
+  }
+    case 'roomSayAt':{
+      if (params.room && params.contacts && params.contacts.length > 0 && params.messageType && params.messagePayload) {
+          try {
+            const room = await bot.Room.find({ id: params.room })
+            if (room) {
+              const atUserList = []
+              const atUserIdList = params.contacts
+              for (const userId of atUserIdList) {
+                log.info('userId:', userId)
+                const curContact = await bot.Contact.find({ id: userId })
+                atUserList.push(curContact)
+              }
+              log.info('atUserList:', atUserList)
+              try{
+                payload.params = await room?.say(params.messagePayload, ...atUserList)
+                await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+              } catch (err) {
+                log.error('roomSayAt err:', err)
+                payload.params = {}
+                payload.message = '发送失败'
+                await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+              }
+            }
+          } catch (err) {
+            log.error('获取群信息失败：', err)
+            payload.params = {}
+            payload.message = '获取群信息失败'
+            await mqttProxy.publish(responseTopic, JSON.stringify(payload))
+          }
+        
+      }
+      break
+  }
     case 'roomTopicgGet':
     case 'roomAliasGet':
     case 'roomHas':
